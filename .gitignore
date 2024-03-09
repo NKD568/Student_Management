@@ -1,0 +1,5 @@
+Student_Management/bin
+Student_Management/obj
+/packages
+Student_Management/*.vs
+*.vs
