@@ -1,6 +1,6 @@
 ﻿namespace Student_Management.FORMS.Student
 {
-    partial class frm_AddStudent
+    partial class frm_SaveStudent
     {
         /// <summary>
         /// Required designer variable.
@@ -28,37 +28,16 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.btn_Save = new ReaLTaiizor.Controls.HopeRoundButton();
             this.txt_Email = new MaterialSkin.Controls.MaterialTextBox2();
             this.nightLabel1 = new ReaLTaiizor.Controls.NightLabel();
-            this.poisonDateTime1 = new ReaLTaiizor.Controls.PoisonDateTime();
+            this.dtpBirthdate = new ReaLTaiizor.Controls.PoisonDateTime();
             this.txt_Name = new MaterialSkin.Controls.MaterialTextBox2();
             this.txt_ID = new MaterialSkin.Controls.MaterialTextBox2();
             this.gpDetails = new ReaLTaiizor.Controls.ParrotGroupBox();
+            this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
+            this.btn_Save = new MaterialSkin.Controls.MaterialButton();
             this.gpDetails.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // btn_Save
-            // 
-            this.btn_Save.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.btn_Save.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
-            this.btn_Save.ButtonType = ReaLTaiizor.Util.HopeButtonType.Success;
-            this.btn_Save.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btn_Save.DangerColor = System.Drawing.Color.FromArgb(((int)(((byte)(245)))), ((int)(((byte)(108)))), ((int)(((byte)(108)))));
-            this.btn_Save.DefaultColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            this.btn_Save.Font = new System.Drawing.Font("Segoe UI", 12F);
-            this.btn_Save.ForeColor = System.Drawing.Color.Transparent;
-            this.btn_Save.HoverTextColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(49)))), ((int)(((byte)(51)))));
-            this.btn_Save.InfoColor = System.Drawing.Color.FromArgb(((int)(((byte)(144)))), ((int)(((byte)(147)))), ((int)(((byte)(153)))));
-            this.btn_Save.Location = new System.Drawing.Point(41, 308);
-            this.btn_Save.Name = "btn_Save";
-            this.btn_Save.PrimaryColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(158)))), ((int)(((byte)(255)))));
-            this.btn_Save.Size = new System.Drawing.Size(483, 40);
-            this.btn_Save.SuccessColor = System.Drawing.Color.FromArgb(((int)(((byte)(103)))), ((int)(((byte)(194)))), ((int)(((byte)(58)))));
-            this.btn_Save.TabIndex = 5;
-            this.btn_Save.Text = "Save";
-            this.btn_Save.TextColor = System.Drawing.Color.White;
-            this.btn_Save.WarningColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(162)))), ((int)(((byte)(60)))));
             // 
             // txt_Email
             // 
@@ -97,17 +76,17 @@
             this.nightLabel1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(114)))), ((int)(((byte)(118)))), ((int)(((byte)(127)))));
             this.nightLabel1.Location = new System.Drawing.Point(36, 176);
             this.nightLabel1.Name = "nightLabel1";
-            this.nightLabel1.Size = new System.Drawing.Size(134, 28);
+            this.nightLabel1.Size = new System.Drawing.Size(101, 28);
             this.nightLabel1.TabIndex = 3;
-            this.nightLabel1.Text = "Date of Birth:";
+            this.nightLabel1.Text = "Birthdate:";
             // 
-            // poisonDateTime1
+            // dtpBirthdate
             // 
-            this.poisonDateTime1.Location = new System.Drawing.Point(176, 168);
-            this.poisonDateTime1.MinimumSize = new System.Drawing.Size(0, 29);
-            this.poisonDateTime1.Name = "poisonDateTime1";
-            this.poisonDateTime1.Size = new System.Drawing.Size(348, 39);
-            this.poisonDateTime1.TabIndex = 2;
+            this.dtpBirthdate.Location = new System.Drawing.Point(168, 168);
+            this.dtpBirthdate.MinimumSize = new System.Drawing.Size(0, 29);
+            this.dtpBirthdate.Name = "dtpBirthdate";
+            this.dtpBirthdate.Size = new System.Drawing.Size(356, 39);
+            this.dtpBirthdate.TabIndex = 2;
             // 
             // txt_Name
             // 
@@ -177,7 +156,7 @@
             this.gpDetails.Controls.Add(this.txt_Email);
             this.gpDetails.Controls.Add(this.txt_Name);
             this.gpDetails.Controls.Add(this.nightLabel1);
-            this.gpDetails.Controls.Add(this.poisonDateTime1);
+            this.gpDetails.Controls.Add(this.dtpBirthdate);
             this.gpDetails.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.gpDetails.Location = new System.Drawing.Point(6, 27);
             this.gpDetails.Name = "gpDetails";
@@ -188,13 +167,41 @@
             this.gpDetails.Text = "Details";
             this.gpDetails.TextColor = System.Drawing.Color.DodgerBlue;
             // 
-            // frm_AddStudent
+            // backgroundWorker1
+            // 
+            this.backgroundWorker1.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorker1_DoWork);
+            this.backgroundWorker1.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.backgroundWorker1_RunWorkerCompleted);
+            // 
+            // btn_Save
+            // 
+            this.btn_Save.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.btn_Save.BackColor = System.Drawing.SystemColors.Highlight;
+            this.btn_Save.Density = MaterialSkin.Controls.MaterialButton.MaterialButtonDensity.Default;
+            this.btn_Save.Depth = 0;
+            this.btn_Save.Font = new System.Drawing.Font("Segoe UI", 18F);
+            this.btn_Save.ForeColor = System.Drawing.SystemColors.Highlight;
+            this.btn_Save.HighEmphasis = true;
+            this.btn_Save.Icon = null;
+            this.btn_Save.Location = new System.Drawing.Point(254, 307);
+            this.btn_Save.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
+            this.btn_Save.MouseState = MaterialSkin.MouseState.HOVER;
+            this.btn_Save.Name = "btn_Save";
+            this.btn_Save.NoAccentTextColor = System.Drawing.Color.Empty;
+            this.btn_Save.Size = new System.Drawing.Size(75, 36);
+            this.btn_Save.TabIndex = 6;
+            this.btn_Save.Text = "     Save     ";
+            this.btn_Save.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
+            this.btn_Save.UseAccentColor = false;
+            this.btn_Save.UseVisualStyleBackColor = false;
+            this.btn_Save.Click += new System.EventHandler(this.btn_Save_Click);
+            // 
+            // frm_SaveStudent
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.ClientSize = new System.Drawing.Size(584, 398);
             this.Controls.Add(this.gpDetails);
             this.FormStyle = MaterialSkin.Controls.MaterialForm.FormStyles.ActionBar_None;
-            this.Name = "frm_AddStudent";
+            this.Name = "frm_SaveStudent";
             this.Padding = new System.Windows.Forms.Padding(3, 24, 3, 3);
             this.Text = "frm_AddStudent";
             this.Load += new System.EventHandler(this.frm_AddStudent_Load);
@@ -207,10 +214,11 @@
         #endregion
         private MaterialSkin.Controls.MaterialTextBox2 txt_Name;
         private MaterialSkin.Controls.MaterialTextBox2 txt_ID;
-        private ReaLTaiizor.Controls.PoisonDateTime poisonDateTime1;
+        private ReaLTaiizor.Controls.PoisonDateTime dtpBirthdate;
         private ReaLTaiizor.Controls.NightLabel nightLabel1;
-        private ReaLTaiizor.Controls.HopeRoundButton btn_Save;
         private MaterialSkin.Controls.MaterialTextBox2 txt_Email;
         private ReaLTaiizor.Controls.ParrotGroupBox gpDetails;
+        private System.ComponentModel.BackgroundWorker backgroundWorker1;
+        private MaterialSkin.Controls.MaterialButton btn_Save;
     }
 }

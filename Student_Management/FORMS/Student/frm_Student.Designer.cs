@@ -28,46 +28,36 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frm_Student));
-            this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
+            this.refreshTimer = new System.Windows.Forms.Timer(this.components);
+            this.deleteTimer = new System.Windows.Forms.Timer(this.components);
             this.btn_Add = new ReaLTaiizor.Controls.MaterialFloatingActionButton();
             this.txt_Search = new MaterialSkin.Controls.MaterialTextBox2();
-            this.ucStudent1 = new Student_Management.FORMS.Student.ucStudent();
-            this.ucStudent2 = new Student_Management.FORMS.Student.ucStudent();
-            this.ucStudent3 = new Student_Management.FORMS.Student.ucStudent();
-            this.ucStudent4 = new Student_Management.FORMS.Student.ucStudent();
-            this.ucStudent5 = new Student_Management.FORMS.Student.ucStudent();
-            this.ucStudent6 = new Student_Management.FORMS.Student.ucStudent();
-            this.ucStudent7 = new Student_Management.FORMS.Student.ucStudent();
-            this.ucStudent8 = new Student_Management.FORMS.Student.ucStudent();
-            this.ucStudent9 = new Student_Management.FORMS.Student.ucStudent();
-            this.flowLayoutPanel1.SuspendLayout();
+            this.cmb_seachOptions = new MaterialSkin.Controls.MaterialComboBox();
+            this.studentContainer = new System.Windows.Forms.FlowLayoutPanel();
+            this.searchResult = new System.Windows.Forms.DataGridView();
+            this.ID = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.result = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            ((System.ComponentModel.ISupportInitialize)(this.searchResult)).BeginInit();
             this.SuspendLayout();
             // 
-            // flowLayoutPanel1
+            // refreshTimer
             // 
-            this.flowLayoutPanel1.AutoScroll = true;
-            this.flowLayoutPanel1.Controls.Add(this.ucStudent1);
-            this.flowLayoutPanel1.Controls.Add(this.ucStudent2);
-            this.flowLayoutPanel1.Controls.Add(this.ucStudent3);
-            this.flowLayoutPanel1.Controls.Add(this.ucStudent4);
-            this.flowLayoutPanel1.Controls.Add(this.ucStudent5);
-            this.flowLayoutPanel1.Controls.Add(this.ucStudent6);
-            this.flowLayoutPanel1.Controls.Add(this.ucStudent7);
-            this.flowLayoutPanel1.Controls.Add(this.ucStudent8);
-            this.flowLayoutPanel1.Controls.Add(this.ucStudent9);
-            this.flowLayoutPanel1.Location = new System.Drawing.Point(24, 102);
-            this.flowLayoutPanel1.Margin = new System.Windows.Forms.Padding(0);
-            this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(1030, 565);
-            this.flowLayoutPanel1.TabIndex = 3;
+            this.refreshTimer.Enabled = true;
+            this.refreshTimer.Tick += new System.EventHandler(this.refreshTimer_Tick);
+            // 
+            // deleteTimer
+            // 
+            this.deleteTimer.Enabled = true;
+            this.deleteTimer.Tick += new System.EventHandler(this.deleteTimer_Tick);
             // 
             // btn_Add
             // 
             this.btn_Add.Depth = 0;
             this.btn_Add.ForeColor = System.Drawing.SystemColors.ControlText;
             this.btn_Add.Icon = ((System.Drawing.Image)(resources.GetObject("btn_Add.Icon")));
-            this.btn_Add.Location = new System.Drawing.Point(1010, 669);
+            this.btn_Add.Location = new System.Drawing.Point(1040, 671);
             this.btn_Add.Mini = true;
             this.btn_Add.MouseState = ReaLTaiizor.Helper.MaterialDrawHelper.MaterialMouseState.HOVER;
             this.btn_Add.Name = "btn_Add";
@@ -98,98 +88,107 @@
             this.txt_Search.SelectionLength = 0;
             this.txt_Search.SelectionStart = 0;
             this.txt_Search.ShortcutsEnabled = true;
-            this.txt_Search.Size = new System.Drawing.Size(308, 48);
+            this.txt_Search.Size = new System.Drawing.Size(340, 48);
             this.txt_Search.TabIndex = 4;
             this.txt_Search.TabStop = false;
             this.txt_Search.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
             this.txt_Search.TrailingIcon = null;
             this.txt_Search.UseSystemPasswordChar = false;
+            this.txt_Search.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txt_Search_KeyPress);
+            this.txt_Search.TextChanged += new System.EventHandler(this.txt_Search_TextChanged);
             // 
-            // ucStudent1
+            // cmb_seachOptions
             // 
-            this.ucStudent1.BackColor = System.Drawing.Color.White;
-            this.ucStudent1.Location = new System.Drawing.Point(3, 3);
-            this.ucStudent1.Name = "ucStudent1";
-            this.ucStudent1.Size = new System.Drawing.Size(337, 182);
-            this.ucStudent1.TabIndex = 0;
+            this.cmb_seachOptions.AutoResize = false;
+            this.cmb_seachOptions.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(139)))), ((int)(((byte)(211)))));
+            this.cmb_seachOptions.Depth = 0;
+            this.cmb_seachOptions.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
+            this.cmb_seachOptions.DropDownHeight = 174;
+            this.cmb_seachOptions.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmb_seachOptions.DropDownWidth = 121;
+            this.cmb_seachOptions.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.cmb_seachOptions.Font = new System.Drawing.Font("Roboto Medium", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
+            this.cmb_seachOptions.FormattingEnabled = true;
+            this.cmb_seachOptions.Hint = "By";
+            this.cmb_seachOptions.IntegralHeight = false;
+            this.cmb_seachOptions.ItemHeight = 43;
+            this.cmb_seachOptions.Items.AddRange(new object[] {
+            "Id",
+            "Name",
+            "Email"});
+            this.cmb_seachOptions.Location = new System.Drawing.Point(371, 50);
+            this.cmb_seachOptions.MaxDropDownItems = 4;
+            this.cmb_seachOptions.MouseState = MaterialSkin.MouseState.OUT;
+            this.cmb_seachOptions.Name = "cmb_seachOptions";
+            this.cmb_seachOptions.Size = new System.Drawing.Size(175, 49);
+            this.cmb_seachOptions.StartIndex = 0;
+            this.cmb_seachOptions.TabIndex = 6;
+            this.cmb_seachOptions.SelectedIndexChanged += new System.EventHandler(this.cmb_seachOptions_SelectedIndexChanged);
             // 
-            // ucStudent2
+            // studentContainer
             // 
-            this.ucStudent2.BackColor = System.Drawing.Color.White;
-            this.ucStudent2.Location = new System.Drawing.Point(346, 3);
-            this.ucStudent2.Name = "ucStudent2";
-            this.ucStudent2.Size = new System.Drawing.Size(337, 182);
-            this.ucStudent2.TabIndex = 1;
+            this.studentContainer.AutoScroll = true;
+            this.studentContainer.Location = new System.Drawing.Point(24, 103);
+            this.studentContainer.Margin = new System.Windows.Forms.Padding(0);
+            this.studentContainer.Name = "studentContainer";
+            this.studentContainer.Size = new System.Drawing.Size(1055, 565);
+            this.studentContainer.TabIndex = 8;
             // 
-            // ucStudent3
+            // searchResult
             // 
-            this.ucStudent3.BackColor = System.Drawing.Color.White;
-            this.ucStudent3.Location = new System.Drawing.Point(689, 3);
-            this.ucStudent3.Name = "ucStudent3";
-            this.ucStudent3.Size = new System.Drawing.Size(337, 182);
-            this.ucStudent3.TabIndex = 2;
+            this.searchResult.AllowUserToAddRows = false;
+            this.searchResult.AllowUserToDeleteRows = false;
+            this.searchResult.AllowUserToResizeColumns = false;
+            this.searchResult.AllowUserToResizeRows = false;
+            this.searchResult.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.searchResult.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.None;
+            this.searchResult.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.searchResult.ColumnHeadersVisible = false;
+            this.searchResult.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.ID,
+            this.result});
+            this.searchResult.Location = new System.Drawing.Point(24, 93);
+            this.searchResult.Name = "searchResult";
+            this.searchResult.RowHeadersVisible = false;
+            this.searchResult.RowHeadersWidth = 62;
+            this.searchResult.RowTemplate.Height = 30;
+            this.searchResult.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.searchResult.Size = new System.Drawing.Size(340, 0);
+            this.searchResult.TabIndex = 9;
+            this.searchResult.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.searchResult_CellClick);
             // 
-            // ucStudent4
+            // ID
             // 
-            this.ucStudent4.BackColor = System.Drawing.Color.White;
-            this.ucStudent4.Location = new System.Drawing.Point(3, 191);
-            this.ucStudent4.Name = "ucStudent4";
-            this.ucStudent4.Size = new System.Drawing.Size(337, 182);
-            this.ucStudent4.TabIndex = 3;
+            this.ID.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.ID.DataPropertyName = "id";
+            this.ID.HeaderText = "ID";
+            this.ID.MinimumWidth = 8;
+            this.ID.Name = "ID";
+            this.ID.ReadOnly = true;
             // 
-            // ucStudent5
+            // result
             // 
-            this.ucStudent5.BackColor = System.Drawing.Color.White;
-            this.ucStudent5.Location = new System.Drawing.Point(346, 191);
-            this.ucStudent5.Name = "ucStudent5";
-            this.ucStudent5.Size = new System.Drawing.Size(337, 182);
-            this.ucStudent5.TabIndex = 4;
-            // 
-            // ucStudent6
-            // 
-            this.ucStudent6.BackColor = System.Drawing.Color.White;
-            this.ucStudent6.Location = new System.Drawing.Point(689, 191);
-            this.ucStudent6.Name = "ucStudent6";
-            this.ucStudent6.Size = new System.Drawing.Size(337, 182);
-            this.ucStudent6.TabIndex = 5;
-            // 
-            // ucStudent7
-            // 
-            this.ucStudent7.BackColor = System.Drawing.Color.White;
-            this.ucStudent7.Location = new System.Drawing.Point(3, 379);
-            this.ucStudent7.Name = "ucStudent7";
-            this.ucStudent7.Size = new System.Drawing.Size(337, 182);
-            this.ucStudent7.TabIndex = 6;
-            // 
-            // ucStudent8
-            // 
-            this.ucStudent8.BackColor = System.Drawing.Color.White;
-            this.ucStudent8.Location = new System.Drawing.Point(346, 379);
-            this.ucStudent8.Name = "ucStudent8";
-            this.ucStudent8.Size = new System.Drawing.Size(337, 182);
-            this.ucStudent8.TabIndex = 7;
-            // 
-            // ucStudent9
-            // 
-            this.ucStudent9.BackColor = System.Drawing.Color.White;
-            this.ucStudent9.Location = new System.Drawing.Point(689, 379);
-            this.ucStudent9.Name = "ucStudent9";
-            this.ucStudent9.Size = new System.Drawing.Size(337, 182);
-            this.ucStudent9.TabIndex = 8;
+            this.result.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.result.HeaderText = "result";
+            this.result.MinimumWidth = 8;
+            this.result.Name = "result";
+            this.result.ReadOnly = true;
             // 
             // frm_Student
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.ClientSize = new System.Drawing.Size(1100, 750);
+            this.Controls.Add(this.searchResult);
+            this.Controls.Add(this.studentContainer);
+            this.Controls.Add(this.cmb_seachOptions);
             this.Controls.Add(this.btn_Add);
             this.Controls.Add(this.txt_Search);
-            this.Controls.Add(this.flowLayoutPanel1);
             this.FormStyle = MaterialSkin.Controls.MaterialForm.FormStyles.StatusAndActionBar_None;
             this.Name = "frm_Student";
             this.Padding = new System.Windows.Forms.Padding(3, 0, 3, 3);
             this.Text = "frm_Student";
             this.Load += new System.EventHandler(this.frm_Student_Load);
-            this.flowLayoutPanel1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.searchResult)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -198,15 +197,12 @@
 
         private ReaLTaiizor.Controls.MaterialFloatingActionButton btn_Add;
         private MaterialSkin.Controls.MaterialTextBox2 txt_Search;
-        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
-        private ucStudent ucStudent1;
-        private ucStudent ucStudent2;
-        private ucStudent ucStudent3;
-        private ucStudent ucStudent4;
-        private ucStudent ucStudent5;
-        private ucStudent ucStudent6;
-        private ucStudent ucStudent7;
-        private ucStudent ucStudent8;
-        private ucStudent ucStudent9;
+        private System.Windows.Forms.Timer refreshTimer;
+        private System.Windows.Forms.Timer deleteTimer;
+        private MaterialSkin.Controls.MaterialComboBox cmb_seachOptions;
+        private System.Windows.Forms.FlowLayoutPanel studentContainer;
+        private System.Windows.Forms.DataGridView searchResult;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ID;
+        private System.Windows.Forms.DataGridViewTextBoxColumn result;
     }
 }

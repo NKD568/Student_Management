@@ -36,9 +36,14 @@
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.deleteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.btn_Options = new System.Windows.Forms.PictureBox();
+            this.lbl_Id = new System.Windows.Forms.Label();
+            this.lbl_Name = new System.Windows.Forms.Label();
+            this.lbl_Email = new System.Windows.Forms.Label();
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.dtp_Birthdate = new ReaLTaiizor.Controls.PoisonDateTime();
             this.contextMenuStrip1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btn_Options)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
@@ -46,9 +51,9 @@
             this.label1.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.Location = new System.Drawing.Point(3, 15);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(32, 28);
+            this.label1.Size = new System.Drawing.Size(41, 28);
             this.label1.TabIndex = 0;
-            this.label1.Text = "ID: ";
+            this.label1.Text = "ID:";
             // 
             // label2
             // 
@@ -64,9 +69,9 @@
             this.label3.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label3.Location = new System.Drawing.Point(3, 95);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(73, 28);
+            this.label3.Size = new System.Drawing.Size(100, 28);
             this.label3.TabIndex = 1;
-            this.label3.Text = "D.O.B: ";
+            this.label3.Text = "Birthdate:";
             // 
             // label4
             // 
@@ -84,48 +89,91 @@
             this.editToolStripMenuItem,
             this.deleteToolStripMenuItem});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(143, 68);
-            this.contextMenuStrip1.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStrip1_Opening);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(249, 101);
             // 
             // editToolStripMenuItem
             // 
             this.editToolStripMenuItem.Image = global::Student_Management.Properties.Resources.edit;
             this.editToolStripMenuItem.Name = "editToolStripMenuItem";
-            this.editToolStripMenuItem.Size = new System.Drawing.Size(142, 32);
+            this.editToolStripMenuItem.Size = new System.Drawing.Size(248, 32);
             this.editToolStripMenuItem.Text = "Edit";
+            this.editToolStripMenuItem.Click += new System.EventHandler(this.editToolStripMenuItem_Click);
             // 
             // deleteToolStripMenuItem
             // 
             this.deleteToolStripMenuItem.Image = global::Student_Management.Properties.Resources.delete;
             this.deleteToolStripMenuItem.Name = "deleteToolStripMenuItem";
-            this.deleteToolStripMenuItem.Size = new System.Drawing.Size(142, 32);
+            this.deleteToolStripMenuItem.Size = new System.Drawing.Size(248, 32);
             this.deleteToolStripMenuItem.Text = "Delete";
+            this.deleteToolStripMenuItem.Click += new System.EventHandler(this.deleteToolStripMenuItem_Click);
             // 
-            // pictureBox1
+            // btn_Options
             // 
-            this.pictureBox1.BackColor = System.Drawing.Color.LightBlue;
-            this.pictureBox1.Image = global::Student_Management.Properties.Resources.options;
-            this.pictureBox1.Location = new System.Drawing.Point(294, 0);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(40, 40);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBox1.TabIndex = 4;
-            this.pictureBox1.TabStop = false;
+            this.btn_Options.BackColor = System.Drawing.Color.LightBlue;
+            this.btn_Options.Image = global::Student_Management.Properties.Resources.options;
+            this.btn_Options.Location = new System.Drawing.Point(310, 3);
+            this.btn_Options.Name = "btn_Options";
+            this.btn_Options.Size = new System.Drawing.Size(24, 24);
+            this.btn_Options.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.btn_Options.TabIndex = 4;
+            this.btn_Options.TabStop = false;
+            this.btn_Options.Click += new System.EventHandler(this.btn_Options_Click);
             // 
-            // StudentControl
+            // lbl_Id
+            // 
+            this.lbl_Id.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbl_Id.Location = new System.Drawing.Point(82, 15);
+            this.lbl_Id.Name = "lbl_Id";
+            this.lbl_Id.Size = new System.Drawing.Size(222, 28);
+            this.lbl_Id.TabIndex = 0;
+            // 
+            // lbl_Name
+            // 
+            this.lbl_Name.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbl_Name.Location = new System.Drawing.Point(82, 54);
+            this.lbl_Name.Name = "lbl_Name";
+            this.lbl_Name.Size = new System.Drawing.Size(222, 28);
+            this.lbl_Name.TabIndex = 0;
+            // 
+            // lbl_Email
+            // 
+            this.lbl_Email.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbl_Email.Location = new System.Drawing.Point(82, 140);
+            this.lbl_Email.Name = "lbl_Email";
+            this.lbl_Email.Size = new System.Drawing.Size(222, 28);
+            this.lbl_Email.TabIndex = 0;
+            // 
+            // timer1
+            // 
+            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            // 
+            // dtp_Birthdate
+            // 
+            this.dtp_Birthdate.Enabled = false;
+            this.dtp_Birthdate.Location = new System.Drawing.Point(109, 96);
+            this.dtp_Birthdate.MinimumSize = new System.Drawing.Size(0, 29);
+            this.dtp_Birthdate.Name = "dtp_Birthdate";
+            this.dtp_Birthdate.Size = new System.Drawing.Size(225, 29);
+            this.dtp_Birthdate.TabIndex = 7;
+            // 
+            // ucStudent
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.BackColor = System.Drawing.Color.White;
-            this.Controls.Add(this.pictureBox1);
+            this.Controls.Add(this.dtp_Birthdate);
+            this.Controls.Add(this.btn_Options);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
+            this.Controls.Add(this.lbl_Email);
+            this.Controls.Add(this.lbl_Name);
+            this.Controls.Add(this.lbl_Id);
             this.Controls.Add(this.label1);
-            this.Name = "StudentControl";
+            this.Name = "ucStudent";
             this.Size = new System.Drawing.Size(337, 182);
             this.Load += new System.EventHandler(this.StudentControl_Load);
             this.contextMenuStrip1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btn_Options)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -136,9 +184,14 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.PictureBox btn_Options;
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
         private System.Windows.Forms.ToolStripMenuItem editToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem deleteToolStripMenuItem;
+        private System.Windows.Forms.Label lbl_Id;
+        private System.Windows.Forms.Label lbl_Name;
+        private System.Windows.Forms.Label lbl_Email;
+        private System.Windows.Forms.Timer timer1;
+        private ReaLTaiizor.Controls.PoisonDateTime dtp_Birthdate;
     }
 }
