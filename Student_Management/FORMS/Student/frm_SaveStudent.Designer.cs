@@ -213,7 +213,7 @@
             this.Name = "frm_SaveStudent";
             this.Padding = new System.Windows.Forms.Padding(3, 24, 3, 3);
             this.Text = "frm_AddStudent";
-            this.Load += new System.EventHandler(this.frm_AddStudent_Load);
+            this.Load += new System.EventHandler(this.frm_SaveStudent_Load);
             this.gpDetails.ResumeLayout(false);
             this.gpDetails.PerformLayout();
             this.ResumeLayout(false);

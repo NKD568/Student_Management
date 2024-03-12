@@ -111,7 +111,7 @@
             // 
             this.btn_Options.BackColor = System.Drawing.Color.LightBlue;
             this.btn_Options.Image = global::Student_Management.Properties.Resources.options;
-            this.btn_Options.Location = new System.Drawing.Point(310, 3);
+            this.btn_Options.Location = new System.Drawing.Point(328, 3);
             this.btn_Options.Name = "btn_Options";
             this.btn_Options.Size = new System.Drawing.Size(24, 24);
             this.btn_Options.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -121,26 +121,26 @@
             // 
             // lbl_Id
             // 
-            this.lbl_Id.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbl_Id.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbl_Id.Location = new System.Drawing.Point(82, 15);
             this.lbl_Id.Name = "lbl_Id";
-            this.lbl_Id.Size = new System.Drawing.Size(222, 28);
+            this.lbl_Id.Size = new System.Drawing.Size(232, 28);
             this.lbl_Id.TabIndex = 0;
             // 
             // lbl_Name
             // 
-            this.lbl_Name.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbl_Name.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbl_Name.Location = new System.Drawing.Point(82, 54);
             this.lbl_Name.Name = "lbl_Name";
-            this.lbl_Name.Size = new System.Drawing.Size(222, 28);
+            this.lbl_Name.Size = new System.Drawing.Size(232, 28);
             this.lbl_Name.TabIndex = 0;
             // 
             // lbl_Email
             // 
-            this.lbl_Email.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbl_Email.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbl_Email.Location = new System.Drawing.Point(82, 140);
             this.lbl_Email.Name = "lbl_Email";
-            this.lbl_Email.Size = new System.Drawing.Size(222, 28);
+            this.lbl_Email.Size = new System.Drawing.Size(232, 28);
             this.lbl_Email.TabIndex = 0;
             // 
             // updatedTimer
@@ -150,16 +150,16 @@
             // dtp_Birthdate
             // 
             this.dtp_Birthdate.Enabled = false;
-            this.dtp_Birthdate.Location = new System.Drawing.Point(109, 96);
+            this.dtp_Birthdate.Location = new System.Drawing.Point(87, 95);
             this.dtp_Birthdate.MinimumSize = new System.Drawing.Size(0, 29);
             this.dtp_Birthdate.Name = "dtp_Birthdate";
-            this.dtp_Birthdate.Size = new System.Drawing.Size(225, 29);
+            this.dtp_Birthdate.Size = new System.Drawing.Size(227, 29);
             this.dtp_Birthdate.TabIndex = 7;
             // 
             // ucStudent
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
-            this.BackColor = System.Drawing.Color.SeaShell;
+            this.BackColor = System.Drawing.Color.PeachPuff;
             this.Controls.Add(this.dtp_Birthdate);
             this.Controls.Add(this.btn_Options);
             this.Controls.Add(this.label4);
@@ -170,7 +170,7 @@
             this.Controls.Add(this.lbl_Id);
             this.Controls.Add(this.label1);
             this.Name = "ucStudent";
-            this.Size = new System.Drawing.Size(337, 182);
+            this.Size = new System.Drawing.Size(355, 190);
             this.Load += new System.EventHandler(this.ucStudent_Load);
             this.optionMenu.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.btn_Options)).EndInit();

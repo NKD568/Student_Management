@@ -63,7 +63,18 @@ namespace Student_Management.FORMS.Student
         }
 
         bool update = false;
-        private void frm_AddStudent_Load(object sender, EventArgs e)
+
+        private void getDetail()
+        {
+            StudentInfo get = new StudentInfo();
+            get.getDetails(ucStudent.public_id);
+            txt_ID.Text = get.id.ToString();
+            txt_Name.Text = get.name;
+            dtpBirthdate.Value = get.birthdate;
+            txt_Email.Text = get.email;
+        }
+
+        private void frm_SaveStudent_Load(object sender, EventArgs e)
         {
             this.CenterToScreen();
             if (ucStudent.view == true)
@@ -81,16 +92,6 @@ namespace Student_Management.FORMS.Student
                 btn_Save.Text = "SAVE";
                 update = false;
             }
-        }
-
-        private void getDetail()
-        {
-            StudentInfo get = new StudentInfo();
-            get.getDetails(ucStudent.public_id);
-            txt_ID.Text = get.id.ToString();
-            txt_Name.Text = get.name;
-            dtpBirthdate.Value = get.birthdate;
-            txt_Email.Text = get.email;
         }
 
         private void txt_ID_KeyPress(object sender, KeyPressEventArgs e)

@@ -48,7 +48,7 @@
             this.Topbar.Dock = System.Windows.Forms.DockStyle.Top;
             this.Topbar.Location = new System.Drawing.Point(0, 0);
             this.Topbar.Name = "Topbar";
-            this.Topbar.Size = new System.Drawing.Size(1200, 34);
+            this.Topbar.Size = new System.Drawing.Size(1300, 34);
             this.Topbar.TabIndex = 0;
             this.Topbar.MouseDown += new System.Windows.Forms.MouseEventHandler(this.Topbar_MouseDown);
             this.Topbar.MouseMove += new System.Windows.Forms.MouseEventHandler(this.Topbar_MouseMove);
@@ -69,7 +69,7 @@
             this.nightControlBox1.EnableMaximizeColor = System.Drawing.Color.FromArgb(((int)(((byte)(160)))), ((int)(((byte)(160)))), ((int)(((byte)(160)))));
             this.nightControlBox1.EnableMinimizeButton = true;
             this.nightControlBox1.EnableMinimizeColor = System.Drawing.Color.FromArgb(((int)(((byte)(160)))), ((int)(((byte)(160)))), ((int)(((byte)(160)))));
-            this.nightControlBox1.Location = new System.Drawing.Point(1061, 0);
+            this.nightControlBox1.Location = new System.Drawing.Point(1161, 0);
             this.nightControlBox1.MaximizeHoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
             this.nightControlBox1.MaximizeHoverForeColor = System.Drawing.Color.White;
             this.nightControlBox1.MinimizeHoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
@@ -99,7 +99,7 @@
             this.menuSidebar.gradientTop = System.Drawing.Color.FromArgb(((int)(((byte)(243)))), ((int)(((byte)(112)))), ((int)(((byte)(35)))));
             this.menuSidebar.Location = new System.Drawing.Point(0, 34);
             this.menuSidebar.Name = "menuSidebar";
-            this.menuSidebar.Size = new System.Drawing.Size(100, 716);
+            this.menuSidebar.Size = new System.Drawing.Size(100, 766);
             this.menuSidebar.TabIndex = 1;
             // 
             // Schedule
@@ -107,6 +107,7 @@
             this.Schedule.BackColor = System.Drawing.Color.Transparent;
             this.Schedule.BorderColor = System.Drawing.Color.Transparent;
             this.Schedule.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.Schedule.Font = new System.Drawing.Font("Segoe UI", 8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Schedule.Icon = global::Student_Management.Properties.Resources.schedule_24;
             this.Schedule.Location = new System.Drawing.Point(3, 314);
             this.Schedule.Menu = "Schedule";
@@ -119,6 +120,7 @@
             this.Student.BackColor = System.Drawing.Color.Transparent;
             this.Student.BorderColor = System.Drawing.Color.Transparent;
             this.Student.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.Student.Font = new System.Drawing.Font("Segoe UI", 8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Student.Icon = global::Student_Management.Properties.Resources.student_24;
             this.Student.Location = new System.Drawing.Point(3, 239);
             this.Student.Menu = "Student";
@@ -131,6 +133,7 @@
             this.Course.BackColor = System.Drawing.Color.Transparent;
             this.Course.BorderColor = System.Drawing.Color.Transparent;
             this.Course.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.Course.Font = new System.Drawing.Font("Segoe UI", 8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Course.Icon = global::Student_Management.Properties.Resources.book_24;
             this.Course.Location = new System.Drawing.Point(3, 162);
             this.Course.Menu = "Course";
@@ -143,6 +146,7 @@
             this.Grade.BackColor = System.Drawing.Color.Transparent;
             this.Grade.BorderColor = System.Drawing.Color.Transparent;
             this.Grade.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.Grade.Font = new System.Drawing.Font("Segoe UI", 8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Grade.Icon = global::Student_Management.Properties.Resources.grade_24;
             this.Grade.Location = new System.Drawing.Point(3, 90);
             this.Grade.Menu = "Grade";
@@ -153,7 +157,7 @@
             // frm_Main
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
-            this.ClientSize = new System.Drawing.Size(1200, 750);
+            this.ClientSize = new System.Drawing.Size(1300, 800);
             this.Controls.Add(this.menuSidebar);
             this.Controls.Add(this.Topbar);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;

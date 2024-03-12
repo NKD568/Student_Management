@@ -15,7 +15,7 @@ namespace Student_Management.FORMS.Student
 {
     public class StudentInfo
     {
-        public string connstring = "server=localhost;user=root;database=student_managementdb;sslmode=none;ConvertZeroDateTime=True";
+        public string connstring = frm_Main.connstring;
         public string tableName = "tbstudent";
         string tableAttributes = "(id,Name,Birthdate,Email)";
 

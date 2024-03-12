@@ -1,4 +1,5 @@
-﻿using Student_Management.FORMS.Student;
+﻿using Student_Management.FORMS.Course;
+using Student_Management.FORMS.Student;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -111,8 +112,11 @@ namespace Student_Management.FORMS.Main
 
 
         // UX 
+        public static string connstring = "server=localhost;user=root;database=student_managementdb;sslmode=none;ConvertZeroDateTime=True";
         List<ucMenu> menuButtons;
         frm_Student student = null;
+        frm_Course course = null;
+
         frm_Schedule schedule = null;
 
         public int mdiScreenWidth;
@@ -184,6 +188,7 @@ namespace Student_Management.FORMS.Main
                     break;
                 case "Course":
                     activeMenu(Course, Grade, Student, Schedule);
+                    Course_Click();
                     break;
                 case "Student":
                     activeMenu(Student, Grade, Course, Schedule);
@@ -272,6 +277,29 @@ namespace Student_Management.FORMS.Main
         {
             student = null;
         }
+
+        private void Course_Click()
+        {
+            if (course == null)
+            {
+                course = new frm_Course();
+                course.FormClosed += Course_FormClosed;
+                course.MdiParent = this;
+                course.Dock = DockStyle.Fill;
+
+                course.Show();
+            }
+            else
+            {
+                course.Activate();
+            }
+        }
+        private void Course_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            course = null;
+        }
+
+
 
         public void showToast(string type, string message)
         {
