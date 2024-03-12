@@ -33,16 +33,16 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
-            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.optionMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.deleteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.btn_Options = new System.Windows.Forms.PictureBox();
             this.lbl_Id = new System.Windows.Forms.Label();
             this.lbl_Name = new System.Windows.Forms.Label();
             this.lbl_Email = new System.Windows.Forms.Label();
-            this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.updatedTimer = new System.Windows.Forms.Timer(this.components);
             this.dtp_Birthdate = new ReaLTaiizor.Controls.PoisonDateTime();
-            this.contextMenuStrip1.SuspendLayout();
+            this.optionMenu.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.btn_Options)).BeginInit();
             this.SuspendLayout();
             // 
@@ -82,20 +82,20 @@
             this.label4.TabIndex = 1;
             this.label4.Text = "Email:";
             // 
-            // contextMenuStrip1
+            // optionMenu
             // 
-            this.contextMenuStrip1.ImageScalingSize = new System.Drawing.Size(24, 24);
-            this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.optionMenu.ImageScalingSize = new System.Drawing.Size(24, 24);
+            this.optionMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.editToolStripMenuItem,
             this.deleteToolStripMenuItem});
-            this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(249, 101);
+            this.optionMenu.Name = "contextMenuStrip1";
+            this.optionMenu.Size = new System.Drawing.Size(143, 68);
             // 
             // editToolStripMenuItem
             // 
             this.editToolStripMenuItem.Image = global::Student_Management.Properties.Resources.edit;
             this.editToolStripMenuItem.Name = "editToolStripMenuItem";
-            this.editToolStripMenuItem.Size = new System.Drawing.Size(248, 32);
+            this.editToolStripMenuItem.Size = new System.Drawing.Size(142, 32);
             this.editToolStripMenuItem.Text = "Edit";
             this.editToolStripMenuItem.Click += new System.EventHandler(this.editToolStripMenuItem_Click);
             // 
@@ -103,7 +103,7 @@
             // 
             this.deleteToolStripMenuItem.Image = global::Student_Management.Properties.Resources.delete;
             this.deleteToolStripMenuItem.Name = "deleteToolStripMenuItem";
-            this.deleteToolStripMenuItem.Size = new System.Drawing.Size(248, 32);
+            this.deleteToolStripMenuItem.Size = new System.Drawing.Size(142, 32);
             this.deleteToolStripMenuItem.Text = "Delete";
             this.deleteToolStripMenuItem.Click += new System.EventHandler(this.deleteToolStripMenuItem_Click);
             // 
@@ -143,9 +143,9 @@
             this.lbl_Email.Size = new System.Drawing.Size(222, 28);
             this.lbl_Email.TabIndex = 0;
             // 
-            // timer1
+            // updatedTimer
             // 
-            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            this.updatedTimer.Tick += new System.EventHandler(this.updatedTimer_Tick);
             // 
             // dtp_Birthdate
             // 
@@ -159,7 +159,7 @@
             // ucStudent
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
-            this.BackColor = System.Drawing.Color.White;
+            this.BackColor = System.Drawing.Color.SeaShell;
             this.Controls.Add(this.dtp_Birthdate);
             this.Controls.Add(this.btn_Options);
             this.Controls.Add(this.label4);
@@ -171,8 +171,8 @@
             this.Controls.Add(this.label1);
             this.Name = "ucStudent";
             this.Size = new System.Drawing.Size(337, 182);
-            this.Load += new System.EventHandler(this.StudentControl_Load);
-            this.contextMenuStrip1.ResumeLayout(false);
+            this.Load += new System.EventHandler(this.ucStudent_Load);
+            this.optionMenu.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.btn_Options)).EndInit();
             this.ResumeLayout(false);
 
@@ -185,13 +185,13 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.PictureBox btn_Options;
-        private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
+        private System.Windows.Forms.ContextMenuStrip optionMenu;
         private System.Windows.Forms.ToolStripMenuItem editToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem deleteToolStripMenuItem;
         private System.Windows.Forms.Label lbl_Id;
         private System.Windows.Forms.Label lbl_Name;
         private System.Windows.Forms.Label lbl_Email;
-        private System.Windows.Forms.Timer timer1;
+        private System.Windows.Forms.Timer updatedTimer;
         private ReaLTaiizor.Controls.PoisonDateTime dtp_Birthdate;
     }
 }

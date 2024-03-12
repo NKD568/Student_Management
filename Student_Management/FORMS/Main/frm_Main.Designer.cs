@@ -31,13 +31,13 @@
             this.Topbar = new System.Windows.Forms.Panel();
             this.nightControlBox1 = new ReaLTaiizor.Controls.NightControlBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.gradient_SidebarPanel1 = new Student_Management.FORMS.Main.Gradient_SidebarPanel();
+            this.menuSidebar = new Student_Management.FORMS.Main.Gradient_SidebarPanel();
             this.Schedule = new Student_Management.FORMS.Main.ucMenu();
             this.Student = new Student_Management.FORMS.Main.ucMenu();
             this.Course = new Student_Management.FORMS.Main.ucMenu();
             this.Grade = new Student_Management.FORMS.Main.ucMenu();
             this.Topbar.SuspendLayout();
-            this.gradient_SidebarPanel1.SuspendLayout();
+            this.menuSidebar.SuspendLayout();
             this.SuspendLayout();
             // 
             // Topbar
@@ -65,7 +65,7 @@
             this.nightControlBox1.DisableMaximizeColor = System.Drawing.Color.FromArgb(((int)(((byte)(105)))), ((int)(((byte)(105)))), ((int)(((byte)(105)))));
             this.nightControlBox1.DisableMinimizeColor = System.Drawing.Color.FromArgb(((int)(((byte)(105)))), ((int)(((byte)(105)))), ((int)(((byte)(105)))));
             this.nightControlBox1.EnableCloseColor = System.Drawing.Color.FromArgb(((int)(((byte)(160)))), ((int)(((byte)(160)))), ((int)(((byte)(160)))));
-            this.nightControlBox1.EnableMaximizeButton = true;
+            this.nightControlBox1.EnableMaximizeButton = false;
             this.nightControlBox1.EnableMaximizeColor = System.Drawing.Color.FromArgb(((int)(((byte)(160)))), ((int)(((byte)(160)))), ((int)(((byte)(160)))));
             this.nightControlBox1.EnableMinimizeButton = true;
             this.nightControlBox1.EnableMinimizeColor = System.Drawing.Color.FromArgb(((int)(((byte)(160)))), ((int)(((byte)(160)))), ((int)(((byte)(160)))));
@@ -88,19 +88,19 @@
             this.label1.TabIndex = 0;
             this.label1.Text = "Student Management Application";
             // 
-            // gradient_SidebarPanel1
+            // menuSidebar
             // 
-            this.gradient_SidebarPanel1.Controls.Add(this.Schedule);
-            this.gradient_SidebarPanel1.Controls.Add(this.Student);
-            this.gradient_SidebarPanel1.Controls.Add(this.Course);
-            this.gradient_SidebarPanel1.Controls.Add(this.Grade);
-            this.gradient_SidebarPanel1.Dock = System.Windows.Forms.DockStyle.Left;
-            this.gradient_SidebarPanel1.gradientBottom = System.Drawing.Color.FromArgb(((int)(((byte)(179)))), ((int)(((byte)(36)))), ((int)(((byte)(130)))));
-            this.gradient_SidebarPanel1.gradientTop = System.Drawing.Color.FromArgb(((int)(((byte)(243)))), ((int)(((byte)(112)))), ((int)(((byte)(35)))));
-            this.gradient_SidebarPanel1.Location = new System.Drawing.Point(0, 34);
-            this.gradient_SidebarPanel1.Name = "gradient_SidebarPanel1";
-            this.gradient_SidebarPanel1.Size = new System.Drawing.Size(100, 716);
-            this.gradient_SidebarPanel1.TabIndex = 1;
+            this.menuSidebar.Controls.Add(this.Schedule);
+            this.menuSidebar.Controls.Add(this.Student);
+            this.menuSidebar.Controls.Add(this.Course);
+            this.menuSidebar.Controls.Add(this.Grade);
+            this.menuSidebar.Dock = System.Windows.Forms.DockStyle.Left;
+            this.menuSidebar.gradientBottom = System.Drawing.Color.FromArgb(((int)(((byte)(179)))), ((int)(((byte)(36)))), ((int)(((byte)(130)))));
+            this.menuSidebar.gradientTop = System.Drawing.Color.FromArgb(((int)(((byte)(243)))), ((int)(((byte)(112)))), ((int)(((byte)(35)))));
+            this.menuSidebar.Location = new System.Drawing.Point(0, 34);
+            this.menuSidebar.Name = "menuSidebar";
+            this.menuSidebar.Size = new System.Drawing.Size(100, 716);
+            this.menuSidebar.TabIndex = 1;
             // 
             // Schedule
             // 
@@ -154,7 +154,7 @@
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.ClientSize = new System.Drawing.Size(1200, 750);
-            this.Controls.Add(this.gradient_SidebarPanel1);
+            this.Controls.Add(this.menuSidebar);
             this.Controls.Add(this.Topbar);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.IsMdiContainer = true;
@@ -163,7 +163,7 @@
             this.Load += new System.EventHandler(this.frm_Main_Load);
             this.Topbar.ResumeLayout(false);
             this.Topbar.PerformLayout();
-            this.gradient_SidebarPanel1.ResumeLayout(false);
+            this.menuSidebar.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -172,7 +172,7 @@
 
         private System.Windows.Forms.Panel Topbar;
         private System.Windows.Forms.Label label1;
-        private Gradient_SidebarPanel gradient_SidebarPanel1;
+        private Gradient_SidebarPanel menuSidebar;
         private ucMenu Schedule;
         private ucMenu Student;
         private ucMenu Course;

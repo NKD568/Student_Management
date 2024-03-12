@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using MySql.Data.MySqlClient;
+using Student_Management.FORMS.Main;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.ListView;
 
 namespace Student_Management.FORMS.Student
@@ -26,6 +27,7 @@ namespace Student_Management.FORMS.Student
 
         public void Save()
         {
+            frm_Main get = new frm_Main();
             // Duplicate ID Exception
             try
             {
@@ -39,13 +41,14 @@ namespace Student_Management.FORMS.Student
                 cmd.Parameters.AddWithValue("Birthdate", this.birthdate);
                 cmd.Parameters.AddWithValue("Email", this.email);
                 cmd.ExecuteNonQuery();
-                frm_Student get = new frm_Student();
                 get.showToast("SUCCESS", "Successfully Saved");
                 cmd.Dispose();
                 conn.Close();
+                frm_SaveStudent.refresh = true;
             }
             catch (Exception ex) {
-                MessageBox.Show("The ID is already existed!");
+                get.showToast("WARNING", "This ID is already used!");
+                frm_SaveStudent.refresh = false;
             }
         }
 
@@ -105,7 +108,7 @@ namespace Student_Management.FORMS.Student
             string sql = "DELETE FROM " + tableName + " WHERE id = '" + detail_id + "'";
             cmd.CommandText= sql;
             cmd.ExecuteNonQuery();
-            frm_Student get = new frm_Student();
+            frm_Main get = new frm_Main();
             get.showToast("SUCCESS", "Successfully Deleted");
             cmd.Dispose ();
             conn.Close();
@@ -142,20 +145,30 @@ namespace Student_Management.FORMS.Student
 
         public void update(string name, DateTime birthdate, string email, string Id)
         {
-            MySqlConnection conn = new MySqlConnection (connstring);
-            conn.Open();
-            MySqlCommand cmd = conn.CreateCommand ();
-            string sql = "UPDATE " + tableName + " SET Name = @name, Birthdate = @birthdate, Email = @email WHERE id = @id";
-            cmd.Parameters.AddWithValue("@name", name);
-            cmd.Parameters.AddWithValue("@birthdate", birthdate);
-            cmd.Parameters.AddWithValue("@email", email);
-            cmd.Parameters.AddWithValue("@id", Id);
-            cmd.CommandText= sql;
-            cmd.ExecuteNonQuery ();
-            frm_Student get = new frm_Student();
-            get.showToast("SUCCESS", "Successfully Updated");
-            cmd.Dispose();
-            conn.Close();
+            // Duplicate ID Exception
+            frm_Main get = new frm_Main();
+            try
+            {
+                MySqlConnection conn = new MySqlConnection(connstring);
+                conn.Open();
+                MySqlCommand cmd = conn.CreateCommand();
+                string sql = "UPDATE " + tableName + " SET Name = @name, Birthdate = @birthdate, Email = @email WHERE id = @id";
+                cmd.Parameters.AddWithValue("@name", name);
+                cmd.Parameters.AddWithValue("@birthdate", birthdate);
+                cmd.Parameters.AddWithValue("@email", email);
+                cmd.Parameters.AddWithValue("@id", Id);
+                cmd.CommandText = sql;
+                cmd.ExecuteNonQuery();
+                get.showToast("SUCCESS", "Successfully Updated");
+                cmd.Dispose();
+                conn.Close();
+                frm_SaveStudent.isUpdate = true;
+            }catch (Exception ex)
+            {
+                get.showToast("WARNING", "This ID is already used!");
+                frm_SaveStudent.isUpdate = false;
+            }
+
         }
 
         public void getDetails(string details_id)

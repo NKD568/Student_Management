@@ -34,8 +34,8 @@
             this.txt_Name = new MaterialSkin.Controls.MaterialTextBox2();
             this.txt_ID = new MaterialSkin.Controls.MaterialTextBox2();
             this.gpDetails = new ReaLTaiizor.Controls.ParrotGroupBox();
-            this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.btn_Save = new MaterialSkin.Controls.MaterialButton();
+            this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.gpDetails.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -67,6 +67,8 @@
             this.txt_Email.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
             this.txt_Email.TrailingIcon = null;
             this.txt_Email.UseSystemPasswordChar = false;
+            this.txt_Email.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txt_Email_KeyPress);
+            this.txt_Email.Leave += new System.EventHandler(this.txt_Email_Leave);
             // 
             // nightLabel1
             // 
@@ -87,6 +89,9 @@
             this.dtpBirthdate.Name = "dtpBirthdate";
             this.dtpBirthdate.Size = new System.Drawing.Size(356, 39);
             this.dtpBirthdate.TabIndex = 2;
+            this.dtpBirthdate.Value = new System.DateTime(2024, 3, 12, 0, 0, 0, 0);
+            this.dtpBirthdate.ValueChanged += new System.EventHandler(this.dtpBirthdate_ValueChanged);
+            this.dtpBirthdate.MouseEnter += new System.EventHandler(this.dtpBirthdate_MouseEnter);
             // 
             // txt_Name
             // 
@@ -116,6 +121,8 @@
             this.txt_Name.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
             this.txt_Name.TrailingIcon = null;
             this.txt_Name.UseSystemPasswordChar = false;
+            this.txt_Name.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txt_Text_KeyPress);
+            this.txt_Name.Leave += new System.EventHandler(this.txt_NullCheck);
             // 
             // txt_ID
             // 
@@ -145,6 +152,8 @@
             this.txt_ID.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
             this.txt_ID.TrailingIcon = null;
             this.txt_ID.UseSystemPasswordChar = false;
+            this.txt_ID.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txt_ID_KeyPress);
+            this.txt_ID.Leave += new System.EventHandler(this.txt_NullCheck);
             // 
             // gpDetails
             // 
@@ -166,11 +175,6 @@
             this.gpDetails.TabStop = false;
             this.gpDetails.Text = "Details";
             this.gpDetails.TextColor = System.Drawing.Color.DodgerBlue;
-            // 
-            // backgroundWorker1
-            // 
-            this.backgroundWorker1.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorker1_DoWork);
-            this.backgroundWorker1.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.backgroundWorker1_RunWorkerCompleted);
             // 
             // btn_Save
             // 
@@ -194,6 +198,11 @@
             this.btn_Save.UseAccentColor = false;
             this.btn_Save.UseVisualStyleBackColor = false;
             this.btn_Save.Click += new System.EventHandler(this.btn_Save_Click);
+            // 
+            // backgroundWorker1
+            // 
+            this.backgroundWorker1.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorker1_DoWork);
+            this.backgroundWorker1.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.backgroundWorker1_RunWorkerCompleted);
             // 
             // frm_SaveStudent
             // 

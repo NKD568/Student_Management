@@ -107,7 +107,8 @@
             this.cmb_seachOptions.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmb_seachOptions.DropDownWidth = 121;
             this.cmb_seachOptions.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.cmb_seachOptions.Font = new System.Drawing.Font("Roboto Medium", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
+            this.cmb_seachOptions.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
+            this.cmb_seachOptions.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.cmb_seachOptions.FormattingEnabled = true;
             this.cmb_seachOptions.Hint = "By";
             this.cmb_seachOptions.IntegralHeight = false;
@@ -128,6 +129,7 @@
             // studentContainer
             // 
             this.studentContainer.AutoScroll = true;
+            this.studentContainer.BackColor = System.Drawing.Color.LavenderBlush;
             this.studentContainer.Location = new System.Drawing.Point(24, 103);
             this.studentContainer.Margin = new System.Windows.Forms.Padding(0);
             this.studentContainer.Name = "studentContainer";
@@ -177,15 +179,15 @@
             // frm_Student
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
+            this.BackColor = System.Drawing.Color.SeaShell;
             this.ClientSize = new System.Drawing.Size(1100, 750);
             this.Controls.Add(this.searchResult);
             this.Controls.Add(this.studentContainer);
             this.Controls.Add(this.cmb_seachOptions);
             this.Controls.Add(this.btn_Add);
             this.Controls.Add(this.txt_Search);
-            this.FormStyle = MaterialSkin.Controls.MaterialForm.FormStyles.StatusAndActionBar_None;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "frm_Student";
-            this.Padding = new System.Windows.Forms.Padding(3, 0, 3, 3);
             this.Text = "frm_Student";
             this.Load += new System.EventHandler(this.frm_Student_Load);
             ((System.ComponentModel.ISupportInitialize)(this.searchResult)).EndInit();

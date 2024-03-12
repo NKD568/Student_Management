@@ -55,7 +55,7 @@ namespace Student_Management.FORMS
             }
         }
 
-        int y = 300;
+        int y = 200;
         private void toastHide_Tick(object sender, EventArgs e)
         {
             y--;

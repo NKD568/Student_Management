@@ -13,7 +13,7 @@ using MySql.Data.MySqlClient;
 
 namespace Student_Management.FORMS.Student
 {
-    public partial class frm_Student : MaterialForm
+    public partial class frm_Student : Form
     {
         MaterialSkinManager materialSkinManager;
         public frm_Student()
@@ -184,11 +184,6 @@ namespace Student_Management.FORMS.Student
             loadCards();
         }
     
-        public void showToast(string type, string message)
-        {
-            Toast_Message toast = new Toast_Message(type, message);
-            toast.Show();
-        }
 
     }
  }

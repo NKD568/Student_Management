@@ -6,6 +6,7 @@ using System.Data;
 using System.Drawing;
 using System.Drawing.Printing;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -14,6 +15,7 @@ namespace Student_Management.FORMS.Main
 {
     public partial class frm_Main : Form
     {
+        // UI
         private bool Drag;
         private int MouseX;
         private int MouseY;
@@ -23,6 +25,7 @@ namespace Student_Management.FORMS.Main
         private const int HTCAPTION = 0x2;
 
         private bool m_aeroEnabled;
+
 
         private const int CS_DROPSAHDOW = 0x0020000;
         private const int WM_NC_PAINT = 0x0085;
@@ -106,15 +109,23 @@ namespace Student_Management.FORMS.Main
             Controls.OfType<MdiClient>().FirstOrDefault().BackColor = Color.FromArgb(232, 234, 237);
         }
 
+
+        // UX 
         List<ucMenu> menuButtons;
-        frm_Schedule schedule;
-        frm_Student student;
+        frm_Student student = null;
+        frm_Schedule schedule = null;
+
+        public int mdiScreenWidth;
+        public int mdiScreenHeight;
+
         public frm_Main()
         {
             InitializeComponent();
             mdiProp();
             menuButtons = new List<ucMenu>() { Grade, Course, Student, Schedule };
-            ClickMenu(menuButtons);
+            ClickMenu(menuButtons);          
+            mdiScreenWidth = this.Width - menuSidebar.Size.Width;
+            mdiScreenHeight = this.Height - Topbar.Size.Height;
         }
 
         private void ClickMenu(List<ucMenu> _menu)
@@ -123,6 +134,43 @@ namespace Student_Management.FORMS.Main
             {
                 menu.menuClick += Menu_menuClick;
             }
+        }
+
+        // Prevent not declared or assigned Exception
+        private void CreateMenu()
+        {
+            Grade = new ucMenu
+            {
+                Name = "Grade",
+                BackColor = Color.Transparent,
+                Menu = "Grade",
+                Icon = Properties.Resources.grade_24
+            };
+
+            Course = new ucMenu
+            {
+                Name = "Course",
+                BackColor = Color.Transparent,
+                Menu = "Course",
+                Icon = Properties.Resources.book_24
+            };
+
+            Student = new ucMenu
+            {
+                Name = "Student",
+                BackColor = Color.Transparent,
+                Menu = "Student",
+                Icon = Properties.Resources.student_24
+            };
+
+            Schedule = new ucMenu
+            {
+                Name = "Schedule",
+                BackColor = Color.Transparent,
+                Menu = "Schedule",
+                Icon = Properties.Resources.schedule_24,
+
+            };
         }
 
         private void Menu_menuClick(object sender, EventArgs e)
@@ -224,6 +272,13 @@ namespace Student_Management.FORMS.Main
         {
             student = null;
         }
+
+        public void showToast(string type, string message)
+        {
+            Toast_Message toast = new Toast_Message(type, message);
+            toast.Show();
+        }
+
 
     }
 }

@@ -163,7 +163,8 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1281, 882);
+            this.BackColor = System.Drawing.Color.LavenderBlush;
+            this.ClientSize = new System.Drawing.Size(1281, 913);
             this.Controls.Add(this.ic_ToRight);
             this.Controls.Add(this.ic_ToLeft);
             this.Controls.Add(this.lbl_Month);

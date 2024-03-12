@@ -237,5 +237,9 @@
     <None Include="RESOURCES\Icons\arrow_right.png" />
     <None Include="RESOURCES\Icons\arrow_left.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="FORMS\Course\" />
+    <Folder Include="FORMS\Grade\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

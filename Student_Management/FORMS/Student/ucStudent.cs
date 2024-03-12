@@ -18,9 +18,9 @@ namespace Student_Management.FORMS.Student
             InitializeComponent();
         }
 
-        private void StudentControl_Load(object sender, EventArgs e)
+        private void ucStudent_Load(object sender, EventArgs e)
         {
-            if(frm_SaveStudent.refresh == true)
+            if (frm_SaveStudent.refresh == true)
             {
                 displayNew();
             }
@@ -53,7 +53,7 @@ namespace Student_Management.FORMS.Student
         public static string public_id;
         private void editToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            timer1.Start();
+            updatedTimer.Start();
             view = true;
             public_id = lbl_Id.Text;
             frm_SaveStudent form = new frm_SaveStudent();
@@ -63,10 +63,10 @@ namespace Student_Management.FORMS.Student
         private void btn_Options_Click(object sender, EventArgs e)
         {
             Point buttonPosition = btn_Options.PointToScreen(new Point(0, btn_Options.Height));
-            contextMenuStrip1.Show(buttonPosition);
+            optionMenu.Show(buttonPosition);
         }
 
-        private void timer1_Tick(object sender, EventArgs e)
+        private void updatedTimer_Tick(object sender, EventArgs e)
         {
             if (frm_SaveStudent.isUpdate == true)
             {
@@ -87,5 +87,7 @@ namespace Student_Management.FORMS.Student
             StudentInfo get = new StudentInfo();
             get.delete(lbl_Id.Text);
         }
+
+
     }
 }

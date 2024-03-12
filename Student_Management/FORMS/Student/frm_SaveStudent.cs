@@ -9,6 +9,9 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using MaterialSkin.Controls;
+using System.Net.Mail;
+using System.Text.RegularExpressions;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace Student_Management.FORMS.Student
 {
@@ -46,12 +49,10 @@ namespace Student_Management.FORMS.Student
                 save.birthdate = dtpBirthdate.Value;
                 save.email = txt_Email.Text;
                 save.Save();
-                refresh = true;
             }
             else{
                 StudentInfo up = new StudentInfo();
-                up.update(txt_Name.Text, dtpBirthdate.Value, txt_Email.Text, ucStudent.public_id);
-                isUpdate = true;
+                up.update(txt_Name.Text, dtpBirthdate.Value, txt_Email.Text, ucStudent.public_id);           
             }
 
         }
@@ -60,6 +61,7 @@ namespace Student_Management.FORMS.Student
         {
             backgroundWorker1.RunWorkerAsync();
         }
+
         bool update = false;
         private void frm_AddStudent_Load(object sender, EventArgs e)
         {
@@ -75,6 +77,7 @@ namespace Student_Management.FORMS.Student
             else
             {
                 txt_ID.Enabled = true;
+                dtpBirthdate.Value = DateTime.Today.AddDays(-1);
                 btn_Save.Text = "SAVE";
                 update = false;
             }
@@ -89,6 +92,80 @@ namespace Student_Management.FORMS.Student
             dtpBirthdate.Value = get.birthdate;
             txt_Email.Text = get.email;
         }
+
+        private void txt_ID_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsDigit(e.KeyChar) && !char.IsControl(e.KeyChar) ||
+                 txt_ID.TextLength >= 9 && !char.IsControl(e.KeyChar))
+            {
+                e.Handled = true;
+                return;
+            }
+        }
+
+        private void txt_Text_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            TextBox txt = (TextBox)sender;
+            if (!char.IsLetter(e.KeyChar) && !char.IsControl(e.KeyChar) ||
+                 txt.TextLength >= 50 && !char.IsControl(e.KeyChar))
+            {
+                e.Handled = true;
+                return;
+            }
+        }
+
+        private void txt_Email_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (txt_Email.TextLength >= 50 && !char.IsControl(e.KeyChar))
+            {
+                e.Handled = true;
+                return;
+            }
+        }
+
+        private DateTime selectedDate;
+        private void dtpBirthdate_MouseEnter(object sender, EventArgs e)
+        {
+            selectedDate = dtpBirthdate.Value;
+        }
+
+        private void dtpBirthdate_ValueChanged(object sender, EventArgs e)
+        {
+            if (dtpBirthdate.Value == DateTime.Today || dtpBirthdate.Value > DateTime.Today)
+            {
+                // Your logic here, e.g., display an error message or prevent future selection
+                MessageBox.Show("Please select a date that is not today or in the future.");
+                // Optionally, set the datepicker value to the current date:
+                dtpBirthdate.Value = selectedDate;
+            }
+        }
+
+        private void txt_Email_Leave(object sender, EventArgs e)
+        {
+            if (validateEmail(txt_Email.Text) == false)
+            {
+                TextBox txt = (TextBox)sender;
+                txt.Focus();
+                MessageBox.Show("Please enter a valid email address.");
+                
+            }
+        }
+
+        private bool validateEmail(string email)
+        {
+            return Regex.IsMatch(email, @"^[a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$");
+        }
+
+        private void txt_NullCheck(object sender, EventArgs e)
+        {
+            TextBox txt = (TextBox)sender;
+            if (txt.Text.Length == 0)
+            {
+                txt.Focus();
+                MessageBox.Show("This field must not be empty!");
+            }
+        }
+
 
     }
 }
