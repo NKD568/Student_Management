@@ -38,6 +38,7 @@ namespace Student_Management.FORMS.Course
             lbl_Name.Text = e.name;
             lbl_Description.Text = e.description;
             lbl_Credits.Text = e.credits.ToString();
+            lbl_isOpen.Text = e.isOpen.ToString();
         }
 
         public void displayNew()
@@ -48,6 +49,7 @@ namespace Student_Management.FORMS.Course
             lbl_Name.Text = get.name;
             lbl_Description.Text = get.description;
             lbl_Credits.Text = get.credits.ToString();
+            lbl_isOpen.Text = get.isOpen.ToString();
         }
         public static bool view = false;
         public static string public_id;
@@ -76,6 +78,7 @@ namespace Student_Management.FORMS.Course
                 lbl_Name.Text = get.name;
                 lbl_Description.Text = get.description;
                 lbl_Credits.Text = get.credits.ToString();
+                lbl_isOpen.Text = get.isOpen.ToString();
                 frm_SaveCourse.isUpdate = false;
             }
         }

@@ -59,7 +59,16 @@ namespace Student_Management.FORMS.Student
 
         private void btn_Save_Click(object sender, EventArgs e)
         {
-            backgroundWorker1.RunWorkerAsync();
+            if (txt_ID.Text == "" || txt_Name.Text == "" || txt_Email.Text == "")
+            {
+                MessageBox.Show("Please type all informations!");
+                return;
+            }
+
+            else
+            {
+                backgroundWorker1.RunWorkerAsync();
+            }
         }
 
         bool update = false;
@@ -107,7 +116,7 @@ namespace Student_Management.FORMS.Student
         private void txt_Text_KeyPress(object sender, KeyPressEventArgs e)
         {
             TextBox txt = (TextBox)sender;
-            if (!char.IsLetter(e.KeyChar) && !char.IsControl(e.KeyChar) ||
+            if (!char.IsControl(e.KeyChar) &&  !char.IsLetter(e.KeyChar) && !char.IsWhiteSpace(e.KeyChar) ||
                  txt.TextLength >= 50 && !char.IsControl(e.KeyChar))
             {
                 e.Handled = true;

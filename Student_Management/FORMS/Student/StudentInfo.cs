@@ -102,16 +102,24 @@ namespace Student_Management.FORMS.Student
 
         public void delete(string detail_id)
         {
-            MySqlConnection conn = new MySqlConnection (connstring);
-            conn.Open();
-            MySqlCommand cmd = conn.CreateCommand();
-            string sql = "DELETE FROM " + tableName + " WHERE id = '" + detail_id + "'";
-            cmd.CommandText= sql;
-            cmd.ExecuteNonQuery();
+            // ID is being used for foreign key Exception
             frm_Main get = new frm_Main();
-            get.showToast("SUCCESS", "Successfully Deleted");
-            cmd.Dispose ();
-            conn.Close();
+            try
+            {
+                MySqlConnection conn = new MySqlConnection(connstring);
+                conn.Open();
+                MySqlCommand cmd = conn.CreateCommand();
+                string sql = "DELETE FROM " + tableName + " WHERE id = '" + detail_id + "'";
+                cmd.CommandText = sql;
+                cmd.ExecuteNonQuery();
+                get.showToast("SUCCESS", "Successfully Deleted");
+                cmd.Dispose();
+                conn.Close();
+            }catch (Exception ex)
+            {
+                get.showToast("ERROR", "Student existed in other tables");
+            }
+
         }
 
         public void search(string key)

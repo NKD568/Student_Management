@@ -12,6 +12,11 @@ namespace Student_Management.FORMS.Main
 {
     public partial class ucMenu : UserControl
     {
+        public ucMenu()
+        {
+            InitializeComponent();
+        }
+
         string menuTitle = "";
         Image icon;
         Color _borderColor = Color.Transparent;
@@ -57,10 +62,7 @@ namespace Student_Management.FORMS.Main
             }
         }
 
-        public ucMenu()
-        {
-            InitializeComponent();
-        }
+
 
         private void ucMenu_Paint(object sender, PaintEventArgs e)
         {

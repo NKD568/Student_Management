@@ -29,12 +29,14 @@
         private void InitializeComponent()
         {
             this.gpDetails = new ReaLTaiizor.Controls.ParrotGroupBox();
+            this.materialLabel2 = new MaterialSkin.Controls.MaterialLabel();
+            this.cmb_isOpen = new MaterialSkin.Controls.MaterialComboBox();
+            this.trackBar_Credits = new ReaLTaiizor.Controls.HopeTrackBar();
             this.materialLabel1 = new MaterialSkin.Controls.MaterialLabel();
             this.txt_Description = new MaterialSkin.Controls.MaterialMultiLineTextBox2();
             this.btn_Save = new MaterialSkin.Controls.MaterialButton();
             this.txt_Name = new MaterialSkin.Controls.MaterialTextBox2();
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
-            this.trackBar_Credits = new ReaLTaiizor.Controls.HopeTrackBar();
             this.gpDetails.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -43,6 +45,8 @@
             this.gpDetails.BackColor = System.Drawing.Color.White;
             this.gpDetails.BorderColor = System.Drawing.Color.DodgerBlue;
             this.gpDetails.BorderWidth = 1;
+            this.gpDetails.Controls.Add(this.materialLabel2);
+            this.gpDetails.Controls.Add(this.cmb_isOpen);
             this.gpDetails.Controls.Add(this.trackBar_Credits);
             this.gpDetails.Controls.Add(this.materialLabel1);
             this.gpDetails.Controls.Add(this.txt_Description);
@@ -58,12 +62,73 @@
             this.gpDetails.Text = "Details";
             this.gpDetails.TextColor = System.Drawing.Color.DodgerBlue;
             // 
+            // materialLabel2
+            // 
+            this.materialLabel2.AutoSize = true;
+            this.materialLabel2.Depth = 0;
+            this.materialLabel2.Font = new System.Drawing.Font("Roboto", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.materialLabel2.Location = new System.Drawing.Point(38, 212);
+            this.materialLabel2.MouseState = MaterialSkin.MouseState.HOVER;
+            this.materialLabel2.Name = "materialLabel2";
+            this.materialLabel2.Size = new System.Drawing.Size(42, 19);
+            this.materialLabel2.TabIndex = 12;
+            this.materialLabel2.Text = "Open:";
+            // 
+            // cmb_isOpen
+            // 
+            this.cmb_isOpen.AutoResize = false;
+            this.cmb_isOpen.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.cmb_isOpen.Depth = 0;
+            this.cmb_isOpen.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
+            this.cmb_isOpen.DropDownHeight = 174;
+            this.cmb_isOpen.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmb_isOpen.DropDownWidth = 121;
+            this.cmb_isOpen.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
+            this.cmb_isOpen.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.cmb_isOpen.FormattingEnabled = true;
+            this.cmb_isOpen.IntegralHeight = false;
+            this.cmb_isOpen.ItemHeight = 43;
+            this.cmb_isOpen.Items.AddRange(new object[] {
+            "True",
+            "False"});
+            this.cmb_isOpen.Location = new System.Drawing.Point(87, 234);
+            this.cmb_isOpen.MaxDropDownItems = 4;
+            this.cmb_isOpen.MouseState = MaterialSkin.MouseState.OUT;
+            this.cmb_isOpen.Name = "cmb_isOpen";
+            this.cmb_isOpen.Size = new System.Drawing.Size(165, 49);
+            this.cmb_isOpen.StartIndex = 0;
+            this.cmb_isOpen.TabIndex = 11;
+            // 
+            // trackBar_Credits
+            // 
+            this.trackBar_Credits.AlwaysValueVisible = false;
+            this.trackBar_Credits.BallonArrowColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(158)))), ((int)(((byte)(255)))));
+            this.trackBar_Credits.BallonColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(158)))), ((int)(((byte)(255)))));
+            this.trackBar_Credits.BarColor = System.Drawing.Color.FromArgb(((int)(((byte)(218)))), ((int)(((byte)(220)))), ((int)(((byte)(223)))));
+            this.trackBar_Credits.BaseColor = System.Drawing.Color.Azure;
+            this.trackBar_Credits.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.trackBar_Credits.FillBarColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(158)))), ((int)(((byte)(255)))));
+            this.trackBar_Credits.Font = new System.Drawing.Font("Segoe UI", 10F);
+            this.trackBar_Credits.ForeColor = System.Drawing.Color.White;
+            this.trackBar_Credits.HeadBorderColor = System.Drawing.Color.PowderBlue;
+            this.trackBar_Credits.HeadColor = System.Drawing.Color.White;
+            this.trackBar_Credits.Location = new System.Drawing.Point(337, 238);
+            this.trackBar_Credits.MaxValue = 6;
+            this.trackBar_Credits.MinValue = 0;
+            this.trackBar_Credits.Name = "trackBar_Credits";
+            this.trackBar_Credits.ShowValue = true;
+            this.trackBar_Credits.Size = new System.Drawing.Size(187, 45);
+            this.trackBar_Credits.TabIndex = 10;
+            this.trackBar_Credits.ThemeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(158)))), ((int)(((byte)(255)))));
+            this.trackBar_Credits.UnknownColor = System.Drawing.Color.White;
+            this.trackBar_Credits.Value = 1;
+            // 
             // materialLabel1
             // 
             this.materialLabel1.AutoSize = true;
             this.materialLabel1.Depth = 0;
             this.materialLabel1.Font = new System.Drawing.Font("Roboto", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            this.materialLabel1.Location = new System.Drawing.Point(38, 245);
+            this.materialLabel1.Location = new System.Drawing.Point(311, 212);
             this.materialLabel1.MouseState = MaterialSkin.MouseState.HOVER;
             this.materialLabel1.Name = "materialLabel1";
             this.materialLabel1.Size = new System.Drawing.Size(50, 19);
@@ -90,7 +155,7 @@
             this.txt_Description.SelectionLength = 0;
             this.txt_Description.SelectionStart = 0;
             this.txt_Description.ShortcutsEnabled = true;
-            this.txt_Description.Size = new System.Drawing.Size(483, 135);
+            this.txt_Description.Size = new System.Drawing.Size(483, 100);
             this.txt_Description.TabIndex = 7;
             this.txt_Description.TabStop = false;
             this.txt_Description.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
@@ -156,30 +221,6 @@
             // 
             this.backgroundWorker1.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.backgroundWorker1_RunWorkerCompleted);
             // 
-            // trackBar_Credits
-            // 
-            this.trackBar_Credits.AlwaysValueVisible = false;
-            this.trackBar_Credits.BallonArrowColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(158)))), ((int)(((byte)(255)))));
-            this.trackBar_Credits.BallonColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(158)))), ((int)(((byte)(255)))));
-            this.trackBar_Credits.BarColor = System.Drawing.Color.FromArgb(((int)(((byte)(218)))), ((int)(((byte)(220)))), ((int)(((byte)(223)))));
-            this.trackBar_Credits.BaseColor = System.Drawing.Color.Azure;
-            this.trackBar_Credits.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.trackBar_Credits.FillBarColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(158)))), ((int)(((byte)(255)))));
-            this.trackBar_Credits.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.trackBar_Credits.ForeColor = System.Drawing.Color.White;
-            this.trackBar_Credits.HeadBorderColor = System.Drawing.Color.PowderBlue;
-            this.trackBar_Credits.HeadColor = System.Drawing.Color.White;
-            this.trackBar_Credits.Location = new System.Drawing.Point(94, 233);
-            this.trackBar_Credits.MaxValue = 6;
-            this.trackBar_Credits.MinValue = 1;
-            this.trackBar_Credits.Name = "trackBar_Credits";
-            this.trackBar_Credits.ShowValue = true;
-            this.trackBar_Credits.Size = new System.Drawing.Size(430, 45);
-            this.trackBar_Credits.TabIndex = 10;
-            this.trackBar_Credits.ThemeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(158)))), ((int)(((byte)(255)))));
-            this.trackBar_Credits.UnknownColor = System.Drawing.Color.White;
-            this.trackBar_Credits.Value = 1;
-            // 
             // frm_SaveCourse
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -205,5 +246,7 @@
         private MaterialSkin.Controls.MaterialMultiLineTextBox2 txt_Description;
         private MaterialSkin.Controls.MaterialLabel materialLabel1;
         private ReaLTaiizor.Controls.HopeTrackBar trackBar_Credits;
+        private MaterialSkin.Controls.MaterialLabel materialLabel2;
+        private MaterialSkin.Controls.MaterialComboBox cmb_isOpen;
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Student_Management.FORMS.Course;
+using Student_Management.FORMS.Grade;
 using Student_Management.FORMS.Student;
 using System;
 using System.Collections.Generic;
@@ -116,7 +117,7 @@ namespace Student_Management.FORMS.Main
         List<ucMenu> menuButtons;
         frm_Student student = null;
         frm_Course course = null;
-
+        frm_Grade grade = null;
         frm_Schedule schedule = null;
 
         public int mdiScreenWidth;
@@ -140,7 +141,7 @@ namespace Student_Management.FORMS.Main
             }
         }
 
-        // Prevent not declared or assigned Exception
+        // Prevent not declared or assigned Exception (Maybe...)
         private void CreateMenu()
         {
             Grade = new ucMenu
@@ -185,6 +186,7 @@ namespace Student_Management.FORMS.Main
 
                 case "Grade":
                     activeMenu(Grade, Course, Student, Schedule);
+                    Grade_Click();
                     break;
                 case "Course":
                     activeMenu(Course, Grade, Student, Schedule);
@@ -299,7 +301,26 @@ namespace Student_Management.FORMS.Main
             course = null;
         }
 
+        private void Grade_Click()
+        {
+            if (grade == null)
+            {
+                grade = new frm_Grade();
+                grade.FormClosed += Grade_FormClosed;
+                grade.MdiParent = this;
+                grade.Dock = DockStyle.Fill;
 
+                grade.Show();
+            }
+            else
+            {
+                grade.Activate();
+            }
+        }
+        private void Grade_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            grade = null;
+        }
 
         public void showToast(string type, string message)
         {

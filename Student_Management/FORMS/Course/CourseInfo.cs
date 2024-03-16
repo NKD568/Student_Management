@@ -13,12 +13,13 @@ namespace Student_Management.FORMS.Course
     {
         public string connstring = frm_Main.connstring;
         public string tableName = "tbcourse";
-        string tableAttributes = "(Name,Description,Credits)";
+        string tableAttributes = "(Name,Description,Credits,isOpen)";
 
         public int id { get; set; }
         public string name { get; set; }
         public string description { get; set; }
         public int credits { get; set; }
+        public bool isOpen { get; set; }
         public static List<CourseInfo> list = new List<CourseInfo>();
 
         public void Save()
@@ -26,11 +27,12 @@ namespace Student_Management.FORMS.Course
             MySqlConnection conn = new MySqlConnection(connstring);
             conn.Open();
             MySqlCommand cmd = conn.CreateCommand();
-            string sql = "INSERT INTO " + tableName + tableAttributes + "VALUES(?,?,?)";
+            string sql = "INSERT INTO " + tableName + tableAttributes + "VALUES(?,?,?,?)";
             cmd.CommandText = sql;
             cmd.Parameters.AddWithValue("Name", this.name);
             cmd.Parameters.AddWithValue("Description", this.description);
             cmd.Parameters.AddWithValue("Credits", this.credits);
+            cmd.Parameters.AddWithValue("isOpen", this.isOpen);
             cmd.ExecuteNonQuery();
             frm_Main get = new frm_Main();
 
@@ -54,9 +56,11 @@ namespace Student_Management.FORMS.Course
                 {
                     CourseInfo details = new CourseInfo
                     {
+                        id = Convert.ToInt32(reader["id"]),
                         name = reader["Name"].ToString(),
                         description = reader["Description"].ToString(),
-                        credits = Convert.ToInt32(reader["Credits"])
+                        credits = Convert.ToInt32(reader["Credits"]),
+                        isOpen = Convert.ToBoolean(reader["isOpen"]),
                     };
                     list.Add(details);
                 }
@@ -76,9 +80,12 @@ namespace Student_Management.FORMS.Course
             MySqlDataReader reader = cmd.ExecuteReader();
             if (reader.Read())
             {
+                id = Convert.ToInt32(reader["id"]);
                 name = reader["Name"].ToString();
                 description = reader["Description"].ToString();
                 credits = Convert.ToInt32(reader["Credits"]);
+                isOpen = Convert.ToBoolean(reader["isOpen"]);
+
             }
             cmd.Dispose();
             reader.Dispose();
@@ -87,16 +94,24 @@ namespace Student_Management.FORMS.Course
 
         public void delete(string detail_id)
         {
-            MySqlConnection conn = new MySqlConnection(connstring);
-            conn.Open();
-            MySqlCommand cmd = conn.CreateCommand();
-            string sql = "DELETE FROM " + tableName + " WHERE id = '" + detail_id + "'";
-            cmd.CommandText = sql;
-            cmd.ExecuteNonQuery();
+            // ID is being used for foreign key Exception
             frm_Main get = new frm_Main();
-            get.showToast("SUCCESS", "Successfully Deleted");
-            cmd.Dispose();
-            conn.Close();
+            try
+            {
+                MySqlConnection conn = new MySqlConnection(connstring);
+                conn.Open();
+                MySqlCommand cmd = conn.CreateCommand();
+                string sql = "DELETE FROM " + tableName + " WHERE id = '" + detail_id + "'";
+                cmd.CommandText = sql;
+                cmd.ExecuteNonQuery();
+                get.showToast("SUCCESS", "Successfully Deleted");
+                cmd.Dispose();
+                conn.Close();
+            }catch (Exception ex)
+            {
+                get.showToast("ERROR", "Course existed in other tables");              
+            }
+
         }
 
         public void search(string key)
@@ -115,9 +130,11 @@ namespace Student_Management.FORMS.Course
                 {
                     CourseInfo card = new CourseInfo
                     {
+                        id = Convert.ToInt32(reader["id"]),
                         name = reader["Name"].ToString(),
                         description = reader["Description"].ToString(),
-                        credits = Convert.ToInt32(reader["Credits"])
+                        credits = Convert.ToInt32(reader["Credits"]),
+                        isOpen = Convert.ToBoolean(reader["isOpen"])
                     };
                     list.Add(card);
                 }
@@ -127,15 +144,16 @@ namespace Student_Management.FORMS.Course
             conn.Close();
         }
 
-        public void update(string name, string description, int credits, string Id)
+        public void update(string name, string description, int credits, bool isOpen, string Id)
         {
             MySqlConnection conn = new MySqlConnection(connstring);
             conn.Open();
             MySqlCommand cmd = conn.CreateCommand();
-            string sql = "UPDATE " + tableName + " SET Name = @name, Description = @description, Credits = @credits WHERE id = @id";
+            string sql = "UPDATE " + tableName + " SET Name = @name, Description = @description, Credits = @credits, isOpen = @isOpen WHERE id = @id";
             cmd.Parameters.AddWithValue("@name", name);
             cmd.Parameters.AddWithValue("@description", description);
             cmd.Parameters.AddWithValue("@credits", credits);
+            cmd.Parameters.AddWithValue("@isOpen", isOpen);
             cmd.Parameters.AddWithValue("@id", Id);
             cmd.CommandText = sql;
             cmd.ExecuteNonQuery();
@@ -150,19 +168,22 @@ namespace Student_Management.FORMS.Course
             MySqlConnection conn = new MySqlConnection(connstring);
             conn.Open();
             MySqlCommand cmd = conn.CreateCommand();
-            string sql = "SELECT * FROM " + tableName + " WHERE id ='" + details_id + "'";
+            string sql = "SELECT * FROM " + tableName + " WHERE id = '" + details_id + "'";
             cmd.CommandText = sql;
             MySqlDataReader reader = cmd.ExecuteReader();
             if (reader.Read())
             {
+                id = Convert.ToInt32(reader["id"]);
                 name = reader["Name"].ToString();
                 description = reader["Description"].ToString();
                 credits = Convert.ToInt32(reader["Credits"]);
+                isOpen = Convert.ToBoolean(reader["isOpen"]);
             }
             cmd.Dispose();
             reader.Dispose();
             conn.Close();
         }
+
 
 
     }

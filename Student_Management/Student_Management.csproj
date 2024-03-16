@@ -126,6 +126,27 @@
     <Compile Include="FORMS\Course\ucCourse.Designer.cs">
       <DependentUpon>ucCourse.cs</DependentUpon>
     </Compile>
+    <Compile Include="FORMS\Grade\frm_Grade.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FORMS\Grade\frm_Grade.Designer.cs">
+      <DependentUpon>frm_Grade.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FORMS\Grade\frm_SaveGrade.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FORMS\Grade\frm_SaveGrade.Designer.cs">
+      <DependentUpon>frm_SaveGrade.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FORMS\Grade\GradeInfo.cs" />
+    <Compile Include="FORMS\Grade\Node.cs" />
+    <Compile Include="FORMS\Grade\ucGrade.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="FORMS\Grade\ucGrade.Designer.cs">
+      <DependentUpon>ucGrade.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FORMS\Grade\updateQueue.cs" />
     <Compile Include="FORMS\Main\frm_Main.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -189,6 +210,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FORMS\Course\ucCourse.resx">
       <DependentUpon>ucCourse.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FORMS\Grade\frm_Grade.resx">
+      <DependentUpon>frm_Grade.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FORMS\Grade\frm_SaveGrade.resx">
+      <DependentUpon>frm_SaveGrade.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FORMS\Grade\ucGrade.resx">
+      <DependentUpon>ucGrade.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FORMS\Main\frm_Main.resx">
       <DependentUpon>frm_Main.cs</DependentUpon>
@@ -265,8 +295,6 @@
     <None Include="RESOURCES\Icons\arrow_right.png" />
     <None Include="RESOURCES\Icons\arrow_left.png" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="FORMS\Grade\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

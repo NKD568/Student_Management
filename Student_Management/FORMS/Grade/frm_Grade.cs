@@ -1,6 +1,6 @@
 ﻿using MaterialSkin;
 using MySql.Data.MySqlClient;
-using Student_Management.FORMS.Student;
+using Student_Management.FORMS.Course;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -11,12 +11,12 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Student_Management.FORMS.Course
+namespace Student_Management.FORMS.Grade
 {
-    public partial class frm_Course : Form
+    public partial class frm_Grade : Form
     {
         MaterialSkinManager materialSkinManager;
-        public frm_Course()
+        public frm_Grade()
         {
             InitializeComponent();
             materialSkinManager = MaterialSkinManager.Instance;
@@ -30,7 +30,7 @@ namespace Student_Management.FORMS.Course
             this.ControlBox = false;
         }
 
-        private void frm_Course_Load(object sender, EventArgs e)
+        private void frm_Grade_Load(object sender, EventArgs e)
         {
             this.ControlBox = false;
             initDetails();
@@ -39,17 +39,17 @@ namespace Student_Management.FORMS.Course
         int i;
         private void loadCards()
         {
-            foreach (CourseInfo data in CourseInfo.list)
+            foreach (GradeInfo data in GradeInfo.list)
             {
                 i++;
-                ucCourse cards = new ucCourse();
+                ucGrade cards = new ucGrade();
                 cards.cardDetails(data);
-                courseContainer.Controls.Add(cards);
+                gradeContainer.Controls.Add(cards);
             }
         }
         private void initDetails()
         {
-            CourseInfo get = new CourseInfo();
+            GradeInfo get = new GradeInfo();
             get.getList();
         }
 
@@ -58,7 +58,7 @@ namespace Student_Management.FORMS.Course
             Form background = new Form();
             try
             {
-                using (frm_SaveCourse frm = new frm_SaveCourse())
+                using (frm_SaveGrade frm = new frm_SaveGrade())
                 {
                     background.StartPosition = FormStartPosition.Manual;
                     background.FormBorderStyle = FormBorderStyle.None;
@@ -90,8 +90,8 @@ namespace Student_Management.FORMS.Course
             if (e.KeyChar == (char)Keys.Enter)
             {
                 searchKey = txt_Search.Text;
-                courseContainer.Controls.Clear();
-                ucCourse u = new ucCourse();
+                gradeContainer.Controls.Clear();
+                ucGrade u = new ucGrade();
                 u.searchResult();
                 loadCards();
             }
@@ -99,41 +99,66 @@ namespace Student_Management.FORMS.Course
 
         private void deleteTimer_Tick(object sender, EventArgs e)
         {
-            if (ucCourse.isDeleted == true)
+            if (ucGrade.isDeleted == true)
             {
-                courseContainer.Controls.Clear();
+                gradeContainer.Controls.Clear();
                 initDetails();
                 loadCards();
-                ucCourse.isDeleted = false;
+                ucGrade.isDeleted = false;
             }
         }
 
         private void refreshTimer_Tick(object sender, EventArgs e)
         {
-            if (frm_SaveCourse.refresh == true)
+            if (frm_SaveGrade.refresh == true)
             {
-                ucCourse stu = new ucCourse();
-                courseContainer.Controls.Add(stu);
-                frm_SaveCourse.refresh = false;
+                ucGrade uc = new ucGrade();
+                gradeContainer.Controls.Add(uc);
+                frm_SaveGrade.refresh = false;
             }
         }
 
-        public static string searchType = "name";
+        public static string searchType = "tbgrade.StudentId";
         private void cmb_seachOptions_SelectedIndexChanged(object sender, EventArgs e)
         {
-            searchType = cmb_seachOptions.SelectedItem.ToString();
+            string type = cmb_seachOptions.SelectedItem.ToString();
+            switch (type)
+            {
+                case "Student Id": searchType = "tbgrade.StudentId"; break;
+                case "Student Name": searchType = "tbstudent.Name"; break;
+                case "Course": searchType = "tbcourse.Name"; break;
+                case "Grade": searchType = "tbgrade.Grade"; break;
+            }
         }
 
         private void txt_Search_TextChanged(object sender, EventArgs e)
         {
             if (txt_Search.Text.Length > 4)
             {
-                searchResult.Columns[result.Name].DataPropertyName = searchType;
-                CourseInfo get = new CourseInfo();
+                //searchResult.Columns[result.Name].DataPropertyName = searchType;
+                GradeInfo get = new GradeInfo();
                 using (MySqlConnection conn = new MySqlConnection(get.connstring))
                 {
                     conn.Open();
-                    string sql = "SELECT Name, isOpen FROM " + get.tableName;
+                    string sql;
+                    if (searchType == "tbstudent.Name")
+                    {
+                        sql = "SELECT tbstudent.Name AS StudentName, tbcourse.Name AS CourseName, tbgrade.Grade AS Grade FROM " + get.tableName +
+                                    " JOIN tbcourse on tbgrade.CourseId = tbcourse.id" +
+                                    " JOIN tbstudent on tbgrade.StudentId = tbstudent.id";
+                        searchResult.Columns[student.Name].DataPropertyName = "StudentName";
+                        searchResult.Columns[course.Name].DataPropertyName = "CourseName";
+                        searchResult.Columns[result.Name].DataPropertyName = "Grade";
+                    }
+                    else
+                    {
+                        sql = "SELECT tbgrade.StudentId AS StudentId, tbcourse.Name AS CourseName, tbgrade.Grade AS Grade FROM " + get.tableName +
+                                    " JOIN tbcourse on tbgrade.CourseId = tbcourse.id";
+                        searchResult.Columns[student.Name].DataPropertyName = "StudentId";
+                        searchResult.Columns[course.Name].DataPropertyName = "CourseName";
+                        searchResult.Columns[result.Name].DataPropertyName = "Grade";
+
+                    }
                     sql += " WHERE " + searchType + " LIKE @data";
                     MySqlCommand cmd = conn.CreateCommand();
                     cmd.CommandText = sql;
@@ -164,11 +189,19 @@ namespace Student_Management.FORMS.Course
         private void searchResult_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             DataGridViewRow row = this.searchResult.Rows[e.RowIndex];
-            txt_Search.Text = row.Cells["result"].Value.ToString();
+            switch (searchType)
+            {
+                case "tbgrade.StudentId":
+                case "tbstudent.Name": 
+                    txt_Search.Text = row.Cells[student.Name].Value.ToString(); break;
+                case "tbcourse.Name": txt_Search.Text = row.Cells[course.Name].Value.ToString(); break;
+                case "tbgrade.Grade": txt_Search.Text = row.Cells[result.Name].Value.ToString(); break;
+            }
+
             searchResult.Height = 0;
-            ucCourse u = new ucCourse();
+            ucGrade u = new ucGrade();
             searchKey = txt_Search.Text;
-            courseContainer.Controls.Clear();
+            gradeContainer.Controls.Clear();
             u.searchResult();
             loadCards();
         }

@@ -42,20 +42,29 @@ namespace Student_Management.FORMS.Course
                 save.name = txt_Name.Text;
                 save.description = txt_Description.Text;
                 save.credits = trackBar_Credits.Value;
+                save.isOpen = getCmbIsOpenItemValue();
                 save.Save();
                 refresh = true;
             }
             else
             {
                 CourseInfo up = new CourseInfo();
-                up.update(txt_Name.Text, txt_Description.Text, trackBar_Credits.Value, ucCourse.public_id);
+                up.update(txt_Name.Text, txt_Description.Text, trackBar_Credits.Value, getCmbIsOpenItemValue(), ucCourse.public_id);
                 isUpdate = true;
             }
         }
 
         private void btn_Save_Click(object sender, EventArgs e)
         {
-            backgroundWorker1.RunWorkerAsync();
+            if (txt_Name.Text == "" || txt_Description.Text == "")
+            {
+                MessageBox.Show("Please type all informations!");
+                return;
+            }
+            else
+            {
+                backgroundWorker1.RunWorkerAsync();
+            }
         }
 
         bool update = false;
@@ -83,6 +92,15 @@ namespace Student_Management.FORMS.Course
             txt_Name.Text = get.name;
             txt_Description.Text = get.description;
             trackBar_Credits.Value = get.credits;
+            cmb_isOpen.SelectedValue = get.isOpen;
+            if (get.isOpen == true)
+            {
+                cmb_isOpen.SelectedItem = "True";
+            }
+            else if (get.isOpen == false)
+            {
+                 cmb_isOpen.SelectedItem = "False";
+            }
         }
 
         private void txt_NullCheck(object sender, EventArgs e)
@@ -97,7 +115,7 @@ namespace Student_Management.FORMS.Course
 
         private void txt_Name_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (!char.IsLetter(e.KeyChar) && !char.IsControl(e.KeyChar) ||
+            if (!char.IsLetter(e.KeyChar) && !char.IsControl(e.KeyChar) && !char.IsWhiteSpace(e.KeyChar) && !char.IsDigit(e.KeyChar) ||
                  txt_Name.TextLength >= 50 && !char.IsControl(e.KeyChar))
             {
                 e.Handled = true;
@@ -107,13 +125,27 @@ namespace Student_Management.FORMS.Course
 
         private void txt_Description_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (!char.IsLetter(e.KeyChar) && !char.IsControl(e.KeyChar))
+            if (!char.IsLetter(e.KeyChar) && !char.IsControl(e.KeyChar) && !char.IsWhiteSpace(e.KeyChar) && !char.IsDigit(e.KeyChar))
             {
                 e.Handled = true;
                 return;
             }
         }
 
+        private bool getCmbIsOpenItemValue()
+        {
+            string selectedItem = cmb_isOpen.SelectedItem.ToString();
+            bool selectedBoolValue = false;
+            if (selectedItem == "True")
+            {
+                selectedBoolValue = true;
+            }
+            else if (selectedItem == "False")
+            {
+                selectedBoolValue = false;
+            }
+            return selectedBoolValue;
+        }
 
     }
 }

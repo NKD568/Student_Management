@@ -125,23 +125,22 @@ namespace Student_Management.FORMS.Student
         private void txt_Search_TextChanged(object sender, EventArgs e)
         {
             if(txt_Search.Text.Length > 4) {
-                string colType;
-                if (searchType != "id")
-                {
-                    colType = searchType;
-                }
-                else
-                {
-                    colType = "Name";
-                }
-                int colIndex = searchResult.Columns[result.Name].Index;
-                searchResult.Columns[colIndex].DataPropertyName = colType;
                 StudentInfo get = new StudentInfo();
                 using (MySqlConnection conn = new MySqlConnection(get.connstring))
                 {
                     conn.Open();
-                    string sql = "SELECT id, " + colType + " FROM " + get.tableName;
-                    sql += " WHERE " + colType + " LIKE @data";
+                    string sql;
+                    if(searchType == "id")
+                    {
+                        sql = "SELECT id, Name  FROM "+ get.tableName;
+                        searchResult.Columns[result.Name].DataPropertyName = "Name";
+                    }
+                    else
+                    {
+                        sql = "SELECT id, " + searchType + " FROM " + get.tableName;
+                        searchResult.Columns[result.Name].DataPropertyName = searchType;
+                    }
+                    sql += " WHERE " + searchType + " LIKE @data";
                     MySqlCommand cmd = conn.CreateCommand();
                     cmd.CommandText = sql;
                     cmd.Parameters.AddWithValue("@data",txt_Search.Text + "%");
