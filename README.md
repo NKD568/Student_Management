@@ -16,7 +16,7 @@ This project is used to manage student's final test schedule and their grade.
 * Step 3: Find .sln file and run it on Visual Studio.
 * Step 4: Find .sql database file and import it to your database.
 * Step 5: Start you database and then run project on Visual Studio.
-Note: These are suggestions steps, you can use other ways.
+* Note: These are suggestions steps, you can use other ways.
 
 **Usage:**
             (Update later)
