@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace Student_Management.FORMS.Course
 {
@@ -184,6 +185,31 @@ namespace Student_Management.FORMS.Course
             conn.Close();
         }
 
+        public bool isOccupied(int details_id)
+        {
+            MySqlConnection conn = new MySqlConnection(connstring);
+            conn.Open();
+            MySqlCommand cmd = conn.CreateCommand();
+            string sql = "SELECT * FROM tbgrade WHERE id IN (SELECT GradeId FROM tbschedule) AND CourseId = '" + details_id + "'";
+            cmd.CommandText = sql;
+            MySqlDataReader reader = cmd.ExecuteReader();
+            if (reader.HasRows)
+            {
+                cmd.Dispose();
+                reader.Dispose();
+                conn.Close();
+                return true;
+
+            }
+            else
+            {
+                cmd.Dispose();
+                reader.Dispose();
+                conn.Close();
+                return false;
+
+            }
+        }
 
 
     }

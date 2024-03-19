@@ -45,7 +45,6 @@ namespace Student_Management.FORMS.Grade
         bool update = false;
         private void frm_SaveGrade_Load(object sender, EventArgs e)
         {
-            this.CenterToScreen();
             if (ucGrade.view == true)
             {
                 getDetail();
@@ -94,7 +93,7 @@ namespace Student_Management.FORMS.Grade
             else
             {
                 GradeInfo up = new GradeInfo();
-                up.update(ucGrade.public_studentId, ucGrade.public_courseId, getCmbGradeItemValue());
+                up.update(ucGrade.publicId, getCmbGradeItemValue());
                 isUpdate = true;
             }
         }
@@ -187,7 +186,7 @@ namespace Student_Management.FORMS.Grade
         private void getDetail()
         {
             GradeInfo get = new GradeInfo();
-            get.getDetails(ucGrade.public_studentId, ucGrade.public_courseId);
+            get.getDetails(ucGrade.publicId);
             txt_CourseName.Text = get.courseName;
             if(get.courseState == true)
             {
@@ -199,7 +198,7 @@ namespace Student_Management.FORMS.Grade
             }
             txt_StudentId.Text = get.studentId.ToString();
             txt_StudentName.Text = get.studentName;
-            cmb_Grade.SelectedValue = get.grade;    
+            cmb_Grade.SelectedItem = get.grade;    
         }
 
         bool courCellClicked = false;
@@ -240,6 +239,7 @@ namespace Student_Management.FORMS.Grade
             txt_StudentName.Visible = s;
             cmb_Grade.Visible = s;
         }
+
         private void resetControls()
         {
             txt_StudentId.Text = "";

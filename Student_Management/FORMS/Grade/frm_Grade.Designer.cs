@@ -33,13 +33,14 @@
             this.refreshTimer = new System.Windows.Forms.Timer(this.components);
             this.deleteTimer = new System.Windows.Forms.Timer(this.components);
             this.searchResult = new System.Windows.Forms.DataGridView();
+            this.student = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.course = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.result = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.gradeContainer = new System.Windows.Forms.FlowLayoutPanel();
             this.cmb_seachOptions = new MaterialSkin.Controls.MaterialComboBox();
             this.btn_Add = new ReaLTaiizor.Controls.MaterialFloatingActionButton();
             this.txt_Search = new MaterialSkin.Controls.MaterialTextBox2();
-            this.student = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.course = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.result = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.updateInfoTimer = new System.Windows.Forms.Timer(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.searchResult)).BeginInit();
             this.SuspendLayout();
             // 
@@ -67,7 +68,7 @@
             this.student,
             this.course,
             this.result});
-            this.searchResult.Location = new System.Drawing.Point(37, 88);
+            this.searchResult.Location = new System.Drawing.Point(29, 95);
             this.searchResult.Name = "searchResult";
             this.searchResult.RowHeadersVisible = false;
             this.searchResult.RowHeadersWidth = 62;
@@ -77,11 +78,34 @@
             this.searchResult.TabIndex = 19;
             this.searchResult.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.searchResult_CellClick);
             // 
+            // student
+            // 
+            this.student.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.student.DataPropertyName = "Student";
+            this.student.HeaderText = "Student";
+            this.student.MinimumWidth = 8;
+            this.student.Name = "student";
+            // 
+            // course
+            // 
+            this.course.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.course.DataPropertyName = "Course";
+            this.course.HeaderText = "Course";
+            this.course.MinimumWidth = 8;
+            this.course.Name = "course";
+            // 
+            // result
+            // 
+            this.result.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.result.HeaderText = "result";
+            this.result.MinimumWidth = 8;
+            this.result.Name = "result";
+            // 
             // gradeContainer
             // 
             this.gradeContainer.AutoScroll = true;
             this.gradeContainer.BackColor = System.Drawing.Color.Honeydew;
-            this.gradeContainer.Location = new System.Drawing.Point(37, 98);
+            this.gradeContainer.Location = new System.Drawing.Point(29, 105);
             this.gradeContainer.Margin = new System.Windows.Forms.Padding(0);
             this.gradeContainer.Name = "gradeContainer";
             this.gradeContainer.Size = new System.Drawing.Size(1100, 600);
@@ -108,7 +132,7 @@
             "Student Name",
             "Course",
             "Grade"});
-            this.cmb_seachOptions.Location = new System.Drawing.Point(398, 45);
+            this.cmb_seachOptions.Location = new System.Drawing.Point(390, 52);
             this.cmb_seachOptions.MaxDropDownItems = 4;
             this.cmb_seachOptions.MouseState = MaterialSkin.MouseState.OUT;
             this.cmb_seachOptions.Name = "cmb_seachOptions";
@@ -123,7 +147,7 @@
             this.btn_Add.Depth = 0;
             this.btn_Add.ForeColor = System.Drawing.SystemColors.ControlText;
             this.btn_Add.Icon = ((System.Drawing.Image)(resources.GetObject("btn_Add.Icon")));
-            this.btn_Add.Location = new System.Drawing.Point(1097, 701);
+            this.btn_Add.Location = new System.Drawing.Point(1089, 708);
             this.btn_Add.Mini = true;
             this.btn_Add.MouseState = ReaLTaiizor.Helper.MaterialDrawHelper.MaterialMouseState.HOVER;
             this.btn_Add.Name = "btn_Add";
@@ -142,7 +166,7 @@
             this.txt_Search.HideSelection = true;
             this.txt_Search.Hint = "Search";
             this.txt_Search.LeadingIcon = ((System.Drawing.Image)(resources.GetObject("txt_Search.LeadingIcon")));
-            this.txt_Search.Location = new System.Drawing.Point(37, 46);
+            this.txt_Search.Location = new System.Drawing.Point(29, 53);
             this.txt_Search.MaxLength = 32767;
             this.txt_Search.MouseState = MaterialSkin.MouseState.OUT;
             this.txt_Search.Name = "txt_Search";
@@ -163,34 +187,17 @@
             this.txt_Search.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txt_Search_KeyPress);
             this.txt_Search.TextChanged += new System.EventHandler(this.txt_Search_TextChanged);
             // 
-            // student
+            // updateInfoTimer
             // 
-            this.student.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.student.DataPropertyName = "Student";
-            this.student.HeaderText = "Student";
-            this.student.MinimumWidth = 8;
-            this.student.Name = "student";
-            // 
-            // course
-            // 
-            this.course.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.course.DataPropertyName = "Course";
-            this.course.HeaderText = "Course";
-            this.course.MinimumWidth = 8;
-            this.course.Name = "course";
-            // 
-            // result
-            // 
-            this.result.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.result.HeaderText = "result";
-            this.result.MinimumWidth = 8;
-            this.result.Name = "result";
+            this.updateInfoTimer.Enabled = true;
+            this.updateInfoTimer.Interval = 1;
+            this.updateInfoTimer.Tick += new System.EventHandler(this.updateInfoTimer_Tick);
             // 
             // frm_Grade
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.BackColor = System.Drawing.Color.LightSteelBlue;
-            this.ClientSize = new System.Drawing.Size(1178, 744);
+            this.ClientSize = new System.Drawing.Size(1200, 800);
             this.Controls.Add(this.searchResult);
             this.Controls.Add(this.gradeContainer);
             this.Controls.Add(this.cmb_seachOptions);
@@ -217,5 +224,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn student;
         private System.Windows.Forms.DataGridViewTextBoxColumn course;
         private System.Windows.Forms.DataGridViewTextBoxColumn result;
+        private System.Windows.Forms.Timer updateInfoTimer;
     }
 }

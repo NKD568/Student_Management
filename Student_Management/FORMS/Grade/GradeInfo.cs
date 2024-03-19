@@ -16,6 +16,7 @@ namespace Student_Management.FORMS.Grade
         public string tableName = "tbgrade";
         string tableAttributes = "(StudentId,CourseId,Grade)";
 
+        public int id { get; set; }
         public int studentId { get; set; }
         public string studentName { get; set; }
         public int courseId { get; set; }
@@ -57,6 +58,7 @@ namespace Student_Management.FORMS.Grade
                 {
                     GradeInfo details = new GradeInfo
                     {
+                        id = Convert.ToInt32(reader["id"]),
                         studentId = Convert.ToInt32(reader["StudentId"]),
                         courseId = Convert.ToInt32(reader["CourseId"]),
                         grade = reader["Grade"].ToString(),
@@ -76,12 +78,13 @@ namespace Student_Management.FORMS.Grade
         {
             MySqlConnection conn = new MySqlConnection(connstring);
             conn.Open();
-            string sql = "SELECT * FROM " + tableName + " ORDER BY created_at DESC LIMIT 1";
+            string sql = "SELECT * FROM " + tableName + " ORDER BY id DESC LIMIT 1";
             MySqlCommand cmd = conn.CreateCommand();
             cmd.CommandText = sql;
             MySqlDataReader reader = cmd.ExecuteReader();
             if (reader.Read())
             {
+                id = Convert.ToInt32(reader["id"]);
                 studentId = Convert.ToInt32(reader["StudentId"]);
                 courseId = Convert.ToInt32(reader["CourseId"]);
                 grade = reader["Grade"].ToString();
@@ -94,7 +97,7 @@ namespace Student_Management.FORMS.Grade
             conn.Close();
         }
 
-        public void delete(string student_Id, string course_Id)
+        public void delete(string id)
         {
             // ID is being used for foreign key Exception
             frm_Main get = new frm_Main();
@@ -103,8 +106,9 @@ namespace Student_Management.FORMS.Grade
                 MySqlConnection conn = new MySqlConnection(connstring);
                 conn.Open();
                 MySqlCommand cmd = conn.CreateCommand();
-                string sql = "DELETE FROM " + tableName + " WHERE StudentId = '" + student_Id + "' AND CourseId = '" + course_Id + "'";
+                string sql = "DELETE FROM " + tableName + " WHERE id = @id";
                 cmd.CommandText = sql;
+                cmd.Parameters.AddWithValue("@id", id);
                 cmd.ExecuteNonQuery();
                 get.showToast("SUCCESS", "Successfully Deleted");
                 cmd.Dispose();
@@ -134,6 +138,7 @@ namespace Student_Management.FORMS.Grade
                 {
                     GradeInfo card = new GradeInfo
                     {
+                        id = Convert.ToInt32(reader["id"]),
                         studentId = Convert.ToInt32(reader["StudentId"]),
                         courseId = Convert.ToInt32(reader["CourseId"]),
                         grade = reader["Grade"].ToString(),
@@ -149,15 +154,14 @@ namespace Student_Management.FORMS.Grade
             conn.Close();
         }
 
-        public void update(int student_Id, int course_Id, string grade)
+        public void update(int id, string grade)
         {
             MySqlConnection conn = new MySqlConnection(connstring);
             conn.Open();
             MySqlCommand cmd = conn.CreateCommand();
-            string sql = "UPDATE " + tableName + " SET Grade = @grade WHERE StudentId = @studentId AND CourseId = @courseId";
+            string sql = "UPDATE " + tableName + " SET Grade = @grade WHERE id = @id ";
             cmd.Parameters.AddWithValue("@grade", grade);
-            cmd.Parameters.AddWithValue("@studentId", student_Id);
-            cmd.Parameters.AddWithValue("@courseId", course_Id);
+            cmd.Parameters.AddWithValue("@id", id);
             cmd.CommandText = sql;
             cmd.ExecuteNonQuery();
             frm_Main get = new frm_Main();
@@ -166,23 +170,25 @@ namespace Student_Management.FORMS.Grade
             conn.Close();
         }
 
-        public void getDetails(int student_Id, int course_Id)
+        public void getDetails(int id)
         {
             MySqlConnection conn = new MySqlConnection(connstring);
             conn.Open();
             MySqlCommand cmd = conn.CreateCommand();
-            string sql = "SELECT Grade FROM " + tableName + " WHERE StudentId ='" + student_Id + "' AND CourseId = '" + course_Id + "'";
+            string sql = "SELECT * FROM " + tableName + " WHERE id = @id";
             cmd.CommandText = sql;
+            cmd.Parameters.AddWithValue("@id", id);
             MySqlDataReader reader = cmd.ExecuteReader();
-            studentId = student_Id;
-            courseId = course_Id;
-            getStudentName(student_Id);
-            getCourseName(course_Id);
-            getCourseState(course_Id);
+            this.id = id;
             if (reader.Read())
             {
+                studentId = Convert.ToInt32(reader["StudentId"]);
+                courseId = Convert.ToInt32(reader["CourseId"]);
                 grade = reader["Grade"].ToString();
-            }
+                getStudentName(studentId);
+                getCourseName(courseId);
+                getCourseState(courseId);
+            }           
             cmd.Dispose();
             reader.Dispose();
             conn.Close();
@@ -193,8 +199,9 @@ namespace Student_Management.FORMS.Grade
             MySqlConnection conn = new MySqlConnection(connstring);
             conn.Open();
             MySqlCommand cmd = conn.CreateCommand();
-            string sql = "SELECT id ,Name FROM tbstudent WHERE id = '" + student_id + "'";
+            string sql = "SELECT Name FROM tbstudent WHERE id = @id";
             cmd.CommandText = sql;
+            cmd.Parameters.AddWithValue("@id", student_id);
             MySqlDataReader reader = cmd.ExecuteReader();
             if (reader.Read())
             {
@@ -210,8 +217,9 @@ namespace Student_Management.FORMS.Grade
             MySqlConnection conn = new MySqlConnection(connstring);
             conn.Open();
             MySqlCommand cmd = conn.CreateCommand();
-            string sql = "SELECT id FROM tbcourse WHERE Name = '" + course_Name + "'";
+            string sql = "SELECT id FROM tbcourse WHERE Name = @name";
             cmd.CommandText = sql;
+            cmd.Parameters.AddWithValue("@name", course_Name);
             MySqlDataReader reader = cmd.ExecuteReader();
             if (reader.Read())
             {
@@ -227,8 +235,9 @@ namespace Student_Management.FORMS.Grade
             MySqlConnection conn = new MySqlConnection(connstring);
             conn.Open();
             MySqlCommand cmd = conn.CreateCommand();
-            string sql = "SELECT Name FROM tbcourse WHERE id = '" + course_Id + "'";
+            string sql = "SELECT Name FROM tbcourse WHERE id = @id";
             cmd.CommandText = sql;
+            cmd.Parameters.AddWithValue("@id", course_Id);
             MySqlDataReader reader = cmd.ExecuteReader();
             if (reader.Read())
             {
@@ -244,8 +253,9 @@ namespace Student_Management.FORMS.Grade
             MySqlConnection conn = new MySqlConnection(connstring);
             conn.Open();
             MySqlCommand cmd = conn.CreateCommand();
-            string sql = "SELECT isOpen FROM tbcourse WHERE id = '" + course_Id + "'";
+            string sql = "SELECT isOpen FROM tbcourse WHERE id = @id";
             cmd.CommandText = sql;
+            cmd.Parameters.AddWithValue("@id", course_Id);
             MySqlDataReader reader = cmd.ExecuteReader();
             if (reader.Read())
             {
@@ -254,40 +264,6 @@ namespace Student_Management.FORMS.Grade
             cmd.Dispose();
             reader.Dispose();
             conn.Close();
-        }
-
-        public DataTable getAllCourseNames(bool isOpen)
-        {
-            MySqlConnection conn = new MySqlConnection(connstring);
-            conn.Open();
-            MySqlCommand cmd = conn.CreateCommand();
-            string sql = "SELECT Name FROM tbcourse WHERE isOpen = @isOpen";
-            cmd.CommandText = sql;
-            cmd.Parameters.AddWithValue("@isOpen", isOpen);
-            MySqlDataAdapter da = new MySqlDataAdapter(cmd);
-            DataTable dt = new DataTable();
-            da.Fill(dt);
-            cmd.Dispose();
-            da.Dispose();
-            conn.Close();
-            return dt;
-        }
-
-        public DataTable getEnrolledStudentId(int course_Id)
-        {
-            MySqlConnection conn = new MySqlConnection(connstring);
-            conn.Open();
-            MySqlCommand cmd = conn.CreateCommand();
-            string sql = "SELECT id FROM tbstudent WHERE id IN (SELECT StudentId FROM " + tableName + " WHERE CourseId = @courseId)";
-            cmd.CommandText = sql;
-            cmd.Parameters.AddWithValue("@courseId", course_Id);
-            MySqlDataAdapter da = new MySqlDataAdapter(cmd);
-            DataTable dt = new DataTable();
-            da.Fill(dt);
-            cmd.Dispose();
-            da.Dispose();
-            conn.Close();
-            return dt;
         }
 
 

@@ -43,6 +43,7 @@
             this.lbl_StuId = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.lbl_StuName = new System.Windows.Forms.Label();
+            this.lbl_Id = new System.Windows.Forms.Label();
             this.optionMenu.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.btn_Options)).BeginInit();
             this.SuspendLayout();
@@ -122,7 +123,7 @@
             // lbl_CourseId
             // 
             this.lbl_CourseId.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbl_CourseId.Location = new System.Drawing.Point(13, 13);
+            this.lbl_CourseId.Location = new System.Drawing.Point(55, 13);
             this.lbl_CourseId.Name = "lbl_CourseId";
             this.lbl_CourseId.Size = new System.Drawing.Size(10, 10);
             this.lbl_CourseId.TabIndex = 25;
@@ -165,10 +166,20 @@
             this.lbl_StuName.Size = new System.Drawing.Size(221, 28);
             this.lbl_StuName.TabIndex = 28;
             // 
+            // lbl_Id
+            // 
+            this.lbl_Id.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbl_Id.Location = new System.Drawing.Point(3, 13);
+            this.lbl_Id.Name = "lbl_Id";
+            this.lbl_Id.Size = new System.Drawing.Size(10, 10);
+            this.lbl_Id.TabIndex = 29;
+            this.lbl_Id.Visible = false;
+            // 
             // ucGrade
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.BackColor = System.Drawing.Color.LightGreen;
+            this.Controls.Add(this.lbl_Id);
             this.Controls.Add(this.lbl_StuName);
             this.Controls.Add(this.lbl_StuId);
             this.Controls.Add(this.label3);
@@ -204,5 +215,6 @@
         private System.Windows.Forms.Label lbl_StuId;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label lbl_StuName;
+        private System.Windows.Forms.Label lbl_Id;
     }
 }

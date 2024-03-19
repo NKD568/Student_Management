@@ -1,4 +1,5 @@
 ﻿using Student_Management.FORMS.Course;
+using Student_Management.FORMS.Student;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -34,6 +35,7 @@ namespace Student_Management.FORMS.Grade
 
         public void cardDetails(GradeInfo e)
         {
+            lbl_Id.Text = e.id.ToString();
             lbl_CourseId.Text = e.courseId.ToString();
             lbl_StuId.Text = e.studentId.ToString();
             lbl_StuName.Text = e.studentName.ToString();
@@ -45,6 +47,7 @@ namespace Student_Management.FORMS.Grade
         {
             GradeInfo get = new GradeInfo();
             get.getNewInsertedData();
+            lbl_Id.Text = get.id.ToString();
             lbl_CourseId.Text = get.courseId.ToString();
             lbl_StuId.Text = get.studentId.ToString();
             lbl_StuName.Text = get.studentName.ToString();
@@ -53,14 +56,12 @@ namespace Student_Management.FORMS.Grade
         }
 
         public static bool view = false;
-        public static int public_studentId;
-        public static int public_courseId;
+        public static int publicId;
         private void editToolStripMenuItem_Click(object sender, EventArgs e)
         {
             updatedTimer.Start();
             view = true;
-            public_studentId = Convert.ToInt32(lbl_StuId.Text);
-            public_courseId = Convert.ToInt32(lbl_CourseId.Text);
+            publicId = Convert.ToInt32(lbl_Id.Text);
             frm_SaveGrade form = new frm_SaveGrade();
             form.ShowDialog();
         }
@@ -76,7 +77,8 @@ namespace Student_Management.FORMS.Grade
             if (frm_SaveGrade.isUpdate == true)
             {
                 GradeInfo get = new GradeInfo();
-                get.getDetails(public_studentId, public_courseId);
+                get.getDetails(publicId);
+                lbl_Id.Text = get.id.ToString();
                 lbl_CourseId.Text = get.courseId.ToString();
                 lbl_StuId.Text = get.studentId.ToString();
                 lbl_Course.Text = get.courseName;
@@ -90,7 +92,7 @@ namespace Student_Management.FORMS.Grade
         {
             isDeleted = true;
             GradeInfo get = new GradeInfo();
-            get.delete(lbl_StuId.Text ,lbl_CourseId.Text);
+            get.delete(lbl_Id.Text);
         }
 
 

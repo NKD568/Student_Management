@@ -212,6 +212,8 @@
             this.FormStyle = MaterialSkin.Controls.MaterialForm.FormStyles.ActionBar_None;
             this.Name = "frm_SaveStudent";
             this.Padding = new System.Windows.Forms.Padding(3, 24, 3, 3);
+            this.Sizable = false;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "frm_AddStudent";
             this.Load += new System.EventHandler(this.frm_SaveStudent_Load);
             this.gpDetails.ResumeLayout(false);

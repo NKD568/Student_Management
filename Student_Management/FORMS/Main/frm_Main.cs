@@ -212,11 +212,6 @@ namespace Student_Management.FORMS.Main
             }
         }
 
-        private void frm_Main_Load(object sender, EventArgs e)
-        {
-            this.CenterToScreen();
-        }
-
         private void Topbar_MouseDown(object sender, MouseEventArgs e)
         {
             Drag = true;
@@ -327,7 +322,5 @@ namespace Student_Management.FORMS.Main
             Toast_Message toast = new Toast_Message(type, message);
             toast.Show();
         }
-
-
     }
 }

@@ -95,8 +95,8 @@
             this.menuSidebar.Controls.Add(this.Course);
             this.menuSidebar.Controls.Add(this.Grade);
             this.menuSidebar.Dock = System.Windows.Forms.DockStyle.Left;
-            this.menuSidebar.gradientBottom = System.Drawing.Color.FromArgb(((int)(((byte)(179)))), ((int)(((byte)(36)))), ((int)(((byte)(130)))));
-            this.menuSidebar.gradientTop = System.Drawing.Color.FromArgb(((int)(((byte)(243)))), ((int)(((byte)(112)))), ((int)(((byte)(35)))));
+            this.menuSidebar.gradientBottom = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.menuSidebar.gradientTop = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
             this.menuSidebar.Location = new System.Drawing.Point(0, 34);
             this.menuSidebar.Name = "menuSidebar";
             this.menuSidebar.Size = new System.Drawing.Size(100, 766);
@@ -163,8 +163,8 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.IsMdiContainer = true;
             this.Name = "frm_Main";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "frm_Main";
-            this.Load += new System.EventHandler(this.frm_Main_Load);
             this.Topbar.ResumeLayout(false);
             this.Topbar.PerformLayout();
             this.menuSidebar.ResumeLayout(false);

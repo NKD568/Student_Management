@@ -1,5 +1,6 @@
 ﻿using MaterialSkin;
 using MaterialSkin.Controls;
+using Student_Management.FORMS.Main;
 using Student_Management.FORMS.Student;
 using System;
 using System.Collections.Generic;
@@ -70,7 +71,6 @@ namespace Student_Management.FORMS.Course
         bool update = false;
         private void frm_SaveCourse_Load(object sender, EventArgs e)
         {
-            this.CenterToScreen();
             if (ucCourse.view == true)
             {
                 getDetail();
@@ -88,7 +88,7 @@ namespace Student_Management.FORMS.Course
         private void getDetail()
         {
             CourseInfo get = new CourseInfo();
-            get.getDetails(ucCourse.public_id);
+            get.getDetails(ucCourse.public_id);           
             txt_Name.Text = get.name;
             txt_Description.Text = get.description;
             trackBar_Credits.Value = get.credits;
@@ -100,6 +100,17 @@ namespace Student_Management.FORMS.Course
             else if (get.isOpen == false)
             {
                  cmb_isOpen.SelectedItem = "False";
+            }
+            bool isOnSchedule = get.isOccupied(Convert.ToInt32(ucCourse.public_id));
+            if (isOnSchedule)
+            {
+                frm_Main show = new frm_Main();
+                show.showToast("INFO", "This Course is on Schudule");
+                cmb_isOpen.Enabled = false;
+            }
+            else
+            {
+                cmb_isOpen.Enabled = true;
             }
         }
 

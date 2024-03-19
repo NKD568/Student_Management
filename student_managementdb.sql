@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 16, 2024 at 01:55 AM
+-- Generation Time: Mar 19, 2024 at 05:35 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.0.30
 
@@ -40,12 +40,12 @@ CREATE TABLE `tbcourse` (
 --
 
 INSERT INTO `tbcourse` (`id`, `Name`, `Description`, `Credits`, `isOpen`) VALUES
-(1, 'Introduction to CS', 'Basic programming concepts in Python', 3, 0),
+(1, 'Introduction to CS', 'Basic programming concepts in Python', 3, 1),
 (2, 'Data Structures', 'Linked lists, trees, and algorithms', 3, 0),
 (3, 'Calculus I', 'Limits, derivatives, and integrals', 4, 0),
 (4, 'English Literature', 'Analysis of literary works from various periods', 3, 1),
 (5, 'Calculus 2', 'Next part', 0, 1),
-(9, 'Test Course 1', 'Info1', 1, 1),
+(9, 'Test Course A', 'Info1', 1, 1),
 (10, 'Test Course 4', 'ss', 2, 1);
 
 -- --------------------------------------------------------
@@ -55,23 +55,45 @@ INSERT INTO `tbcourse` (`id`, `Name`, `Description`, `Credits`, `isOpen`) VALUES
 --
 
 CREATE TABLE `tbgrade` (
+  `id` int(11) NOT NULL,
   `StudentId` int(11) NOT NULL,
   `CourseId` int(11) NOT NULL,
-  `Grade` char(2) DEFAULT NULL,
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
+  `Grade` char(2) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `tbgrade`
 --
 
-INSERT INTO `tbgrade` (`StudentId`, `CourseId`, `Grade`, `created_at`) VALUES
-(205555, 9, NULL, '2024-03-15 16:10:29'),
-(215052011, 9, 'D', '2024-03-15 14:22:17'),
-(215052011, 10, NULL, '2024-03-15 14:45:05'),
-(215052012, 9, NULL, '2024-03-15 14:44:37'),
-(215052012, 10, NULL, '2024-03-15 14:45:12'),
-(215052013, 9, 'B+', '2024-03-16 00:28:37');
+INSERT INTO `tbgrade` (`id`, `StudentId`, `CourseId`, `Grade`) VALUES
+(2, 215052011, 9, NULL),
+(3, 215052011, 10, NULL),
+(4, 215052012, 9, NULL),
+(10, 215052012, 10, NULL),
+(11, 215052013, 10, NULL),
+(13, 215052011, 1, NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbschedule`
+--
+
+CREATE TABLE `tbschedule` (
+  `id` int(11) NOT NULL,
+  `GradeId` int(11) NOT NULL,
+  `Date` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `tbschedule`
+--
+
+INSERT INTO `tbschedule` (`id`, `GradeId`, `Date`) VALUES
+(87, 13, '2024-03-21 00:00:00'),
+(88, 3, '2024-03-19 00:00:00'),
+(89, 10, '2024-03-19 00:00:00'),
+(90, 11, '2024-03-19 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -105,7 +127,7 @@ INSERT INTO `tbstudent` (`id`, `Name`, `Birthdate`, `Email`, `created_at`) VALUE
 (198888, 'NKDsdsss', '2024-03-14', 'duynk@211', '2024-03-15 10:09:13'),
 (205555, 'NKDsdsss', '2024-03-14', 'duynk@21', '2024-03-15 10:09:06'),
 (215052011, 'Nguyen Van A', '2024-03-14', 'duynk@21', '2024-03-15 10:08:43'),
-(215052012, 'Nguyen Van A', '2024-03-14', 'duynk@21', '2024-03-15 10:08:46'),
+(215052012, 'Nguyen Van B', '2024-03-14', 'duynk@21', '2024-03-15 10:08:46'),
 (215052013, 'Nguyen Van C', '2024-03-14', 'duynk@21', '2024-03-15 10:08:48'),
 (215052066, 'Nguyễn Khánh Duy', '2003-11-22', 'duynk21@uef.edu.vn', '2024-03-10 09:49:34');
 
@@ -124,8 +146,16 @@ ALTER TABLE `tbcourse`
 -- Indexes for table `tbgrade`
 --
 ALTER TABLE `tbgrade`
-  ADD PRIMARY KEY (`StudentId`,`CourseId`),
-  ADD KEY `CourseId` (`CourseId`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `FK_StudentId` (`StudentId`),
+  ADD KEY `FK_CourseId` (`CourseId`);
+
+--
+-- Indexes for table `tbschedule`
+--
+ALTER TABLE `tbschedule`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `FK_GradeId` (`GradeId`);
 
 --
 -- Indexes for table `tbstudent`
@@ -144,6 +174,18 @@ ALTER TABLE `tbcourse`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
+-- AUTO_INCREMENT for table `tbgrade`
+--
+ALTER TABLE `tbgrade`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+
+--
+-- AUTO_INCREMENT for table `tbschedule`
+--
+ALTER TABLE `tbschedule`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=91;
+
+--
 -- Constraints for dumped tables
 --
 
@@ -151,8 +193,16 @@ ALTER TABLE `tbcourse`
 -- Constraints for table `tbgrade`
 --
 ALTER TABLE `tbgrade`
+  ADD CONSTRAINT `FK_CourseId` FOREIGN KEY (`CourseId`) REFERENCES `tbcourse` (`id`),
+  ADD CONSTRAINT `FK_StudentId` FOREIGN KEY (`StudentId`) REFERENCES `tbstudent` (`id`),
   ADD CONSTRAINT `tbgrade_ibfk_1` FOREIGN KEY (`StudentId`) REFERENCES `tbstudent` (`id`),
   ADD CONSTRAINT `tbgrade_ibfk_2` FOREIGN KEY (`CourseId`) REFERENCES `tbcourse` (`id`);
+
+--
+-- Constraints for table `tbschedule`
+--
+ALTER TABLE `tbschedule`
+  ADD CONSTRAINT `FK_GradeId` FOREIGN KEY (`GradeId`) REFERENCES `tbgrade` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

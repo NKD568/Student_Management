@@ -413,6 +413,8 @@
             this.FormStyle = MaterialSkin.Controls.MaterialForm.FormStyles.ActionBar_None;
             this.Name = "frm_SaveGrade";
             this.Padding = new System.Windows.Forms.Padding(3, 24, 3, 3);
+            this.Sizable = false;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "frm_SaveGrade";
             this.Load += new System.EventHandler(this.frm_SaveGrade_Load);
             this.gpCourseInfo.ResumeLayout(false);

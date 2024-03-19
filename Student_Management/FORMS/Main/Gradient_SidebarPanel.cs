@@ -11,7 +11,9 @@ namespace Student_Management.FORMS.Main
 {
     public class Gradient_SidebarPanel: Panel
     {
+        // 243, 112, 35
         public Color gradientTop { get; set; }
+        // 179, 36, 130
         public Color gradientBottom { get; set; }
 
         public Gradient_SidebarPanel()

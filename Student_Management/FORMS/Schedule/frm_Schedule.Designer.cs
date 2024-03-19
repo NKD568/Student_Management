@@ -28,6 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frm_Schedule));
             this.flowLayoutPanelSchedule = new System.Windows.Forms.FlowLayoutPanel();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
@@ -39,15 +41,19 @@
             this.lbl_Month = new System.Windows.Forms.Label();
             this.ic_ToRight = new System.Windows.Forms.PictureBox();
             this.ic_ToLeft = new System.Windows.Forms.PictureBox();
+            this.btn_Add = new ReaLTaiizor.Controls.MaterialFloatingActionButton();
+            this.refreshTimer = new System.Windows.Forms.Timer(this.components);
+            this.dtp_SelectedDate = new System.Windows.Forms.DateTimePicker();
+            this.btn_Today = new MaterialSkin.Controls.MaterialButton();
             ((System.ComponentModel.ISupportInitialize)(this.ic_ToRight)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ic_ToLeft)).BeginInit();
             this.SuspendLayout();
             // 
             // flowLayoutPanelSchedule
             // 
-            this.flowLayoutPanelSchedule.Location = new System.Drawing.Point(12, 133);
+            this.flowLayoutPanelSchedule.Location = new System.Drawing.Point(53, 129);
             this.flowLayoutPanelSchedule.Name = "flowLayoutPanelSchedule";
-            this.flowLayoutPanelSchedule.Size = new System.Drawing.Size(1256, 734);
+            this.flowLayoutPanelSchedule.Size = new System.Drawing.Size(1100, 600);
             this.flowLayoutPanelSchedule.TabIndex = 0;
             // 
             // label1
@@ -55,7 +61,7 @@
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Comic Sans MS", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.Color.LightCoral;
-            this.label1.Location = new System.Drawing.Point(59, 97);
+            this.label1.Location = new System.Drawing.Point(100, 93);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(96, 33);
             this.label1.TabIndex = 0;
@@ -66,7 +72,7 @@
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Comic Sans MS", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.label2.Location = new System.Drawing.Point(232, 97);
+            this.label2.Location = new System.Drawing.Point(245, 93);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(101, 33);
             this.label2.TabIndex = 0;
@@ -77,7 +83,7 @@
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Comic Sans MS", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label3.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.label3.Location = new System.Drawing.Point(403, 97);
+            this.label3.Location = new System.Drawing.Point(397, 93);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(107, 33);
             this.label3.TabIndex = 0;
@@ -88,7 +94,7 @@
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Comic Sans MS", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label4.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.label4.Location = new System.Drawing.Point(568, 97);
+            this.label4.Location = new System.Drawing.Point(535, 93);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(144, 33);
             this.label4.TabIndex = 0;
@@ -99,7 +105,7 @@
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Comic Sans MS", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label5.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.label5.Location = new System.Drawing.Point(758, 97);
+            this.label5.Location = new System.Drawing.Point(695, 93);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(119, 33);
             this.label5.TabIndex = 0;
@@ -110,7 +116,7 @@
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Comic Sans MS", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label6.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.label6.Location = new System.Drawing.Point(947, 97);
+            this.label6.Location = new System.Drawing.Point(856, 93);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(87, 33);
             this.label6.TabIndex = 0;
@@ -121,7 +127,7 @@
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("Comic Sans MS", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label7.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.label7.Location = new System.Drawing.Point(1113, 97);
+            this.label7.Location = new System.Drawing.Point(997, 93);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(116, 33);
             this.label7.TabIndex = 0;
@@ -131,7 +137,7 @@
             // 
             this.lbl_Month.AutoSize = true;
             this.lbl_Month.Font = new System.Drawing.Font("Comic Sans MS", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbl_Month.Location = new System.Drawing.Point(58, 26);
+            this.lbl_Month.Location = new System.Drawing.Point(99, 22);
             this.lbl_Month.Name = "lbl_Month";
             this.lbl_Month.Size = new System.Drawing.Size(128, 39);
             this.lbl_Month.TabIndex = 1;
@@ -140,7 +146,7 @@
             // ic_ToRight
             // 
             this.ic_ToRight.Image = global::Student_Management.Properties.Resources.arrow_right;
-            this.ic_ToRight.Location = new System.Drawing.Point(373, 26);
+            this.ic_ToRight.Location = new System.Drawing.Point(352, 20);
             this.ic_ToRight.Name = "ic_ToRight";
             this.ic_ToRight.Size = new System.Drawing.Size(41, 41);
             this.ic_ToRight.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -151,7 +157,7 @@
             // ic_ToLeft
             // 
             this.ic_ToLeft.Image = global::Student_Management.Properties.Resources.arrow_left;
-            this.ic_ToLeft.Location = new System.Drawing.Point(321, 26);
+            this.ic_ToLeft.Location = new System.Drawing.Point(305, 20);
             this.ic_ToLeft.Name = "ic_ToLeft";
             this.ic_ToLeft.Size = new System.Drawing.Size(41, 41);
             this.ic_ToLeft.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -159,12 +165,64 @@
             this.ic_ToLeft.TabStop = false;
             this.ic_ToLeft.Click += new System.EventHandler(this.ic_ToLeft_Click);
             // 
+            // btn_Add
+            // 
+            this.btn_Add.BackColor = System.Drawing.Color.PowderBlue;
+            this.btn_Add.Depth = 0;
+            this.btn_Add.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.btn_Add.Icon = ((System.Drawing.Image)(resources.GetObject("btn_Add.Icon")));
+            this.btn_Add.Location = new System.Drawing.Point(1073, 32);
+            this.btn_Add.Mini = true;
+            this.btn_Add.MouseState = ReaLTaiizor.Helper.MaterialDrawHelper.MaterialMouseState.HOVER;
+            this.btn_Add.Name = "btn_Add";
+            this.btn_Add.Size = new System.Drawing.Size(40, 40);
+            this.btn_Add.TabIndex = 12;
+            this.btn_Add.UseVisualStyleBackColor = false;
+            this.btn_Add.Click += new System.EventHandler(this.btn_Add_Click);
+            // 
+            // refreshTimer
+            // 
+            this.refreshTimer.Enabled = true;
+            this.refreshTimer.Tick += new System.EventHandler(this.refreshTimer_Tick);
+            // 
+            // dtp_SelectedDate
+            // 
+            this.dtp_SelectedDate.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.dtp_SelectedDate.Location = new System.Drawing.Point(541, 30);
+            this.dtp_SelectedDate.Name = "dtp_SelectedDate";
+            this.dtp_SelectedDate.Size = new System.Drawing.Size(321, 35);
+            this.dtp_SelectedDate.TabIndex = 13;
+            this.dtp_SelectedDate.ValueChanged += new System.EventHandler(this.dtp_SelectedDate_ValueChanged);
+            // 
+            // btn_Today
+            // 
+            this.btn_Today.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.btn_Today.Density = MaterialSkin.Controls.MaterialButton.MaterialButtonDensity.Default;
+            this.btn_Today.Depth = 0;
+            this.btn_Today.Enabled = false;
+            this.btn_Today.HighEmphasis = true;
+            this.btn_Today.Icon = null;
+            this.btn_Today.Location = new System.Drawing.Point(869, 29);
+            this.btn_Today.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
+            this.btn_Today.MouseState = MaterialSkin.MouseState.HOVER;
+            this.btn_Today.Name = "btn_Today";
+            this.btn_Today.NoAccentTextColor = System.Drawing.Color.Empty;
+            this.btn_Today.Size = new System.Drawing.Size(69, 36);
+            this.btn_Today.TabIndex = 14;
+            this.btn_Today.Text = "Today";
+            this.btn_Today.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
+            this.btn_Today.UseAccentColor = false;
+            this.btn_Today.UseVisualStyleBackColor = true;
+            this.btn_Today.Click += new System.EventHandler(this.btn_Today_Click);
+            // 
             // frm_Schedule
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(251)))), ((int)(((byte)(241)))), ((int)(((byte)(254)))));
-            this.ClientSize = new System.Drawing.Size(1281, 913);
+            this.ClientSize = new System.Drawing.Size(1200, 800);
+            this.Controls.Add(this.btn_Today);
+            this.Controls.Add(this.dtp_SelectedDate);
+            this.Controls.Add(this.btn_Add);
             this.Controls.Add(this.ic_ToRight);
             this.Controls.Add(this.ic_ToLeft);
             this.Controls.Add(this.lbl_Month);
@@ -200,6 +258,10 @@
         private System.Windows.Forms.Label lbl_Month;
         private System.Windows.Forms.PictureBox ic_ToLeft;
         private System.Windows.Forms.PictureBox ic_ToRight;
+        private ReaLTaiizor.Controls.MaterialFloatingActionButton btn_Add;
+        private System.Windows.Forms.Timer refreshTimer;
+        private System.Windows.Forms.DateTimePicker dtp_SelectedDate;
+        private MaterialSkin.Controls.MaterialButton btn_Today;
     }
 }
 

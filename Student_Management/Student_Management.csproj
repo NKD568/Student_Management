@@ -163,12 +163,19 @@
     <Compile Include="FORMS\Main\ucMenu.Designer.cs">
       <DependentUpon>ucMenu.cs</DependentUpon>
     </Compile>
+    <Compile Include="FORMS\Schedule\frm_Event.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FORMS\Schedule\frm_Event.Designer.cs">
+      <DependentUpon>frm_Event.cs</DependentUpon>
+    </Compile>
     <Compile Include="FORMS\Schedule\frm_Schedule.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="FORMS\Schedule\frm_Schedule.Designer.cs">
       <DependentUpon>frm_Schedule.cs</DependentUpon>
     </Compile>
+    <Compile Include="FORMS\Schedule\ScheduleInfo.cs" />
     <Compile Include="FORMS\Student\frm_SaveStudent.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -225,6 +232,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FORMS\Main\ucMenu.resx">
       <DependentUpon>ucMenu.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FORMS\Schedule\frm_Event.resx">
+      <DependentUpon>frm_Event.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FORMS\Schedule\frm_Schedule.resx">
       <DependentUpon>frm_Schedule.cs</DependentUpon>

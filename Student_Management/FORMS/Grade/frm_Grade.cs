@@ -1,6 +1,7 @@
 ﻿using MaterialSkin;
 using MySql.Data.MySqlClient;
 using Student_Management.FORMS.Course;
+using Student_Management.FORMS.Student;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -116,7 +117,19 @@ namespace Student_Management.FORMS.Grade
                 gradeContainer.Controls.Add(uc);
                 frm_SaveGrade.refresh = false;
             }
+
         }
+
+        private void updateInfoTimer_Tick(object sender, EventArgs e)
+        {
+            if (frm_SaveCourse.isUpdate || frm_SaveStudent.isUpdate)
+            {
+                gradeContainer.Controls.Clear();
+                initDetails();
+                loadCards();
+            }
+        }
+
 
         public static string searchType = "tbgrade.StudentId";
         private void cmb_seachOptions_SelectedIndexChanged(object sender, EventArgs e)
@@ -135,7 +148,6 @@ namespace Student_Management.FORMS.Grade
         {
             if (txt_Search.Text.Length > 4)
             {
-                //searchResult.Columns[result.Name].DataPropertyName = searchType;
                 GradeInfo get = new GradeInfo();
                 using (MySqlConnection conn = new MySqlConnection(get.connstring))
                 {
@@ -157,8 +169,8 @@ namespace Student_Management.FORMS.Grade
                         searchResult.Columns[student.Name].DataPropertyName = "StudentId";
                         searchResult.Columns[course.Name].DataPropertyName = "CourseName";
                         searchResult.Columns[result.Name].DataPropertyName = "Grade";
-
                     }
+
                     sql += " WHERE " + searchType + " LIKE @data";
                     MySqlCommand cmd = conn.CreateCommand();
                     cmd.CommandText = sql;
