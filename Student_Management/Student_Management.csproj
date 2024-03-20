@@ -107,6 +107,38 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="FORMS\Account\AccountInfo.cs" />
+    <Compile Include="FORMS\Account\frm_Account.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FORMS\Account\frm_Account.Designer.cs">
+      <DependentUpon>frm_Account.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FORMS\Account\frm_Login.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FORMS\Account\frm_Login.Designer.cs">
+      <DependentUpon>frm_Login.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FORMS\Account\frm_SaveAccount.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FORMS\Account\frm_SaveAccount.Designer.cs">
+      <DependentUpon>frm_SaveAccount.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FORMS\Account\MD5_Hash.cs" />
+    <Compile Include="FORMS\Account\splashScreen.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FORMS\Account\splashScreen.Designer.cs">
+      <DependentUpon>splashScreen.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FORMS\Account\ucAccount.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="FORMS\Account\ucAccount.Designer.cs">
+      <DependentUpon>ucAccount.cs</DependentUpon>
+    </Compile>
     <Compile Include="FORMS\Course\CourseInfo.cs" />
     <Compile Include="FORMS\Course\frm_Course.cs">
       <SubType>Form</SubType>
@@ -209,6 +241,21 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="FORMS\Account\frm_Account.resx">
+      <DependentUpon>frm_Account.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FORMS\Account\frm_Login.resx">
+      <DependentUpon>frm_Login.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FORMS\Account\frm_SaveAccount.resx">
+      <DependentUpon>frm_SaveAccount.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FORMS\Account\splashScreen.resx">
+      <DependentUpon>splashScreen.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FORMS\Account\ucAccount.resx">
+      <DependentUpon>ucAccount.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FORMS\Course\frm_Course.resx">
       <DependentUpon>frm_Course.cs</DependentUpon>
     </EmbeddedResource>
@@ -279,11 +326,13 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="RESOURCES\Icons\account-24.png" />
     <Content Include="RESOURCES\Icons\add.png" />
     <Content Include="RESOURCES\Icons\book-24.png" />
     <Content Include="RESOURCES\Icons\books.png" />
     <Content Include="RESOURCES\Icons\cancel-32.png" />
     <Content Include="RESOURCES\Icons\chart.png" />
+    <Content Include="RESOURCES\Icons\dashboard-24.png" />
     <Content Include="RESOURCES\Icons\delete.png" />
     <Content Include="RESOURCES\Icons\edit.png" />
     <Content Include="RESOURCES\Icons\education.png" />
@@ -292,6 +341,7 @@
     <Content Include="RESOURCES\Icons\grade-24.png" />
     <Content Include="RESOURCES\Icons\grade.png" />
     <Content Include="RESOURCES\Icons\info-32.png" />
+    <Content Include="RESOURCES\Icons\management-100.png" />
     <Content Include="RESOURCES\Icons\menu.png" />
     <Content Include="RESOURCES\Icons\ok-32.png" />
     <Content Include="RESOURCES\Icons\options.png" />
@@ -299,6 +349,7 @@
     <Content Include="RESOURCES\Icons\schedule.png" />
     <Content Include="RESOURCES\Icons\search.png" />
     <Content Include="RESOURCES\Icons\student-24.png" />
+    <Content Include="RESOURCES\Icons\student-center-100.png" />
     <Content Include="RESOURCES\Icons\student.png" />
   </ItemGroup>
   <ItemGroup>

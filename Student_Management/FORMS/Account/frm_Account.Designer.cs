@@ -1,6 +1,6 @@
-﻿namespace Student_Management.FORMS.Course
+﻿namespace Student_Management.FORMS.Account
 {
-    partial class frm_Course
+    partial class frm_Account
     {
         /// <summary>
         /// Required designer variable.
@@ -29,28 +29,18 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frm_Course));
-            this.refreshTimer = new System.Windows.Forms.Timer(this.components);
-            this.deleteTimer = new System.Windows.Forms.Timer(this.components);
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frm_Account));
             this.searchResult = new System.Windows.Forms.DataGridView();
             this.id = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.result = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.courseContainer = new System.Windows.Forms.FlowLayoutPanel();
+            this.cardContainer = new System.Windows.Forms.FlowLayoutPanel();
             this.cmb_seachOptions = new MaterialSkin.Controls.MaterialComboBox();
             this.btn_Add = new ReaLTaiizor.Controls.MaterialFloatingActionButton();
             this.txt_Search = new MaterialSkin.Controls.MaterialTextBox2();
+            this.refreshTimer = new System.Windows.Forms.Timer(this.components);
+            this.deleteTimer = new System.Windows.Forms.Timer(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.searchResult)).BeginInit();
             this.SuspendLayout();
-            // 
-            // refreshTimer
-            // 
-            this.refreshTimer.Enabled = true;
-            this.refreshTimer.Tick += new System.EventHandler(this.refreshTimer_Tick);
-            // 
-            // deleteTimer
-            // 
-            this.deleteTimer.Enabled = true;
-            this.deleteTimer.Tick += new System.EventHandler(this.deleteTimer_Tick);
             // 
             // searchResult
             // 
@@ -65,21 +55,21 @@
             this.searchResult.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.id,
             this.result});
-            this.searchResult.Location = new System.Drawing.Point(23, 93);
+            this.searchResult.Location = new System.Drawing.Point(23, 95);
             this.searchResult.Name = "searchResult";
             this.searchResult.RowHeadersVisible = false;
             this.searchResult.RowHeadersWidth = 62;
             this.searchResult.RowTemplate.Height = 30;
             this.searchResult.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.searchResult.Size = new System.Drawing.Size(340, 0);
-            this.searchResult.TabIndex = 14;
+            this.searchResult.TabIndex = 19;
             this.searchResult.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.searchResult_CellClick);
             // 
             // id
             // 
             this.id.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.id.DataPropertyName = "name";
-            this.id.HeaderText = "Name";
+            this.id.DataPropertyName = "Username";
+            this.id.HeaderText = "Username";
             this.id.MinimumWidth = 8;
             this.id.Name = "id";
             this.id.ReadOnly = true;
@@ -92,15 +82,16 @@
             this.result.Name = "result";
             this.result.ReadOnly = true;
             // 
-            // courseContainer
+            // cardContainer
             // 
-            this.courseContainer.AutoScroll = true;
-            this.courseContainer.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(234)))), ((int)(((byte)(204)))), ((int)(((byte)(251)))));
-            this.courseContainer.Location = new System.Drawing.Point(23, 103);
-            this.courseContainer.Margin = new System.Windows.Forms.Padding(0);
-            this.courseContainer.Name = "courseContainer";
-            this.courseContainer.Size = new System.Drawing.Size(1100, 600);
-            this.courseContainer.TabIndex = 13;
+            this.cardContainer.AutoScroll = true;
+            this.cardContainer.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.cardContainer.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
+            this.cardContainer.Location = new System.Drawing.Point(23, 105);
+            this.cardContainer.Margin = new System.Windows.Forms.Padding(0);
+            this.cardContainer.Name = "cardContainer";
+            this.cardContainer.Size = new System.Drawing.Size(1100, 600);
+            this.cardContainer.TabIndex = 18;
             // 
             // cmb_seachOptions
             // 
@@ -119,17 +110,16 @@
             this.cmb_seachOptions.IntegralHeight = false;
             this.cmb_seachOptions.ItemHeight = 43;
             this.cmb_seachOptions.Items.AddRange(new object[] {
-            "Name",
-            "Description",
-            "Credits",
-            "IsOpen"});
-            this.cmb_seachOptions.Location = new System.Drawing.Point(384, 50);
+            "Username",
+            "Level",
+            "isBlocked"});
+            this.cmb_seachOptions.Location = new System.Drawing.Point(384, 52);
             this.cmb_seachOptions.MaxDropDownItems = 4;
             this.cmb_seachOptions.MouseState = MaterialSkin.MouseState.OUT;
             this.cmb_seachOptions.Name = "cmb_seachOptions";
             this.cmb_seachOptions.Size = new System.Drawing.Size(178, 49);
             this.cmb_seachOptions.StartIndex = 0;
-            this.cmb_seachOptions.TabIndex = 12;
+            this.cmb_seachOptions.TabIndex = 17;
             this.cmb_seachOptions.SelectedIndexChanged += new System.EventHandler(this.cmb_seachOptions_SelectedIndexChanged);
             // 
             // btn_Add
@@ -138,12 +128,12 @@
             this.btn_Add.Depth = 0;
             this.btn_Add.ForeColor = System.Drawing.SystemColors.ControlText;
             this.btn_Add.Icon = ((System.Drawing.Image)(resources.GetObject("btn_Add.Icon")));
-            this.btn_Add.Location = new System.Drawing.Point(1125, 704);
+            this.btn_Add.Location = new System.Drawing.Point(1126, 708);
             this.btn_Add.Mini = true;
             this.btn_Add.MouseState = ReaLTaiizor.Helper.MaterialDrawHelper.MaterialMouseState.HOVER;
             this.btn_Add.Name = "btn_Add";
             this.btn_Add.Size = new System.Drawing.Size(40, 40);
-            this.btn_Add.TabIndex = 11;
+            this.btn_Add.TabIndex = 16;
             this.btn_Add.UseVisualStyleBackColor = false;
             this.btn_Add.Click += new System.EventHandler(this.btn_Add_Click);
             // 
@@ -157,7 +147,7 @@
             this.txt_Search.HideSelection = true;
             this.txt_Search.Hint = "Search";
             this.txt_Search.LeadingIcon = ((System.Drawing.Image)(resources.GetObject("txt_Search.LeadingIcon")));
-            this.txt_Search.Location = new System.Drawing.Point(23, 51);
+            this.txt_Search.Location = new System.Drawing.Point(23, 53);
             this.txt_Search.MaxLength = 32767;
             this.txt_Search.MouseState = MaterialSkin.MouseState.OUT;
             this.txt_Search.Name = "txt_Search";
@@ -170,7 +160,7 @@
             this.txt_Search.SelectionStart = 0;
             this.txt_Search.ShortcutsEnabled = true;
             this.txt_Search.Size = new System.Drawing.Size(355, 48);
-            this.txt_Search.TabIndex = 10;
+            this.txt_Search.TabIndex = 15;
             this.txt_Search.TabStop = false;
             this.txt_Search.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
             this.txt_Search.TrailingIcon = null;
@@ -178,20 +168,29 @@
             this.txt_Search.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txt_Search_KeyPress);
             this.txt_Search.TextChanged += new System.EventHandler(this.txt_Search_TextChanged);
             // 
-            // frm_Course
+            // refreshTimer
+            // 
+            this.refreshTimer.Enabled = true;
+            this.refreshTimer.Tick += new System.EventHandler(this.refreshTimer_Tick);
+            // 
+            // deleteTimer
+            // 
+            this.deleteTimer.Enabled = true;
+            this.deleteTimer.Tick += new System.EventHandler(this.deleteTimer_Tick);
+            // 
+            // frm_Account
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
-            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(230)))), ((int)(((byte)(213)))));
             this.ClientSize = new System.Drawing.Size(1200, 800);
             this.Controls.Add(this.searchResult);
-            this.Controls.Add(this.courseContainer);
+            this.Controls.Add(this.cardContainer);
             this.Controls.Add(this.cmb_seachOptions);
             this.Controls.Add(this.btn_Add);
             this.Controls.Add(this.txt_Search);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            this.Name = "frm_Course";
-            this.Text = "frm_Course";
-            this.Load += new System.EventHandler(this.frm_Course_Load);
+            this.Name = "frm_Account";
+            this.Text = "frm_Account";
+            this.Load += new System.EventHandler(this.frm_Account_Load);
             ((System.ComponentModel.ISupportInitialize)(this.searchResult)).EndInit();
             this.ResumeLayout(false);
 
@@ -199,13 +198,13 @@
 
         #endregion
 
-        private System.Windows.Forms.Timer refreshTimer;
-        private System.Windows.Forms.Timer deleteTimer;
         private System.Windows.Forms.DataGridView searchResult;
-        private System.Windows.Forms.FlowLayoutPanel courseContainer;
+        private System.Windows.Forms.FlowLayoutPanel cardContainer;
         private MaterialSkin.Controls.MaterialComboBox cmb_seachOptions;
         private ReaLTaiizor.Controls.MaterialFloatingActionButton btn_Add;
         private MaterialSkin.Controls.MaterialTextBox2 txt_Search;
+        private System.Windows.Forms.Timer refreshTimer;
+        private System.Windows.Forms.Timer deleteTimer;
         private System.Windows.Forms.DataGridViewTextBoxColumn id;
         private System.Windows.Forms.DataGridViewTextBoxColumn result;
     }

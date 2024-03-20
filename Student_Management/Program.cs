@@ -1,4 +1,5 @@
 ﻿using Student_Management.FORMS;
+using Student_Management.FORMS.Account;
 using Student_Management.FORMS.Main;
 using System;
 using System.Collections.Generic;
@@ -18,7 +19,7 @@ namespace Student_Management
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new frm_Main());
+            Application.Run(new splashScreen());
         }
     }
 }

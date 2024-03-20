@@ -1,4 +1,5 @@
-﻿using Student_Management.FORMS.Course;
+﻿using Student_Management.FORMS.Account;
+using Student_Management.FORMS.Course;
 using Student_Management.FORMS.Grade;
 using Student_Management.FORMS.Student;
 using System;
@@ -115,10 +116,11 @@ namespace Student_Management.FORMS.Main
         // UX 
         public static string connstring = "server=localhost;user=root;database=student_managementdb;sslmode=none;ConvertZeroDateTime=True";
         List<ucMenu> menuButtons;
-        frm_Student student = null;
-        frm_Course course = null;
-        frm_Grade grade = null;
-        frm_Schedule schedule = null;
+        frm_Student student;
+        frm_Course course;
+        frm_Grade grade;
+        frm_Schedule schedule;
+        frm_Account account;
 
         public int mdiScreenWidth;
         public int mdiScreenHeight;
@@ -127,10 +129,22 @@ namespace Student_Management.FORMS.Main
         {
             InitializeComponent();
             mdiProp();
-            menuButtons = new List<ucMenu>() { Grade, Course, Student, Schedule };
+            menuButtons = new List<ucMenu>() {menuDashboard, menuGrade, menuCourse, menuStudent, menuSchedule, menuAccount};
             ClickMenu(menuButtons);          
             mdiScreenWidth = this.Width - menuSidebar.Size.Width;
             mdiScreenHeight = this.Height - Topbar.Size.Height;
+        }
+
+        private void frm_Main_Load(object sender, EventArgs e)
+        {
+            switch (frm_Login.loginLevel)
+            {
+                case 0:
+                    break;
+                case 2:
+                    menuDashboard.Hide();
+                    break;
+            }
         }
 
         private void ClickMenu(List<ucMenu> _menu)
@@ -141,64 +155,35 @@ namespace Student_Management.FORMS.Main
             }
         }
 
-        // Prevent not declared or assigned Exception (Maybe...)
-        private void CreateMenu()
-        {
-            Grade = new ucMenu
-            {
-                Name = "Grade",
-                BackColor = Color.Transparent,
-                Menu = "Grade",
-                Icon = Properties.Resources.grade_24
-            };
-
-            Course = new ucMenu
-            {
-                Name = "Course",
-                BackColor = Color.Transparent,
-                Menu = "Course",
-                Icon = Properties.Resources.book_24
-            };
-
-            Student = new ucMenu
-            {
-                Name = "Student",
-                BackColor = Color.Transparent,
-                Menu = "Student",
-                Icon = Properties.Resources.student_24
-            };
-
-            Schedule = new ucMenu
-            {
-                Name = "Schedule",
-                BackColor = Color.Transparent,
-                Menu = "Schedule",
-                Icon = Properties.Resources.schedule_24,
-
-            };
-        }
-
         private void Menu_menuClick(object sender, EventArgs e)
         {
             ucMenu _menuButton = (ucMenu)sender;
 
-            switch(_menuButton.Name) {
+            switch(_menuButton.Menu) {
 
+                case "Dashboard":
+                    activeMenu(menuDashboard, menuGrade, menuCourse, menuStudent, menuSchedule, menuAccount);
+                    Grade_Click();
+                    break;
                 case "Grade":
-                    activeMenu(Grade, Course, Student, Schedule);
+                    activeMenu(menuGrade, menuCourse, menuStudent, menuSchedule, menuDashboard, menuAccount);
                     Grade_Click();
                     break;
                 case "Course":
-                    activeMenu(Course, Grade, Student, Schedule);
+                    activeMenu(menuCourse, menuGrade, menuStudent, menuSchedule, menuDashboard, menuAccount);
                     Course_Click();
                     break;
                 case "Student":
-                    activeMenu(Student, Grade, Course, Schedule);
+                    activeMenu(menuStudent, menuGrade, menuCourse, menuSchedule, menuDashboard, menuAccount);
                     Student_Click();
                     break;
                 case "Schedule":
-                    activeMenu(Schedule, Grade, Student, Course);
+                    activeMenu(menuSchedule, menuGrade, menuStudent, menuCourse, menuDashboard, menuAccount);
                     Schedule_Click();
+                    break;                   
+                case "Account":
+                    activeMenu(menuAccount ,menuSchedule, menuGrade, menuStudent, menuCourse, menuDashboard);
+                    Account_Click();
                     break;
             }
         }
@@ -317,10 +302,34 @@ namespace Student_Management.FORMS.Main
             grade = null;
         }
 
+        private void Account_Click()
+        {
+            if (account == null)
+            {
+                account = new frm_Account();
+                account.FormClosed += Account_FormClosed;
+                account.MdiParent = this;
+                account.Dock = DockStyle.Fill;
+
+                account.Show();
+            }
+            else
+            {
+                account.Activate();
+            }
+        }
+        private void Account_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            account = null;
+        }
+
+
         public void showToast(string type, string message)
         {
             Toast_Message toast = new Toast_Message(type, message);
             toast.Show();
         }
+
+
     }
 }

@@ -32,12 +32,18 @@
             this.nightControlBox1 = new ReaLTaiizor.Controls.NightControlBox();
             this.label1 = new System.Windows.Forms.Label();
             this.menuSidebar = new Student_Management.FORMS.Main.Gradient_SidebarPanel();
-            this.Schedule = new Student_Management.FORMS.Main.ucMenu();
-            this.Student = new Student_Management.FORMS.Main.ucMenu();
-            this.Course = new Student_Management.FORMS.Main.ucMenu();
-            this.Grade = new Student_Management.FORMS.Main.ucMenu();
+            this.smallLabel1 = new ReaLTaiizor.Controls.SmallLabel();
+            this.headerLabel1 = new ReaLTaiizor.Controls.HeaderLabel();
+            this.logoApp = new System.Windows.Forms.PictureBox();
+            this.menuAccount = new Student_Management.FORMS.Main.ucMenu();
+            this.menuSchedule = new Student_Management.FORMS.Main.ucMenu();
+            this.menuStudent = new Student_Management.FORMS.Main.ucMenu();
+            this.menuCourse = new Student_Management.FORMS.Main.ucMenu();
+            this.menuDashboard = new Student_Management.FORMS.Main.ucMenu();
+            this.menuGrade = new Student_Management.FORMS.Main.ucMenu();
             this.Topbar.SuspendLayout();
             this.menuSidebar.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.logoApp)).BeginInit();
             this.SuspendLayout();
             // 
             // Topbar
@@ -90,69 +96,135 @@
             // 
             // menuSidebar
             // 
-            this.menuSidebar.Controls.Add(this.Schedule);
-            this.menuSidebar.Controls.Add(this.Student);
-            this.menuSidebar.Controls.Add(this.Course);
-            this.menuSidebar.Controls.Add(this.Grade);
+            this.menuSidebar.Controls.Add(this.smallLabel1);
+            this.menuSidebar.Controls.Add(this.headerLabel1);
+            this.menuSidebar.Controls.Add(this.logoApp);
+            this.menuSidebar.Controls.Add(this.menuAccount);
+            this.menuSidebar.Controls.Add(this.menuSchedule);
+            this.menuSidebar.Controls.Add(this.menuStudent);
+            this.menuSidebar.Controls.Add(this.menuCourse);
+            this.menuSidebar.Controls.Add(this.menuDashboard);
+            this.menuSidebar.Controls.Add(this.menuGrade);
             this.menuSidebar.Dock = System.Windows.Forms.DockStyle.Left;
             this.menuSidebar.gradientBottom = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.menuSidebar.gradientTop = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
             this.menuSidebar.Location = new System.Drawing.Point(0, 34);
             this.menuSidebar.Name = "menuSidebar";
-            this.menuSidebar.Size = new System.Drawing.Size(100, 766);
+            this.menuSidebar.Size = new System.Drawing.Size(107, 766);
             this.menuSidebar.TabIndex = 1;
             // 
-            // Schedule
+            // smallLabel1
             // 
-            this.Schedule.BackColor = System.Drawing.Color.Transparent;
-            this.Schedule.BorderColor = System.Drawing.Color.Transparent;
-            this.Schedule.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.Schedule.Font = new System.Drawing.Font("Segoe UI", 8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Schedule.Icon = global::Student_Management.Properties.Resources.schedule_24;
-            this.Schedule.Location = new System.Drawing.Point(3, 314);
-            this.Schedule.Menu = "Schedule";
-            this.Schedule.Name = "Schedule";
-            this.Schedule.Size = new System.Drawing.Size(94, 52);
-            this.Schedule.TabIndex = 0;
+            this.smallLabel1.BackColor = System.Drawing.Color.Transparent;
+            this.smallLabel1.Font = new System.Drawing.Font("Segoe UI", 8F);
+            this.smallLabel1.ForeColor = System.Drawing.Color.Black;
+            this.smallLabel1.Location = new System.Drawing.Point(1, 114);
+            this.smallLabel1.Name = "smallLabel1";
+            this.smallLabel1.Size = new System.Drawing.Size(111, 21);
+            this.smallLabel1.TabIndex = 3;
+            this.smallLabel1.Text = "-------------------";
+            this.smallLabel1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // Student
+            // headerLabel1
             // 
-            this.Student.BackColor = System.Drawing.Color.Transparent;
-            this.Student.BorderColor = System.Drawing.Color.Transparent;
-            this.Student.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.Student.Font = new System.Drawing.Font("Segoe UI", 8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Student.Icon = global::Student_Management.Properties.Resources.student_24;
-            this.Student.Location = new System.Drawing.Point(3, 239);
-            this.Student.Menu = "Student";
-            this.Student.Name = "Student";
-            this.Student.Size = new System.Drawing.Size(94, 52);
-            this.Student.TabIndex = 0;
+            this.headerLabel1.BackColor = System.Drawing.Color.Transparent;
+            this.headerLabel1.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
+            this.headerLabel1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.headerLabel1.Location = new System.Drawing.Point(-3, 67);
+            this.headerLabel1.Name = "headerLabel1";
+            this.headerLabel1.Size = new System.Drawing.Size(114, 56);
+            this.headerLabel1.TabIndex = 2;
+            this.headerLabel1.Text = "Student\r\nManagement";
+            this.headerLabel1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // Course
+            // logoApp
             // 
-            this.Course.BackColor = System.Drawing.Color.Transparent;
-            this.Course.BorderColor = System.Drawing.Color.Transparent;
-            this.Course.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.Course.Font = new System.Drawing.Font("Segoe UI", 8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Course.Icon = global::Student_Management.Properties.Resources.book_24;
-            this.Course.Location = new System.Drawing.Point(3, 162);
-            this.Course.Menu = "Course";
-            this.Course.Name = "Course";
-            this.Course.Size = new System.Drawing.Size(94, 52);
-            this.Course.TabIndex = 0;
+            this.logoApp.BackColor = System.Drawing.Color.Transparent;
+            this.logoApp.Image = global::Student_Management.Properties.Resources.management_100;
+            this.logoApp.Location = new System.Drawing.Point(3, 0);
+            this.logoApp.Name = "logoApp";
+            this.logoApp.Size = new System.Drawing.Size(100, 75);
+            this.logoApp.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.logoApp.TabIndex = 1;
+            this.logoApp.TabStop = false;
             // 
-            // Grade
+            // menuAccount
             // 
-            this.Grade.BackColor = System.Drawing.Color.Transparent;
-            this.Grade.BorderColor = System.Drawing.Color.Transparent;
-            this.Grade.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.Grade.Font = new System.Drawing.Font("Segoe UI", 8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Grade.Icon = global::Student_Management.Properties.Resources.grade_24;
-            this.Grade.Location = new System.Drawing.Point(3, 90);
-            this.Grade.Menu = "Grade";
-            this.Grade.Name = "Grade";
-            this.Grade.Size = new System.Drawing.Size(94, 52);
-            this.Grade.TabIndex = 0;
+            this.menuAccount.BackColor = System.Drawing.Color.Transparent;
+            this.menuAccount.BorderColor = System.Drawing.Color.Transparent;
+            this.menuAccount.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.menuAccount.Font = new System.Drawing.Font("Segoe UI", 8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.menuAccount.Icon = global::Student_Management.Properties.Resources.account_24;
+            this.menuAccount.Location = new System.Drawing.Point(4, 494);
+            this.menuAccount.Menu = "Account";
+            this.menuAccount.Name = "menuAccount";
+            this.menuAccount.Size = new System.Drawing.Size(94, 52);
+            this.menuAccount.TabIndex = 0;
+            // 
+            // menuSchedule
+            // 
+            this.menuSchedule.BackColor = System.Drawing.Color.Transparent;
+            this.menuSchedule.BorderColor = System.Drawing.Color.Transparent;
+            this.menuSchedule.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.menuSchedule.Font = new System.Drawing.Font("Segoe UI", 8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.menuSchedule.Icon = global::Student_Management.Properties.Resources.schedule_24;
+            this.menuSchedule.Location = new System.Drawing.Point(4, 425);
+            this.menuSchedule.Menu = "Schedule";
+            this.menuSchedule.Name = "menuSchedule";
+            this.menuSchedule.Size = new System.Drawing.Size(94, 52);
+            this.menuSchedule.TabIndex = 0;
+            // 
+            // menuStudent
+            // 
+            this.menuStudent.BackColor = System.Drawing.Color.Transparent;
+            this.menuStudent.BorderColor = System.Drawing.Color.Transparent;
+            this.menuStudent.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.menuStudent.Font = new System.Drawing.Font("Segoe UI", 8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.menuStudent.Icon = global::Student_Management.Properties.Resources.student_24;
+            this.menuStudent.Location = new System.Drawing.Point(4, 350);
+            this.menuStudent.Menu = "Student";
+            this.menuStudent.Name = "menuStudent";
+            this.menuStudent.Size = new System.Drawing.Size(94, 52);
+            this.menuStudent.TabIndex = 0;
+            // 
+            // menuCourse
+            // 
+            this.menuCourse.BackColor = System.Drawing.Color.Transparent;
+            this.menuCourse.BorderColor = System.Drawing.Color.Transparent;
+            this.menuCourse.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.menuCourse.Font = new System.Drawing.Font("Segoe UI", 8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.menuCourse.Icon = global::Student_Management.Properties.Resources.book_24;
+            this.menuCourse.Location = new System.Drawing.Point(5, 275);
+            this.menuCourse.Menu = "Course";
+            this.menuCourse.Name = "menuCourse";
+            this.menuCourse.Size = new System.Drawing.Size(94, 52);
+            this.menuCourse.TabIndex = 0;
+            // 
+            // menuDashboard
+            // 
+            this.menuDashboard.BackColor = System.Drawing.Color.Transparent;
+            this.menuDashboard.BorderColor = System.Drawing.Color.Transparent;
+            this.menuDashboard.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.menuDashboard.Font = new System.Drawing.Font("Segoe UI", 8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.menuDashboard.Icon = global::Student_Management.Properties.Resources.dashboard_24;
+            this.menuDashboard.Location = new System.Drawing.Point(1, 147);
+            this.menuDashboard.Menu = "Dashboard";
+            this.menuDashboard.Name = "menuDashboard";
+            this.menuDashboard.Size = new System.Drawing.Size(104, 52);
+            this.menuDashboard.TabIndex = 0;
+            // 
+            // menuGrade
+            // 
+            this.menuGrade.BackColor = System.Drawing.Color.Transparent;
+            this.menuGrade.BorderColor = System.Drawing.Color.Transparent;
+            this.menuGrade.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.menuGrade.Font = new System.Drawing.Font("Segoe UI", 8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.menuGrade.Icon = global::Student_Management.Properties.Resources.grade_24;
+            this.menuGrade.Location = new System.Drawing.Point(6, 208);
+            this.menuGrade.Menu = "Grade";
+            this.menuGrade.Name = "menuGrade";
+            this.menuGrade.Size = new System.Drawing.Size(94, 52);
+            this.menuGrade.TabIndex = 0;
             // 
             // frm_Main
             // 
@@ -165,9 +237,11 @@
             this.Name = "frm_Main";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "frm_Main";
+            this.Load += new System.EventHandler(this.frm_Main_Load);
             this.Topbar.ResumeLayout(false);
             this.Topbar.PerformLayout();
             this.menuSidebar.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.logoApp)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -177,10 +251,15 @@
         private System.Windows.Forms.Panel Topbar;
         private System.Windows.Forms.Label label1;
         private Gradient_SidebarPanel menuSidebar;
-        private ucMenu Schedule;
-        private ucMenu Student;
-        private ucMenu Course;
-        private ucMenu Grade;
+        private ucMenu menuSchedule;
+        private ucMenu menuStudent;
+        private ucMenu menuCourse;
+        private ucMenu menuGrade;
         private ReaLTaiizor.Controls.NightControlBox nightControlBox1;
+        private ucMenu menuDashboard;
+        private System.Windows.Forms.PictureBox logoApp;
+        private ReaLTaiizor.Controls.HeaderLabel headerLabel1;
+        private ReaLTaiizor.Controls.SmallLabel smallLabel1;
+        private ucMenu menuAccount;
     }
 }

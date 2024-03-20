@@ -171,7 +171,7 @@
             this.btn_Add.Depth = 0;
             this.btn_Add.ForeColor = System.Drawing.SystemColors.ControlText;
             this.btn_Add.Icon = ((System.Drawing.Image)(resources.GetObject("btn_Add.Icon")));
-            this.btn_Add.Location = new System.Drawing.Point(1073, 32);
+            this.btn_Add.Location = new System.Drawing.Point(1119, 74);
             this.btn_Add.Mini = true;
             this.btn_Add.MouseState = ReaLTaiizor.Helper.MaterialDrawHelper.MaterialMouseState.HOVER;
             this.btn_Add.Name = "btn_Add";

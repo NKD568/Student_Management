@@ -92,15 +92,7 @@ namespace Student_Management.FORMS.Course
             txt_Name.Text = get.name;
             txt_Description.Text = get.description;
             trackBar_Credits.Value = get.credits;
-            cmb_isOpen.SelectedValue = get.isOpen;
-            if (get.isOpen == true)
-            {
-                cmb_isOpen.SelectedItem = "True";
-            }
-            else if (get.isOpen == false)
-            {
-                 cmb_isOpen.SelectedItem = "False";
-            }
+            cmb_isOpen.SelectedItem = get.isOpen == true? "True" : "False" ;
             bool isOnSchedule = get.isOccupied(Convert.ToInt32(ucCourse.public_id));
             if (isOnSchedule)
             {

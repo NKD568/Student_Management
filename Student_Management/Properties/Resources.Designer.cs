@@ -63,6 +63,16 @@ namespace Student_Management.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap account_24 {
+            get {
+                object obj = ResourceManager.GetObject("account-24", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap add {
             get {
                 object obj = ResourceManager.GetObject("add", resourceCulture);
@@ -126,6 +136,16 @@ namespace Student_Management.Properties {
         internal static System.Drawing.Bitmap chart {
             get {
                 object obj = ResourceManager.GetObject("chart", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap dashboard_24 {
+            get {
+                object obj = ResourceManager.GetObject("dashboard-24", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -213,6 +233,16 @@ namespace Student_Management.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap management_100 {
+            get {
+                object obj = ResourceManager.GetObject("management-100", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap menu {
             get {
                 object obj = ResourceManager.GetObject("menu", resourceCulture);
@@ -286,6 +316,16 @@ namespace Student_Management.Properties {
         internal static System.Drawing.Bitmap student_24 {
             get {
                 object obj = ResourceManager.GetObject("student-24", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap student_center_100 {
+            get {
+                object obj = ResourceManager.GetObject("student-center-100", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
