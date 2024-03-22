@@ -24,6 +24,7 @@ namespace Student_Management.FORMS.Account
             {
                 displayNew();
             }
+            deleteToolStripMenuItem.Visible = frm_Login.userLevel == 2 ? false : true;            
         }
 
         public void searchResult()

@@ -33,9 +33,23 @@ namespace Student_Management.FORMS.Account
         private void frm_Account_Load(object sender, EventArgs e)
         {
             this.ControlBox = false;
-            initDetails();
-            loadCards();
+            if(frm_Login.userLevel == 2)
+            {
+                txt_Search.Visible = false;
+                cmb_seachOptions.Visible = false;
+                btn_Add.Visible = false;
+                initStudentView();
+            }
+            else
+            {
+                txt_Search.Visible = true;
+                cmb_seachOptions.Visible = true;
+                btn_Add.Visible = true;
+                initDetails();
+                loadCards();
+            }
         }
+
         int i;
         private void loadCards()
         {
@@ -51,6 +65,15 @@ namespace Student_Management.FORMS.Account
         {
             AccountInfo get = new AccountInfo();
             get.getList();
+        }
+
+        private void initStudentView()
+        {
+            AccountInfo get = new AccountInfo();
+            get.searchUser(frm_Login.userName);
+            ucAccount cards = new ucAccount();
+            cards.cardDetails(get);
+            cardContainer.Controls.Add(cards);
         }
 
         private void btn_Add_Click(object sender, EventArgs e)

@@ -91,7 +91,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(298, 59);
+            this.ClientSize = new System.Drawing.Size(350, 59);
             this.Controls.Add(this.lbl_Message);
             this.Controls.Add(this.lbl_Type);
             this.Controls.Add(this.picIcon);

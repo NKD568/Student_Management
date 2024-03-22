@@ -121,7 +121,7 @@ namespace Student_Management.FORMS.Account
             }
             catch (Exception ex)
             {
-                get.showToast("ERROR", "Account existed in other tables");
+                get.showToast("ERROR", "Account existed in other data");
             }
 
         }
@@ -150,6 +150,29 @@ namespace Student_Management.FORMS.Account
                 };
                     list.Add(card);
                 }
+            }
+            reader.Dispose();
+            cmd.Dispose();
+            conn.Close();
+        }
+
+        public void searchUser(string _username)
+        {
+            MySqlConnection conn = new MySqlConnection(connstring);
+            conn.Open();
+            string sql = "SELECT * FROM " + tableName + " WHERE Username = @username";
+            MySqlCommand cmd = conn.CreateCommand();
+            cmd.CommandText = sql;
+            cmd.Parameters.AddWithValue("@username", _username);
+            MySqlDataReader reader = cmd.ExecuteReader();
+            list.Clear();
+            if (reader.Read())
+            {
+                id = Convert.ToInt32(reader["id"]);
+                username = reader["Username"].ToString();
+                password = reader["Password"].ToString();
+                level = Convert.ToInt32(reader["Level"]);
+                isBlocked = Convert.ToBoolean(reader["isBlocked"]);
             }
             reader.Dispose();
             cmd.Dispose();
@@ -220,6 +243,7 @@ namespace Student_Management.FORMS.Account
             if (reader.HasRows)
             {
                 reader.Read();
+                username = reader["Username"].ToString();
                 level = reader.GetInt32("Level");
                 isBlocked = reader.GetBoolean("isBlocked");
                 reader.Dispose();

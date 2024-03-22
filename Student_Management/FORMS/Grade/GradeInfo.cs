@@ -7,6 +7,7 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static Mysqlx.Expect.Open.Types.Condition.Types;
 
 namespace Student_Management.FORMS.Grade
 {
@@ -115,7 +116,7 @@ namespace Student_Management.FORMS.Grade
                 conn.Close();
             }catch (Exception ex)
             {
-                get.showToast("ERROR", "Grade existed in other tables!");
+                get.showToast("ERROR", "Grade existed in other data!");
             }
         }
 
@@ -151,6 +152,38 @@ namespace Student_Management.FORMS.Grade
             }
             reader.Dispose();
             cmd.Dispose();
+            conn.Close();
+        }
+
+        public void searchStudentId(string _studentId)
+        {
+            MySqlConnection conn = new MySqlConnection(connstring);
+            conn.Open();
+            string sql = "SELECT * FROM " + tableName + " WHERE StudentId = @studentid";
+            MySqlCommand cmd = conn.CreateCommand();
+            cmd.CommandText = sql;
+            cmd.Parameters.AddWithValue("@studentid", _studentId);
+            MySqlDataReader reader = cmd.ExecuteReader();
+            list.Clear();
+            if (reader.HasRows)
+            {
+                while (reader.Read())
+                {
+                    GradeInfo card = new GradeInfo
+                    {
+                        id = Convert.ToInt32(reader["id"]),
+                        studentId = Convert.ToInt32(reader["StudentId"]),
+                        courseId = Convert.ToInt32(reader["CourseId"]),
+                        grade = reader["Grade"].ToString(),
+                    };
+                    card.getStudentName(card.studentId);
+                    card.getCourseName(card.courseId);
+                    card.getCourseState(card.courseId);
+                    list.Add(card);
+                }
+            }
+            cmd.Dispose();
+            reader.Dispose();
             conn.Close();
         }
 

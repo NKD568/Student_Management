@@ -36,7 +36,7 @@
             this.student = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.course = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.result = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.gradeContainer = new System.Windows.Forms.FlowLayoutPanel();
+            this.cardContainer = new System.Windows.Forms.FlowLayoutPanel();
             this.cmb_seachOptions = new MaterialSkin.Controls.MaterialComboBox();
             this.btn_Add = new ReaLTaiizor.Controls.MaterialFloatingActionButton();
             this.txt_Search = new MaterialSkin.Controls.MaterialTextBox2();
@@ -101,15 +101,15 @@
             this.result.MinimumWidth = 8;
             this.result.Name = "result";
             // 
-            // gradeContainer
+            // cardContainer
             // 
-            this.gradeContainer.AutoScroll = true;
-            this.gradeContainer.BackColor = System.Drawing.Color.Honeydew;
-            this.gradeContainer.Location = new System.Drawing.Point(29, 105);
-            this.gradeContainer.Margin = new System.Windows.Forms.Padding(0);
-            this.gradeContainer.Name = "gradeContainer";
-            this.gradeContainer.Size = new System.Drawing.Size(1100, 600);
-            this.gradeContainer.TabIndex = 18;
+            this.cardContainer.AutoScroll = true;
+            this.cardContainer.BackColor = System.Drawing.Color.Honeydew;
+            this.cardContainer.Location = new System.Drawing.Point(29, 105);
+            this.cardContainer.Margin = new System.Windows.Forms.Padding(0);
+            this.cardContainer.Name = "cardContainer";
+            this.cardContainer.Size = new System.Drawing.Size(1100, 600);
+            this.cardContainer.TabIndex = 18;
             // 
             // cmb_seachOptions
             // 
@@ -190,7 +190,7 @@
             // updateInfoTimer
             // 
             this.updateInfoTimer.Enabled = true;
-            this.updateInfoTimer.Interval = 1;
+            this.updateInfoTimer.Interval = 30;
             this.updateInfoTimer.Tick += new System.EventHandler(this.updateInfoTimer_Tick);
             // 
             // frm_Grade
@@ -199,7 +199,7 @@
             this.BackColor = System.Drawing.Color.LightSteelBlue;
             this.ClientSize = new System.Drawing.Size(1200, 800);
             this.Controls.Add(this.searchResult);
-            this.Controls.Add(this.gradeContainer);
+            this.Controls.Add(this.cardContainer);
             this.Controls.Add(this.cmb_seachOptions);
             this.Controls.Add(this.btn_Add);
             this.Controls.Add(this.txt_Search);
@@ -217,7 +217,7 @@
         private System.Windows.Forms.Timer refreshTimer;
         private System.Windows.Forms.Timer deleteTimer;
         private System.Windows.Forms.DataGridView searchResult;
-        private System.Windows.Forms.FlowLayoutPanel gradeContainer;
+        private System.Windows.Forms.FlowLayoutPanel cardContainer;
         private MaterialSkin.Controls.MaterialComboBox cmb_seachOptions;
         private ReaLTaiizor.Controls.MaterialFloatingActionButton btn_Add;
         private MaterialSkin.Controls.MaterialTextBox2 txt_Search;

@@ -1,4 +1,5 @@
-﻿using Student_Management.FORMS.Grade;
+﻿using Student_Management.FORMS.Account;
+using Student_Management.FORMS.Grade;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -14,32 +15,62 @@ namespace Student_Management.FORMS.Schedule
 
     public partial class ucDay : UserControl
     {
-        string _day, date, weekday;
-
         public ucDay()
         {
             InitializeComponent();
-            lbl_Day.Text = "";
         }
 
-        public ucDay(string day)
+        DateTime _date;
+        string weekday;
+        public void dateDetails(int _day)
         {
-            InitializeComponent();
-            _day = day;
-            lbl_Day.Text = day;
-            date = frm_Schedule._month + "/" + _day + "/" + frm_Schedule._year;
+            string date = frm_Schedule._month + "/" + _day + "/" + frm_Schedule._year;
+            _date = Convert.ToDateTime(date);
             ScheduleInfo get = new ScheduleInfo();
-            get.getDateDetails(Convert.ToDateTime(date));
-            lbl_Id.Text = get.id.ToString();
+            if(frm_Login.userLevel == 2)
+            {
+                get.getStudentDate(frm_Login.userName, _date);
+            }
+            else
+            {
+                get.getDateEvent(_date);
+            }
+            lbl_Day.Text = _date.Day.ToString();
             lbl_Event.Text = get.course;
+        }
+
+        private void sundays()
+        {
+            try
+            {
+                DateTime _day = _date;
+                weekday = _day.ToString("ddd");
+                if (weekday == "Sun")
+                {
+                    lbl_Day.ForeColor = Color.FromArgb(255, 128, 128);
+                }
+                else
+                {
+                    lbl_Day.ForeColor = Color.FromArgb(64, 64, 64);
+                }
+            }
+            catch (Exception) { }
+        }
+
+        private void ucDay_Load(object sender, EventArgs e)
+        {
+            sundays();
             this.BackColor = lbl_Event.Text != "" ? Color.FromArgb(255, 150, 79) : Color.White;
-            if (Convert.ToDateTime(date) < DateTime.Today)
+            if(frm_Login.userLevel == 2)
             {
                 this.Enabled = false;
             }
+            else
+            {
+                this.Enabled = _date < DateTime.Today ? false : true;
+            }
         }
 
-        public static bool blockClicked;
         private void dateBlock_click(object sender, EventArgs e)
         {
             Point buttonPosition = lbl_Day.PointToScreen(new Point(0, lbl_Day.Height));
@@ -48,7 +79,6 @@ namespace Student_Management.FORMS.Schedule
             {
                 editToolStripMenuItem.Text = "Add New Event";
                 deleteToolStripMenuItem.Visible = false;
-                blockClicked = true;
             }
             else
             {
@@ -59,33 +89,37 @@ namespace Student_Management.FORMS.Schedule
 
         public static bool view = false;
         public static string public_date;
+        public static string public_oldCourseSaved;
+        public static bool blockClicked;
         private void editToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            blockClicked = true;
             public_date = frm_Schedule._month + "/" + lbl_Day.Text + "/" + frm_Schedule._year;
-            updatedTimer.Start();
             if (lbl_Event.Text != "")
             {
+                public_oldCourseSaved = lbl_Event.Text;
                 view = true;
-                frm_Event form = new frm_Event();
-                form.ShowDialog();
+                updatedTimer.Start();
             }
-            else {
-                frm_Event form = new frm_Event();
-                form.ShowDialog();
+            else
+            {
+                view = false;
             }
+            frm_SaveEvent form = new frm_SaveEvent();
+            form.ShowDialog();
         }
 
         private void updatedTimer_Tick(object sender, EventArgs e)
         {
-            if (frm_Event.isUpdate || frm_Event.refresh)
+            if (frm_SaveEvent.isUpdate)
             {
                 ScheduleInfo get = new ScheduleInfo();
-                get.getDateDetails(Convert.ToDateTime(public_date));
-                lbl_Id.Text = get.id.ToString();
-                lbl_Event.Text = get.course;
+                DateTime _date = Convert.ToDateTime(public_date);
+                DataTable dt = get.getDateDetails(_date);               
+                DataRow firstRow = dt.Rows[0];
+                lbl_Event.Text = firstRow["Course"].ToString();
                 this.BackColor = lbl_Event.Text != "" ? Color.FromArgb(255, 150, 79) : Color.White;
-                frm_Event.isUpdate = false;
-                frm_Event.refresh = false;
+                frm_SaveEvent.isUpdate = false;
             }
         }
 
@@ -97,30 +131,6 @@ namespace Student_Management.FORMS.Schedule
             ScheduleInfo get = new ScheduleInfo();
             get.delete(Convert.ToDateTime(public_date));
         }
-
-        private void sundays()
-        {
-            try
-            {
-                DateTime day = DateTime.Parse(date);
-                weekday = day.ToString("ddd");
-                if(weekday == "Sun")
-                {
-                    lbl_Day.ForeColor = Color.FromArgb(255, 128, 128);
-                }
-                else
-                {
-                    lbl_Day.ForeColor = Color.FromArgb(64, 64, 64);
-                }
-            }catch(Exception) { }
-        }
-
-        private void ucDay_Load(object sender, EventArgs e)
-        {
-            sundays();
-        }
-
-
 
 
     }

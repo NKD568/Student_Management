@@ -10,6 +10,8 @@ using System.Windows.Forms;
 using MySql.Data.MySqlClient;
 using Student_Management.FORMS.Main;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.ListView;
+using static Mysqlx.Notice.Warning.Types;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 
 namespace Student_Management.FORMS.Student
 {
@@ -117,7 +119,7 @@ namespace Student_Management.FORMS.Student
                 conn.Close();
             }catch (Exception ex)
             {
-                get.showToast("ERROR", "Student existed in other tables");
+                get.showToast("ERROR", "Student existed in other data");
             }
 
         }
@@ -145,6 +147,28 @@ namespace Student_Management.FORMS.Student
                     };
                     list.Add(card);
                 }
+            }
+            reader.Dispose();
+            cmd.Dispose();
+            conn.Close();
+        }
+
+        public void searchId(string _id)
+        {
+            MySqlConnection conn = new MySqlConnection(connstring);
+            conn.Open();
+            string sql = "SELECT * FROM " + tableName + " WHERE id = @id";
+            MySqlCommand cmd = conn.CreateCommand();
+            cmd.CommandText = sql;
+            cmd.Parameters.AddWithValue("@id", _id);
+            MySqlDataReader reader = cmd.ExecuteReader();
+            list.Clear();
+            if (reader.Read())
+            {
+                id = Convert.ToInt32(reader["id"]);
+                name = reader["Name"].ToString();
+                birthdate = reader.GetDateTime("Birthdate");
+                email = reader["Email"].ToString();
             }
             reader.Dispose();
             cmd.Dispose();

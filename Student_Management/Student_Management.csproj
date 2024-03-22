@@ -195,11 +195,11 @@
     <Compile Include="FORMS\Main\ucMenu.Designer.cs">
       <DependentUpon>ucMenu.cs</DependentUpon>
     </Compile>
-    <Compile Include="FORMS\Schedule\frm_Event.cs">
+    <Compile Include="FORMS\Schedule\frm_SaveEvent.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FORMS\Schedule\frm_Event.Designer.cs">
-      <DependentUpon>frm_Event.cs</DependentUpon>
+    <Compile Include="FORMS\Schedule\frm_SaveEvent.Designer.cs">
+      <DependentUpon>frm_SaveEvent.cs</DependentUpon>
     </Compile>
     <Compile Include="FORMS\Schedule\frm_Schedule.cs">
       <SubType>Form</SubType>
@@ -280,8 +280,8 @@
     <EmbeddedResource Include="FORMS\Main\ucMenu.resx">
       <DependentUpon>ucMenu.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FORMS\Schedule\frm_Event.resx">
-      <DependentUpon>frm_Event.cs</DependentUpon>
+    <EmbeddedResource Include="FORMS\Schedule\frm_SaveEvent.resx">
+      <DependentUpon>frm_SaveEvent.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FORMS\Schedule\frm_Schedule.resx">
       <DependentUpon>frm_Schedule.cs</DependentUpon>
@@ -328,6 +328,7 @@
   <ItemGroup>
     <Content Include="RESOURCES\Icons\account-24.png" />
     <Content Include="RESOURCES\Icons\add.png" />
+    <Content Include="RESOURCES\Icons\admin-settings-male-24.png" />
     <Content Include="RESOURCES\Icons\book-24.png" />
     <Content Include="RESOURCES\Icons\books.png" />
     <Content Include="RESOURCES\Icons\cancel-32.png" />

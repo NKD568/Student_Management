@@ -1,6 +1,6 @@
 ﻿namespace Student_Management.FORMS.Schedule
 {
-    partial class frm_Event
+    partial class frm_SaveEvent
     {
         /// <summary>
         /// Required designer variable.

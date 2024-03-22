@@ -1,7 +1,9 @@
 ﻿using Student_Management.FORMS;
+using Student_Management.FORMS.Account;
 using Student_Management.FORMS.Course;
 using Student_Management.FORMS.Grade;
 using Student_Management.FORMS.Schedule;
+using Student_Management.FORMS.Student;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -29,6 +31,7 @@ namespace Student_Management
         private void frm_Schedule_Load(object sender, EventArgs e)
         {
             this.ControlBox = false;
+            btn_Add.Visible = frm_Login.userLevel == 2 ? false : true;
             dtp_SelectedDate.Value = DateTime.Now;
             showDays(dtp_SelectedDate.Value.Month, dtp_SelectedDate.Value.Year);
         }
@@ -41,7 +44,7 @@ namespace Student_Management
 
         private void showDays(int month, int year)
         {
-            flowLayoutPanelSchedule.Controls.Clear();
+            cardContainer.Controls.Clear();
             _year = year;
             _month = month;
 
@@ -54,14 +57,14 @@ namespace Student_Management
             for (int i = 1; i < week; i++)
             {
                 ucDay uc = new ucDay();
-                flowLayoutPanelSchedule.Controls.Add(uc);
-                uc.Enabled = false;
+                cardContainer.Controls.Add(uc);
             }
             // Get date from current month
             for (int i = 1; i <= day; i++)
             {
-                ucDay uc = new ucDay(i + " ");
-                flowLayoutPanelSchedule.Controls.Add(uc);
+                ucDay uc = new ucDay();
+                uc.dateDetails(i);
+                cardContainer.Controls.Add(uc);
             }
         }
 
@@ -99,11 +102,28 @@ namespace Student_Management
 
         private void refreshTimer_Tick(object sender, EventArgs e)
         {
-            if (ucDay.isDeleted == true || frm_Event.refresh == true)
+            if (frm_SaveEvent.refresh == true)
             {
                 showDays(dtp_SelectedDate.Value.Month, dtp_SelectedDate.Value.Year);
+                frm_SaveEvent.refresh = false;
+            }
+        }
+
+        private void deleteTimer_Tick(object sender, EventArgs e)
+        {
+            if (ucDay.isDeleted == true)
+            {
+                cardContainer.Controls.Clear();
+                showDays(dtp_SelectedDate.Value.Month, dtp_SelectedDate.Value.Year);
                 ucDay.isDeleted = false;
-                frm_Event.refresh = false;
+            }
+        }
+
+        private void updateInfoTimer_Tick(object sender, EventArgs e)
+        {
+            if (frm_SaveCourse.isUpdate || frm_SaveStudent.isUpdate)
+            {
+                showDays(dtp_SelectedDate.Value.Month, dtp_SelectedDate.Value.Year);
             }
         }
 
@@ -112,7 +132,7 @@ namespace Student_Management
             Form background = new Form();
             try
             {
-                using (frm_Event frm = new frm_Event())
+                using (frm_SaveEvent frm = new frm_SaveEvent())
                 {
                     background.StartPosition = FormStartPosition.Manual;
                     background.FormBorderStyle = FormBorderStyle.None;

@@ -1,4 +1,4 @@
-﻿using MaterialSkin;
+﻿ using MaterialSkin;
 using MaterialSkin.Controls;
 using MySql.Data.MySqlClient;
 using Mysqlx.Crud;
@@ -16,10 +16,10 @@ using System.Windows.Forms;
 
 namespace Student_Management.FORMS.Schedule
 {
-    public partial class frm_Event : MaterialForm
+    public partial class frm_SaveEvent : MaterialForm
     {
         MaterialSkinManager materialSkinManager;
-        public frm_Event()
+        public frm_SaveEvent()
         {
             InitializeComponent();
             materialSkinManager = MaterialSkinManager.Instance;
@@ -77,31 +77,79 @@ namespace Student_Management.FORMS.Schedule
         }
         private void backgroundWorker1_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
+            frm_Main notify = new frm_Main();
             if (update == false)
             {
-                ScheduleInfo save = new ScheduleInfo();
-                DataTable dt = save.getGradeIds(txt_Course.Text);
-                foreach (DataRow row in dt.Rows)
-                {
-                    save.gradeId = Convert.ToInt32(row["id"]);
-                    save.date = Convert.ToDateTime(dtp_Date.Text);
-                    save.Save();
-                }
+                setCourseSchedule();
                 refresh = true;
-                frm_Main get = new frm_Main();
-                get.showToast("SUCCESS", "Successfully Saved");
+                this.Close();
+                notify.showToast("SUCCESS", "Successfully Saved");
             }
             else
             {
-                ScheduleInfo up = new ScheduleInfo();
-                DataTable dt = up.getGradeIds(txt_Course.Text);
-                foreach (DataRow row in dt.Rows)
-                {
-                    up.gradeId = Convert.ToInt32(row["id"]);
-                    up.date = Convert.ToDateTime(dtp_Date.Text);
-                    up.update(up.gradeId, up.date);
-                }
+                updateCourseSchedule();
                 isUpdate = true;
+                this.Close();
+                notify.showToast("SUCCESS", "Successfully Updated");
+            }
+        }
+
+        private void setCourseSchedule()
+        {
+            ScheduleInfo save = new ScheduleInfo();
+            DataTable dt = save.getGradeIds(txt_Course.Text);
+            foreach (DataRow row in dt.Rows)
+            {
+                save.gradeId = Convert.ToInt32(row["id"]);
+                save.date = Convert.ToDateTime(dtp_Date.Text);
+                save.Save();
+            }
+        }
+
+        private void updateCourseSchedule()
+        {
+            ScheduleInfo up = new ScheduleInfo();
+            DataTable dtIsUpdated = up.getEventDetails(ucDay.public_oldCourseSaved);
+            DataTable dtDataUpdate = up.getGradeIds(txt_Course.Text);
+            int rowDifference = dtIsUpdated.Rows.Count - dtDataUpdate.Rows.Count;
+            DateTime _date = Convert.ToDateTime(ucDay.public_date);
+            if (rowDifference == 0)
+            {
+                int i = 0;
+                foreach (DataRow row in dtDataUpdate.Rows)
+                {
+                    DataRow r = dtIsUpdated.Rows[i];
+                    up.id = Convert.ToInt32(r["id"]);
+                    int _gradeId = Convert.ToInt32(row["id"]);
+                    up.update(up.id ,_gradeId, _date);
+                    i++;
+                }
+            }
+            else if (rowDifference < 0)
+            {
+                int i = 0;
+                foreach (DataRow row in dtDataUpdate.Rows)
+                {
+                    DataRow r = dtIsUpdated.Rows[i];
+                    up.id = Convert.ToInt32(r["id"]);
+                    int _gradeId = Convert.ToInt32(row["tbid"]);
+                    up.update(up.id, _gradeId, _date);
+                    i++;
+                }
+                while (i < dtDataUpdate.Rows.Count)
+                {
+                    DataRow row = dtDataUpdate.Rows[i];
+                    up.gradeId = Convert.ToInt32(row["id"]);
+                    up.date = _date;
+                    up.Save();
+                    i++;
+                }
+            }
+            else
+            {
+                frm_Main notify = new frm_Main();
+                notify.showToast("ERROR", "Not all Students in this Course");
+                return;
             }
         }
 
@@ -130,9 +178,11 @@ namespace Student_Management.FORMS.Schedule
         private void getDetail()
         {
             ScheduleInfo get = new ScheduleInfo();
-            get.getDateDetails(Convert.ToDateTime(ucDay.public_date));
-            dtp_Date.Text = get.date.ToString();
-            txt_Course.Text = get.course;
+            DateTime _date = Convert.ToDateTime(ucDay.public_date);
+            DataTable dt = get.getDateDetails(_date);
+            DataRow firstRow = dt.Rows[0];           
+            dtp_Date.Text = ucDay.public_date;
+            txt_Course.Text = firstRow["Course"].ToString();
         }
 
         private void txt_Course_TextChanged(object sender, EventArgs e)
@@ -147,8 +197,10 @@ namespace Student_Management.FORMS.Schedule
                 using (MySqlConnection conn = new MySqlConnection(get.connstring))
                 {
                     conn.Open();
-                    string sql = "SELECT tbcourse.Name FROM tbcourse WHERE isOpen = true AND" +
-                        " id IN (SELECT CourseId FROM tbgrade WHERE Grade IS NULL AND id NOT IN (SELECT GradeId FROM tbschedule)) AND";
+                    string sql = "SELECT DISTINCT tbcourse.Name FROM tbcourse" +
+                        " JOIN tbgrade ON tbgrade.CourseId = tbcourse.id" +
+                        " WHERE tbgrade.Grade IS NULL AND tbcourse.isOpen = true" +
+                        " AND tbgrade.id NOT IN (SELECT GradeId FROM tbschedule) AND";
                     sql += " tbcourse.Name LIKE @data";
                     MySqlCommand cmd = conn.CreateCommand();
                     cmd.CommandText = sql;

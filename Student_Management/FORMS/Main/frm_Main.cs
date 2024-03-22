@@ -137,7 +137,7 @@ namespace Student_Management.FORMS.Main
 
         private void frm_Main_Load(object sender, EventArgs e)
         {
-            switch (frm_Login.loginLevel)
+            switch (frm_Login.userLevel)
             {
                 case 0:
                     break;

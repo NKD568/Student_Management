@@ -68,7 +68,7 @@ namespace Student_Management.FORMS.Grade
         {
             if (update == false)
             {
-                if(courCellClicked == false || stuCellClicked == false)
+                if (courCellClicked == false || stuCellClicked == false)
                 {
                     MessageBox.Show("Please Verify your input!\n Course must exist or open \n Student can not join in same course");
                     return;
@@ -292,5 +292,6 @@ namespace Student_Management.FORMS.Grade
             return selectedValue;
         }
 
+ 
     }
 }

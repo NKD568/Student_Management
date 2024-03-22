@@ -70,6 +70,7 @@ namespace Student_Management.FORMS.Account
         {
             if (ucAccount.view == true)
             {
+                checkUserLevel();
                 getDetail();
                 btn_Save.Text = "UPDATE";
                 update = true;
@@ -85,6 +86,22 @@ namespace Student_Management.FORMS.Account
                 txt_Password.Enabled = true;
                 cb_RestPass.Visible = false;
                 update = false;
+            }
+        }
+
+        private void checkUserLevel()
+        {
+            if (frm_Login.userLevel == 2)
+            {
+                txt_Username.Enabled = false;
+                cmb_isBlocked.Enabled = false;
+                cmb_Level.Enabled = false;
+            }
+            else
+            {
+                txt_Username.Enabled = true;
+                cmb_isBlocked.Enabled = true;
+                cmb_Level.Enabled = true;
             }
         }
 

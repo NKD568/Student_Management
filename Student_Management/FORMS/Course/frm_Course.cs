@@ -1,5 +1,6 @@
 ﻿using MaterialSkin;
 using MySql.Data.MySqlClient;
+using Student_Management.FORMS.Account;
 using Student_Management.FORMS.Student;
 using System;
 using System.Collections.Generic;
@@ -33,6 +34,7 @@ namespace Student_Management.FORMS.Course
         private void frm_Course_Load(object sender, EventArgs e)
         {
             this.ControlBox = false;
+            btn_Add.Visible = frm_Login.userLevel == 2 ? false : true;
             initDetails();
             loadCards();
         }
@@ -44,7 +46,7 @@ namespace Student_Management.FORMS.Course
                 i++;
                 ucCourse cards = new ucCourse();
                 cards.cardDetails(data);
-                courseContainer.Controls.Add(cards);
+                cardContainer.Controls.Add(cards);
             }
         }
         private void initDetails()
@@ -90,7 +92,7 @@ namespace Student_Management.FORMS.Course
             if (e.KeyChar == (char)Keys.Enter)
             {
                 searchKey = txt_Search.Text;
-                courseContainer.Controls.Clear();
+                cardContainer.Controls.Clear();
                 ucCourse u = new ucCourse();
                 u.searchResult();
                 loadCards();
@@ -101,7 +103,7 @@ namespace Student_Management.FORMS.Course
         {
             if (ucCourse.isDeleted == true)
             {
-                courseContainer.Controls.Clear();
+                cardContainer.Controls.Clear();
                 initDetails();
                 loadCards();
                 ucCourse.isDeleted = false;
@@ -113,7 +115,7 @@ namespace Student_Management.FORMS.Course
             if (frm_SaveCourse.refresh == true)
             {
                 ucCourse stu = new ucCourse();
-                courseContainer.Controls.Add(stu);
+                cardContainer.Controls.Add(stu);
                 frm_SaveCourse.refresh = false;
             }
         }
@@ -168,7 +170,7 @@ namespace Student_Management.FORMS.Course
             searchResult.Height = 0;
             ucCourse u = new ucCourse();
             searchKey = txt_Search.Text;
-            courseContainer.Controls.Clear();
+            cardContainer.Controls.Clear();
             u.searchResult();
             loadCards();
         }

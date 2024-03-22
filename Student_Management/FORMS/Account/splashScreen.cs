@@ -23,12 +23,13 @@ namespace Student_Management.FORMS.Account
             progressBar.Width = 47;
         }
 
-        private void timer1_Tick(object sender, EventArgs e)
+
+        private void timerShow_Tick(object sender, EventArgs e)
         {
             progressBar.Width += 3;
-            if(progressBar.Width >= 599)
+            if (progressBar.Width >= 599)
             {
-                timer1.Stop();
+                timerShow.Stop();
                 frm_Login login = new frm_Login();
                 login.Show();
                 this.Hide();

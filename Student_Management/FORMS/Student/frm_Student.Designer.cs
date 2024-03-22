@@ -35,7 +35,7 @@
             this.btn_Add = new ReaLTaiizor.Controls.MaterialFloatingActionButton();
             this.txt_Search = new MaterialSkin.Controls.MaterialTextBox2();
             this.cmb_seachOptions = new MaterialSkin.Controls.MaterialComboBox();
-            this.studentContainer = new System.Windows.Forms.FlowLayoutPanel();
+            this.cardContainer = new System.Windows.Forms.FlowLayoutPanel();
             this.searchResult = new System.Windows.Forms.DataGridView();
             this.ID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.result = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -126,14 +126,14 @@
             this.cmb_seachOptions.TabIndex = 6;
             this.cmb_seachOptions.SelectedIndexChanged += new System.EventHandler(this.cmb_seachOptions_SelectedIndexChanged);
             // 
-            // studentContainer
+            // cardContainer
             // 
-            this.studentContainer.AutoScroll = true;
-            this.studentContainer.BackColor = System.Drawing.Color.SeaShell;
-            this.studentContainer.Location = new System.Drawing.Point(24, 103);
-            this.studentContainer.Name = "studentContainer";
-            this.studentContainer.Size = new System.Drawing.Size(1100, 600);
-            this.studentContainer.TabIndex = 8;
+            this.cardContainer.AutoScroll = true;
+            this.cardContainer.BackColor = System.Drawing.Color.SeaShell;
+            this.cardContainer.Location = new System.Drawing.Point(24, 103);
+            this.cardContainer.Name = "cardContainer";
+            this.cardContainer.Size = new System.Drawing.Size(1100, 600);
+            this.cardContainer.TabIndex = 8;
             // 
             // searchResult
             // 
@@ -181,7 +181,7 @@
             this.BackColor = System.Drawing.Color.Lavender;
             this.ClientSize = new System.Drawing.Size(1200, 800);
             this.Controls.Add(this.searchResult);
-            this.Controls.Add(this.studentContainer);
+            this.Controls.Add(this.cardContainer);
             this.Controls.Add(this.cmb_seachOptions);
             this.Controls.Add(this.btn_Add);
             this.Controls.Add(this.txt_Search);
@@ -201,7 +201,7 @@
         private System.Windows.Forms.Timer refreshTimer;
         private System.Windows.Forms.Timer deleteTimer;
         private MaterialSkin.Controls.MaterialComboBox cmb_seachOptions;
-        private System.Windows.Forms.FlowLayoutPanel studentContainer;
+        private System.Windows.Forms.FlowLayoutPanel cardContainer;
         private System.Windows.Forms.DataGridView searchResult;
         private System.Windows.Forms.DataGridViewTextBoxColumn ID;
         private System.Windows.Forms.DataGridViewTextBoxColumn result;

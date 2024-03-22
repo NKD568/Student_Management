@@ -69,7 +69,7 @@
             // lbl_Event
             // 
             this.lbl_Event.Depth = 0;
-            this.lbl_Event.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.lbl_Event.Font = new System.Drawing.Font("Roboto", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
             this.lbl_Event.Location = new System.Drawing.Point(3, 54);
             this.lbl_Event.MouseState = MaterialSkin.MouseState.HOVER;
             this.lbl_Event.Name = "lbl_Event";
@@ -84,9 +84,8 @@
             this.lbl_Day.Font = new System.Drawing.Font("Comic Sans MS", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbl_Day.Location = new System.Drawing.Point(170, 8);
             this.lbl_Day.Name = "lbl_Day";
-            this.lbl_Day.Size = new System.Drawing.Size(36, 28);
+            this.lbl_Day.Size = new System.Drawing.Size(0, 28);
             this.lbl_Day.TabIndex = 0;
-            this.lbl_Day.Text = "00";
             this.lbl_Day.Click += new System.EventHandler(this.dateBlock_click);
             // 
             // optionMenu

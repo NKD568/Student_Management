@@ -30,7 +30,7 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frm_Schedule));
-            this.flowLayoutPanelSchedule = new System.Windows.Forms.FlowLayoutPanel();
+            this.cardContainer = new System.Windows.Forms.FlowLayoutPanel();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
@@ -45,16 +45,18 @@
             this.refreshTimer = new System.Windows.Forms.Timer(this.components);
             this.dtp_SelectedDate = new System.Windows.Forms.DateTimePicker();
             this.btn_Today = new MaterialSkin.Controls.MaterialButton();
+            this.deleteTimer = new System.Windows.Forms.Timer(this.components);
+            this.updateInfoTimer = new System.Windows.Forms.Timer(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.ic_ToRight)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ic_ToLeft)).BeginInit();
             this.SuspendLayout();
             // 
-            // flowLayoutPanelSchedule
+            // cardContainer
             // 
-            this.flowLayoutPanelSchedule.Location = new System.Drawing.Point(53, 129);
-            this.flowLayoutPanelSchedule.Name = "flowLayoutPanelSchedule";
-            this.flowLayoutPanelSchedule.Size = new System.Drawing.Size(1100, 600);
-            this.flowLayoutPanelSchedule.TabIndex = 0;
+            this.cardContainer.Location = new System.Drawing.Point(53, 129);
+            this.cardContainer.Name = "cardContainer";
+            this.cardContainer.Size = new System.Drawing.Size(1100, 600);
+            this.cardContainer.TabIndex = 0;
             // 
             // label1
             // 
@@ -215,6 +217,18 @@
             this.btn_Today.UseVisualStyleBackColor = true;
             this.btn_Today.Click += new System.EventHandler(this.btn_Today_Click);
             // 
+            // deleteTimer
+            // 
+            this.deleteTimer.Enabled = true;
+            this.deleteTimer.Interval = 50;
+            this.deleteTimer.Tick += new System.EventHandler(this.deleteTimer_Tick);
+            // 
+            // updateInfoTimer
+            // 
+            this.updateInfoTimer.Enabled = true;
+            this.updateInfoTimer.Interval = 30;
+            this.updateInfoTimer.Tick += new System.EventHandler(this.updateInfoTimer_Tick);
+            // 
             // frm_Schedule
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -233,7 +247,7 @@
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.flowLayoutPanelSchedule);
+            this.Controls.Add(this.cardContainer);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "frm_Schedule";
             this.Text = "Form1";
@@ -247,7 +261,7 @@
 
         #endregion
 
-        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanelSchedule;
+        private System.Windows.Forms.FlowLayoutPanel cardContainer;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
@@ -262,6 +276,8 @@
         private System.Windows.Forms.Timer refreshTimer;
         private System.Windows.Forms.DateTimePicker dtp_SelectedDate;
         private MaterialSkin.Controls.MaterialButton btn_Today;
+        private System.Windows.Forms.Timer deleteTimer;
+        private System.Windows.Forms.Timer updateInfoTimer;
     }
 }
 

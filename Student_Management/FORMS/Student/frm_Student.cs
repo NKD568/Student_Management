@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using MaterialSkin;
 using MaterialSkin.Controls;
 using MySql.Data.MySqlClient;
+using Student_Management.FORMS.Account;
 
 namespace Student_Management.FORMS.Student
 {
@@ -33,8 +34,21 @@ namespace Student_Management.FORMS.Student
         private void frm_Student_Load(object sender, EventArgs e)
         {
             this.ControlBox = false;
-            initDetails();
-            loadCards();
+            if (frm_Login.userLevel == 2)
+            {
+                txt_Search.Visible = false;
+                cmb_seachOptions.Visible = false;
+                btn_Add.Visible = false;
+                initStudentView();
+            }
+            else
+            {
+                txt_Search.Visible = true;
+                cmb_seachOptions.Visible = true;
+                btn_Add.Visible = true;
+                initDetails();
+                loadCards();
+            }
         }
         int i;
         private void loadCards()
@@ -44,13 +58,23 @@ namespace Student_Management.FORMS.Student
                 i++;
                 ucStudent cards = new ucStudent();
                 cards.cardDetails(data);
-                studentContainer.Controls.Add(cards);
+                cardContainer.Controls.Add(cards);
             }
         }
+
         private void initDetails()
         {
             StudentInfo get = new StudentInfo();
             get.getList();
+        }
+
+        private void initStudentView()
+        {
+            StudentInfo get = new StudentInfo();
+            get.searchId(frm_Login.userName);
+            ucStudent cards = new ucStudent();
+            cards.cardDetails(get);
+            cardContainer.Controls.Add(cards);
         }
 
         private void btn_Add_Click(object sender, EventArgs e)
@@ -89,7 +113,7 @@ namespace Student_Management.FORMS.Student
             if(e.KeyChar == (char)Keys.Enter)
             {
                 searchKey = txt_Search.Text;
-                studentContainer.Controls.Clear();
+                cardContainer.Controls.Clear();
                 ucStudent u = new ucStudent();
                 u.searchResult();
                 loadCards();
@@ -99,7 +123,7 @@ namespace Student_Management.FORMS.Student
         private void deleteTimer_Tick(object sender, EventArgs e)
         {
             if(ucStudent.isDeleted == true) { 
-                studentContainer.Controls.Clear();
+                cardContainer.Controls.Clear();
                 initDetails();
                 loadCards();
                 ucStudent.isDeleted = false;
@@ -111,7 +135,7 @@ namespace Student_Management.FORMS.Student
             if (frm_SaveStudent.refresh == true)
             {
                 ucStudent stu = new ucStudent();
-                studentContainer.Controls.Add(stu);
+                cardContainer.Controls.Add(stu);
                 frm_SaveStudent.refresh = false;
             }
         }
@@ -178,7 +202,7 @@ namespace Student_Management.FORMS.Student
             searchResult.Height = 0;
             ucStudent u = new ucStudent();
             searchKey = txt_Search.Text;
-            studentContainer.Controls.Clear();
+            cardContainer.Controls.Clear();
             u.searchResult();
             loadCards();
         }

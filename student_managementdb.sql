@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 19, 2024 at 05:35 PM
+-- Generation Time: Mar 22, 2024 at 09:51 AM
 -- Server version: 10.4.32-MariaDB
--- PHP Version: 8.0.30
+-- PHP Version: 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -20,6 +20,29 @@ SET time_zone = "+00:00";
 --
 -- Database: `student_managementdb`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbaccount`
+--
+
+CREATE TABLE `tbaccount` (
+  `id` int(11) NOT NULL,
+  `Username` varchar(50) NOT NULL,
+  `Password` varchar(50) NOT NULL,
+  `Level` int(11) NOT NULL,
+  `isBlocked` tinyint(1) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `tbaccount`
+--
+
+INSERT INTO `tbaccount` (`id`, `Username`, `Password`, `Level`, `isBlocked`) VALUES
+(1, '215052066', 'E10ADC3949BA59ABBE56E057F20F883E', 2, 0),
+(3, '215052001', '202CB962AC59075B964B07152D234B70', 2, 0),
+(7, '215052002', 'E10ADC3949BA59ABBE56E057F20F883E', 0, 0);
 
 -- --------------------------------------------------------
 
@@ -40,13 +63,15 @@ CREATE TABLE `tbcourse` (
 --
 
 INSERT INTO `tbcourse` (`id`, `Name`, `Description`, `Credits`, `isOpen`) VALUES
-(1, 'Introduction to CS', 'Basic programming concepts in Python', 3, 1),
+(1, 'Introduction To CS', 'Beginner', 1, 0),
 (2, 'Data Structures', 'Linked lists, trees, and algorithms', 3, 0),
-(3, 'Calculus I', 'Limits, derivatives, and integrals', 4, 0),
 (4, 'English Literature', 'Analysis of literary works from various periods', 3, 1),
 (5, 'Calculus 2', 'Next part', 0, 1),
 (9, 'Test Course A', 'Info1', 1, 1),
-(10, 'Test Course 4', 'ss', 2, 1);
+(10, 'Test Course B', 'ss', 2, 1),
+(13, 'Test Course C', '123', 1, 1),
+(14, 'Test Course D', '123', 1, 1),
+(15, 'Test Course E', '123', 1, 1);
 
 -- --------------------------------------------------------
 
@@ -66,12 +91,15 @@ CREATE TABLE `tbgrade` (
 --
 
 INSERT INTO `tbgrade` (`id`, `StudentId`, `CourseId`, `Grade`) VALUES
-(2, 215052011, 9, NULL),
-(3, 215052011, 10, NULL),
-(4, 215052012, 9, NULL),
-(10, 215052012, 10, NULL),
-(11, 215052013, 10, NULL),
-(13, 215052011, 1, NULL);
+(15, 215052001, 9, NULL),
+(16, 215052011, 9, NULL),
+(17, 215052012, 9, NULL),
+(19, 215052011, 10, NULL),
+(20, 215052012, 10, NULL),
+(22, 215052011, 13, NULL),
+(24, 215052012, 13, NULL),
+(31, 215052013, 10, NULL),
+(32, 215052013, 13, NULL);
 
 -- --------------------------------------------------------
 
@@ -90,10 +118,12 @@ CREATE TABLE `tbschedule` (
 --
 
 INSERT INTO `tbschedule` (`id`, `GradeId`, `Date`) VALUES
-(87, 13, '2024-03-21 00:00:00'),
-(88, 3, '2024-03-19 00:00:00'),
-(89, 10, '2024-03-19 00:00:00'),
-(90, 11, '2024-03-19 00:00:00');
+(157, 15, '2024-03-21 00:00:00'),
+(158, 16, '2024-03-21 00:00:00'),
+(159, 17, '2024-03-21 00:00:00'),
+(250, 19, '2024-03-26 00:00:00'),
+(251, 20, '2024-03-26 00:00:00'),
+(252, 31, '2024-03-26 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -114,18 +144,13 @@ CREATE TABLE `tbstudent` (
 --
 
 INSERT INTO `tbstudent` (`id`, `Name`, `Birthdate`, `Email`, `created_at`) VALUES
-(1, 'A', '2024-03-11', 'A', '2024-03-11 01:27:59'),
-(2, 'ABCD', '2024-03-11', 'abc', '2024-03-11 02:29:02'),
-(3, 'abcde', '2024-03-12', 'dsss', '2024-03-12 03:12:30'),
-(123, 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', '2024-03-11', 'email@emai', '2024-03-12 13:22:12'),
 (1011, 'John Smith', '2024-03-11', '', '2024-03-11 14:57:16'),
 (1012, 'Pablo Escobar', '2024-03-11', '', '2024-03-11 14:57:35'),
 (1013, 'Andrea', '2024-03-11', '', '2024-03-11 14:57:46'),
 (1014, 'John Dele', '2024-03-11', '', '2024-03-11 14:57:55'),
 (1015, 'Pablo Santos', '2024-03-11', '', '2024-03-11 14:58:07'),
 (1016, 'Pablo Doe', '2024-03-11', '', '2024-03-11 14:58:22'),
-(198888, 'NKDsdsss', '2024-03-14', 'duynk@211', '2024-03-15 10:09:13'),
-(205555, 'NKDsdsss', '2024-03-14', 'duynk@21', '2024-03-15 10:09:06'),
+(215052001, 'Test Student', '2024-03-07', 'teststudent@email.edu.vn', '2024-03-21 06:31:29'),
 (215052011, 'Nguyen Van A', '2024-03-14', 'duynk@21', '2024-03-15 10:08:43'),
 (215052012, 'Nguyen Van B', '2024-03-14', 'duynk@21', '2024-03-15 10:08:46'),
 (215052013, 'Nguyen Van C', '2024-03-14', 'duynk@21', '2024-03-15 10:08:48'),
@@ -134,6 +159,13 @@ INSERT INTO `tbstudent` (`id`, `Name`, `Birthdate`, `Email`, `created_at`) VALUE
 --
 -- Indexes for dumped tables
 --
+
+--
+-- Indexes for table `tbaccount`
+--
+ALTER TABLE `tbaccount`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `UNIQUE(Username)` (`Username`);
 
 --
 -- Indexes for table `tbcourse`
@@ -168,22 +200,28 @@ ALTER TABLE `tbstudent`
 --
 
 --
+-- AUTO_INCREMENT for table `tbaccount`
+--
+ALTER TABLE `tbaccount`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
 -- AUTO_INCREMENT for table `tbcourse`
 --
 ALTER TABLE `tbcourse`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `tbgrade`
 --
 ALTER TABLE `tbgrade`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
 
 --
 -- AUTO_INCREMENT for table `tbschedule`
 --
 ALTER TABLE `tbschedule`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=91;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=253;
 
 --
 -- Constraints for dumped tables

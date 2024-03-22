@@ -10,6 +10,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 
 namespace Student_Management.FORMS.Account
 {
@@ -30,7 +31,7 @@ namespace Student_Management.FORMS.Account
             this.FormBorderStyle = FormBorderStyle.None;
         }
 
-        public static bool isRemebered;
+
         private void frm_Login_Load(object sender, EventArgs e)
         {
             // For checkbox Remeber Me to save info for next login
@@ -42,7 +43,8 @@ namespace Student_Management.FORMS.Account
         }
 
         bool isCorrected = false;
-        public static int loginLevel;
+        public static int userLevel;
+        public static string userName;
         private void btn_Login_Click(object sender, EventArgs e)
         {
             if (cb_RemeberMe.Checked)
@@ -62,7 +64,8 @@ namespace Student_Management.FORMS.Account
             }
             else if (isCorrected)
             {
-                loginLevel = get.level;
+                userLevel = get.level;
+                userName = get.username;
                 frm_Main form = new frm_Main();
                 form.Show();
                 this.Close();

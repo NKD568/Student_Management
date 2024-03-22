@@ -1,5 +1,6 @@
 ﻿using MaterialSkin;
 using MySql.Data.MySqlClient;
+using Student_Management.FORMS.Account;
 using Student_Management.FORMS.Course;
 using Student_Management.FORMS.Student;
 using System;
@@ -34,9 +35,23 @@ namespace Student_Management.FORMS.Grade
         private void frm_Grade_Load(object sender, EventArgs e)
         {
             this.ControlBox = false;
-            initDetails();
-            loadCards();
+            if (frm_Login.userLevel == 2)
+            {
+                txt_Search.Visible = false;
+                cmb_seachOptions.Visible = false;
+                btn_Add.Visible = false;
+                initStudentView();
+            }
+            else
+            {
+                txt_Search.Visible = true;
+                cmb_seachOptions.Visible = true;
+                btn_Add.Visible = true;
+                initDetails();
+                loadCards();
+            }
         }
+
         int i;
         private void loadCards()
         {
@@ -45,13 +60,21 @@ namespace Student_Management.FORMS.Grade
                 i++;
                 ucGrade cards = new ucGrade();
                 cards.cardDetails(data);
-                gradeContainer.Controls.Add(cards);
+                cardContainer.Controls.Add(cards);
             }
         }
+
         private void initDetails()
         {
             GradeInfo get = new GradeInfo();
             get.getList();
+        }
+
+        private void initStudentView()
+        {
+            GradeInfo get = new GradeInfo();
+            get.searchStudentId(frm_Login.userName);
+            loadCards();
         }
 
         private void btn_Add_Click(object sender, EventArgs e)
@@ -91,7 +114,7 @@ namespace Student_Management.FORMS.Grade
             if (e.KeyChar == (char)Keys.Enter)
             {
                 searchKey = txt_Search.Text;
-                gradeContainer.Controls.Clear();
+                cardContainer.Controls.Clear();
                 ucGrade u = new ucGrade();
                 u.searchResult();
                 loadCards();
@@ -102,7 +125,7 @@ namespace Student_Management.FORMS.Grade
         {
             if (ucGrade.isDeleted == true)
             {
-                gradeContainer.Controls.Clear();
+                cardContainer.Controls.Clear();
                 initDetails();
                 loadCards();
                 ucGrade.isDeleted = false;
@@ -114,7 +137,7 @@ namespace Student_Management.FORMS.Grade
             if (frm_SaveGrade.refresh == true)
             {
                 ucGrade uc = new ucGrade();
-                gradeContainer.Controls.Add(uc);
+                cardContainer.Controls.Add(uc);
                 frm_SaveGrade.refresh = false;
             }
 
@@ -124,12 +147,11 @@ namespace Student_Management.FORMS.Grade
         {
             if (frm_SaveCourse.isUpdate || frm_SaveStudent.isUpdate)
             {
-                gradeContainer.Controls.Clear();
+                cardContainer.Controls.Clear();
                 initDetails();
                 loadCards();
             }
         }
-
 
         public static string searchType = "tbgrade.StudentId";
         private void cmb_seachOptions_SelectedIndexChanged(object sender, EventArgs e)
@@ -213,7 +235,7 @@ namespace Student_Management.FORMS.Grade
             searchResult.Height = 0;
             ucGrade u = new ucGrade();
             searchKey = txt_Search.Text;
-            gradeContainer.Controls.Clear();
+            cardContainer.Controls.Clear();
             u.searchResult();
             loadCards();
         }

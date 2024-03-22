@@ -35,7 +35,7 @@
             this.searchResult = new System.Windows.Forms.DataGridView();
             this.id = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.result = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.courseContainer = new System.Windows.Forms.FlowLayoutPanel();
+            this.cardContainer = new System.Windows.Forms.FlowLayoutPanel();
             this.cmb_seachOptions = new MaterialSkin.Controls.MaterialComboBox();
             this.btn_Add = new ReaLTaiizor.Controls.MaterialFloatingActionButton();
             this.txt_Search = new MaterialSkin.Controls.MaterialTextBox2();
@@ -92,15 +92,15 @@
             this.result.Name = "result";
             this.result.ReadOnly = true;
             // 
-            // courseContainer
+            // cardContainer
             // 
-            this.courseContainer.AutoScroll = true;
-            this.courseContainer.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(234)))), ((int)(((byte)(204)))), ((int)(((byte)(251)))));
-            this.courseContainer.Location = new System.Drawing.Point(23, 103);
-            this.courseContainer.Margin = new System.Windows.Forms.Padding(0);
-            this.courseContainer.Name = "courseContainer";
-            this.courseContainer.Size = new System.Drawing.Size(1100, 600);
-            this.courseContainer.TabIndex = 13;
+            this.cardContainer.AutoScroll = true;
+            this.cardContainer.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(234)))), ((int)(((byte)(204)))), ((int)(((byte)(251)))));
+            this.cardContainer.Location = new System.Drawing.Point(23, 103);
+            this.cardContainer.Margin = new System.Windows.Forms.Padding(0);
+            this.cardContainer.Name = "cardContainer";
+            this.cardContainer.Size = new System.Drawing.Size(1100, 600);
+            this.cardContainer.TabIndex = 13;
             // 
             // cmb_seachOptions
             // 
@@ -184,7 +184,7 @@
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(230)))), ((int)(((byte)(213)))));
             this.ClientSize = new System.Drawing.Size(1200, 800);
             this.Controls.Add(this.searchResult);
-            this.Controls.Add(this.courseContainer);
+            this.Controls.Add(this.cardContainer);
             this.Controls.Add(this.cmb_seachOptions);
             this.Controls.Add(this.btn_Add);
             this.Controls.Add(this.txt_Search);
@@ -202,7 +202,7 @@
         private System.Windows.Forms.Timer refreshTimer;
         private System.Windows.Forms.Timer deleteTimer;
         private System.Windows.Forms.DataGridView searchResult;
-        private System.Windows.Forms.FlowLayoutPanel courseContainer;
+        private System.Windows.Forms.FlowLayoutPanel cardContainer;
         private MaterialSkin.Controls.MaterialComboBox cmb_seachOptions;
         private ReaLTaiizor.Controls.MaterialFloatingActionButton btn_Add;
         private MaterialSkin.Controls.MaterialTextBox2 txt_Search;

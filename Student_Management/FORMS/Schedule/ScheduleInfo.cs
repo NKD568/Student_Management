@@ -1,4 +1,5 @@
 ﻿using MySql.Data.MySqlClient;
+using Student_Management.FORMS.Account;
 using Student_Management.FORMS.Grade;
 using Student_Management.FORMS.Main;
 using System;
@@ -7,7 +8,11 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 using System.Xml.Linq;
+using static Mysqlx.Notice.Warning.Types;
+using static System.ComponentModel.Design.ObjectSelectorEditor;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 
 namespace Student_Management.FORMS.Schedule
 {
@@ -16,7 +21,7 @@ namespace Student_Management.FORMS.Schedule
 
         public string connstring = frm_Main.connstring;
         public string tableName = "tbschedule";
-        string tableAttributes = "(gradeId,date)";
+        string tableAttributes = "(GradeId,Date)";
 
         public int id { get; set; }
         public int gradeId { get; set; }
@@ -31,64 +36,24 @@ namespace Student_Management.FORMS.Schedule
             MySqlCommand cmd = conn.CreateCommand();
             string sql = "INSERT INTO " + tableName + tableAttributes + "VALUES(?,?)";
             cmd.CommandText = sql;
-            cmd.Parameters.AddWithValue("gradeId", this.gradeId);
-            cmd.Parameters.AddWithValue("date", this.date);
+            cmd.Parameters.AddWithValue("GradeId", this.gradeId);
+            cmd.Parameters.AddWithValue("Date", this.date);
             cmd.ExecuteNonQuery();
             cmd.Dispose();
             conn.Close();
         }
 
-        public DataTable getGradeIds(string course_name)
+        public void update(int _id ,int _gradeid, DateTime _date)
         {
             MySqlConnection conn = new MySqlConnection(connstring);
             conn.Open();
             MySqlCommand cmd = conn.CreateCommand();
-            string sql = "SELECT tbgrade.id FROM tbgrade JOIN tbcourse ON tbcourse.id = tbgrade.CourseId WHERE tbcourse.Name = @Name";
-            cmd.CommandText = sql;
-            cmd.Parameters.AddWithValue("@Name", course_name);
-            DataTable dt = new DataTable();
-            MySqlDataAdapter da = new MySqlDataAdapter(cmd);
-            da.Fill(dt);
-            cmd.Dispose();
-            conn.Close();
-            return dt;
-        }
-
-        public void getDateDetails(DateTime details_date)
-        {
-            MySqlConnection conn = new MySqlConnection(connstring);
-            conn.Open();
-            MySqlCommand cmd = conn.CreateCommand();
-            string sql = "SELECT tbschedule.* ,tbcourse.Name AS Course FROM tbschedule" +
-                " JOIN tbgrade ON tbgrade.id = tbschedule.GradeId" +
-                " JOIN tbcourse ON tbcourse.id = tbgrade.CourseId WHERE tbschedule.Date = @date LIMIT 1";
-            cmd.CommandText = sql;
-            cmd.Parameters.AddWithValue("@date", details_date);
-            MySqlDataReader reader = cmd.ExecuteReader();
-            if(reader.Read())
-            {
-                id = reader.GetInt32("id");
-                gradeId = reader.GetInt32("GradeId");
-                date = reader.GetDateTime("Date");
-                course = reader["Course"].ToString();
-            }
-            reader.Dispose();
-            cmd.Dispose();
-            conn.Close();
-        }
-
-        public void update(int _gradeid, DateTime _date)
-        {
-            MySqlConnection conn = new MySqlConnection(connstring);
-            conn.Open();
-            MySqlCommand cmd = conn.CreateCommand();
-            string sql = "UPDATE " + tableName + " SET GradeId = @gradeid, Date = @date WHERE Date = @date ";
+            string sql = "UPDATE " + tableName + " SET GradeId = @gradeid WHERE Date = @date AND id = @id";
             cmd.Parameters.AddWithValue("@gradeid", _gradeid);
             cmd.Parameters.AddWithValue("@date", _date);
+            cmd.Parameters.AddWithValue("@id", _id);
             cmd.CommandText = sql;
             cmd.ExecuteNonQuery();
-            frm_Main get = new frm_Main();
-            get.showToast("SUCCESS", "Successfully Updated");
             cmd.Dispose();
             conn.Close();
         }
@@ -112,9 +77,109 @@ namespace Student_Management.FORMS.Schedule
             }
             catch (Exception ex)
             {
-                get.showToast("ERROR", "Schedule existed in other tables");
+                get.showToast("ERROR", "Schedule existed in other data");
             }
 
+        }
+
+        public DataTable getGradeIds(string course_name)
+        {
+            MySqlConnection conn = new MySqlConnection(connstring);
+            conn.Open();
+            MySqlCommand cmd = conn.CreateCommand();
+            string sql = "SELECT tbgrade.id FROM  tbgrade" +
+                        " JOIN tbcourse ON tbcourse.id = tbgrade.CourseId WHERE tbcourse.Name = @name";
+            cmd.CommandText = sql;
+            cmd.Parameters.AddWithValue("@name", course_name);
+            DataTable dt = new DataTable();
+            MySqlDataAdapter da = new MySqlDataAdapter(cmd);
+            da.Fill(dt);
+            cmd.Dispose();
+            conn.Close();
+            return dt;
+
+        }
+
+        public DataTable getEventDetails(string course_name)
+        {
+            MySqlConnection conn = new MySqlConnection(connstring);
+            conn.Open();
+            MySqlCommand cmd = conn.CreateCommand();
+            string sql = "SELECT * FROM tbschedule" +
+                " JOIN tbgrade ON tbgrade.id = tbschedule.GradeId" +
+                " JOIN tbcourse ON tbcourse.id = tbgrade.CourseId WHERE tbcourse.Name = @name";
+            cmd.CommandText = sql;
+            cmd.Parameters.AddWithValue("@name", course_name);
+            DataTable dt = new DataTable();
+            MySqlDataAdapter da = new MySqlDataAdapter(cmd);
+            da.Fill(dt);
+            cmd.Dispose();
+            conn.Close();
+            return dt;
+        }
+
+        // Get All Events
+        public DataTable getDateDetails(DateTime details_date)
+        {
+            MySqlConnection conn = new MySqlConnection(connstring);
+            conn.Open();
+            MySqlCommand cmd = conn.CreateCommand();
+            string sql = "SELECT tbschedule.* ,tbcourse.Name AS Course FROM tbschedule" +
+                " JOIN tbgrade ON tbgrade.id = tbschedule.GradeId" +
+                " JOIN tbcourse ON tbcourse.id = tbgrade.CourseId WHERE tbschedule.Date = @date";
+            cmd.CommandText = sql;
+            cmd.Parameters.AddWithValue("@date", details_date);
+            DataTable dt = new DataTable();
+            MySqlDataAdapter da = new MySqlDataAdapter(cmd);
+            da.Fill(dt);
+            cmd.Dispose();
+            conn.Close();
+            conn.Close();
+            return dt;
+        }
+
+        // Get 1 Event
+        public void getDateEvent(DateTime details_date)
+        {
+            MySqlConnection conn = new MySqlConnection(connstring);
+            conn.Open();
+            MySqlCommand cmd = conn.CreateCommand();
+            string sql = "SELECT tbcourse.Name AS Course FROM tbschedule" +
+                " JOIN tbgrade ON tbgrade.id = tbschedule.GradeId" +
+                " JOIN tbcourse ON tbcourse.id = tbgrade.CourseId WHERE tbschedule.Date = @date LIMIT 1";
+            cmd.CommandText = sql;
+            cmd.Parameters.AddWithValue("@date", details_date);
+            MySqlDataReader reader = cmd.ExecuteReader();
+            if (reader.Read())
+            {
+                course = reader["Course"].ToString();
+            }
+            reader.Dispose();
+            cmd.Dispose();
+            conn.Close();
+        }
+
+        // Get 1 Student Event 
+        public void getStudentDate(string _studentId, DateTime details_date)
+        {
+            MySqlConnection conn = new MySqlConnection(connstring);
+            conn.Open();
+            MySqlCommand cmd = conn.CreateCommand();
+            string sql = "SELECT tbcourse.Name AS Course FROM tbschedule" +
+                " JOIN tbgrade ON tbgrade.id = tbschedule.GradeId" +
+                " JOIN tbcourse ON tbcourse.id = tbgrade.CourseId" +
+                " WHERE tbschedule.Date = @date AND tbgrade.StudentId = @studentId LIMIT 1";
+            cmd.CommandText = sql;
+            cmd.Parameters.AddWithValue("@studentId", _studentId);
+            cmd.Parameters.AddWithValue("@date", details_date);
+            MySqlDataReader reader = cmd.ExecuteReader();
+            if (reader.Read())
+            {
+                course = reader["Course"].ToString();
+            }
+            reader.Dispose();
+            cmd.Dispose();
+            conn.Close();
         }
 
         public bool checkDateExisted(DateTime _date)
@@ -161,7 +226,6 @@ namespace Student_Management.FORMS.Schedule
             conn.Close();
             return minDate;
         }
-        
 
 
 

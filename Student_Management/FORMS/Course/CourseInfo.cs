@@ -7,6 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static Mysqlx.Notice.Warning.Types;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 
 namespace Student_Management.FORMS.Course
 {
@@ -25,6 +27,10 @@ namespace Student_Management.FORMS.Course
 
         public void Save()
         {
+            frm_Main get = new frm_Main();
+            // Duplicate Name Exception
+            try
+            {
             MySqlConnection conn = new MySqlConnection(connstring);
             conn.Open();
             MySqlCommand cmd = conn.CreateCommand();
@@ -35,11 +41,16 @@ namespace Student_Management.FORMS.Course
             cmd.Parameters.AddWithValue("Credits", this.credits);
             cmd.Parameters.AddWithValue("isOpen", this.isOpen);
             cmd.ExecuteNonQuery();
-            frm_Main get = new frm_Main();
-
             get.showToast("SUCCESS", "Successfully Saved");
             cmd.Dispose();
             conn.Close();
+            frm_SaveCourse.refresh = true;
+            }
+            catch (Exception ex)
+            {
+                get.showToast("WARNING", "This Name is already used!");
+                frm_SaveStudent.refresh = false;
+            }
         }
 
         public void getList()
@@ -110,7 +121,7 @@ namespace Student_Management.FORMS.Course
                 conn.Close();
             }catch (Exception ex)
             {
-                get.showToast("ERROR", "Course existed in other tables");              
+                get.showToast("ERROR", "Course existed in other data");              
             }
 
         }
@@ -147,6 +158,10 @@ namespace Student_Management.FORMS.Course
 
         public void update(string name, string description, int credits, bool isOpen, string Id)
         {
+            frm_Main get = new frm_Main();
+            // Duplicate Name Exception
+            try
+            {
             MySqlConnection conn = new MySqlConnection(connstring);
             conn.Open();
             MySqlCommand cmd = conn.CreateCommand();
@@ -158,10 +173,16 @@ namespace Student_Management.FORMS.Course
             cmd.Parameters.AddWithValue("@id", Id);
             cmd.CommandText = sql;
             cmd.ExecuteNonQuery();
-            frm_Main get = new frm_Main();
             get.showToast("SUCCESS", "Successfully Updated");
             cmd.Dispose();
             conn.Close();
+            frm_SaveCourse.isUpdate = true;
+            }
+            catch (Exception ex)
+            {
+                get.showToast("WARNING", "This Name is already used!");
+                frm_SaveCourse.isUpdate = false;
+            }
         }
 
         public void getDetails(string details_id)

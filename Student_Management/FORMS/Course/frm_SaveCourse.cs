@@ -45,13 +45,11 @@ namespace Student_Management.FORMS.Course
                 save.credits = trackBar_Credits.Value;
                 save.isOpen = getCmbIsOpenItemValue();
                 save.Save();
-                refresh = true;
             }
             else
             {
                 CourseInfo up = new CourseInfo();
                 up.update(txt_Name.Text, txt_Description.Text, trackBar_Credits.Value, getCmbIsOpenItemValue(), ucCourse.public_id);
-                isUpdate = true;
             }
         }
 

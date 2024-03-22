@@ -1,4 +1,5 @@
-﻿using Student_Management.FORMS.Grade;
+﻿using Student_Management.FORMS.Account;
+using Student_Management.FORMS.Grade;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -25,6 +26,7 @@ namespace Student_Management.FORMS.Student
             {
                 displayNew();
             }
+            deleteToolStripMenuItem.Visible = frm_Login.userLevel == 2 ? false : true;
         }
 
         public void searchResult()

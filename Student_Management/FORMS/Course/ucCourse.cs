@@ -1,4 +1,5 @@
-﻿using Student_Management.FORMS.Student;
+﻿using Student_Management.FORMS.Account;
+using Student_Management.FORMS.Student;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -24,6 +25,7 @@ namespace Student_Management.FORMS.Course
             {
                 displayNew();
             }
+            btn_Options.Visible = frm_Login.userLevel == 2 ? false : true;
         }
 
         public void searchResult()
