@@ -158,6 +158,12 @@
     <Compile Include="FORMS\Course\ucCourse.Designer.cs">
       <DependentUpon>ucCourse.cs</DependentUpon>
     </Compile>
+    <Compile Include="FORMS\Dashboard\frm_Dashboard.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FORMS\Dashboard\frm_Dashboard.Designer.cs">
+      <DependentUpon>frm_Dashboard.cs</DependentUpon>
+    </Compile>
     <Compile Include="FORMS\Grade\frm_Grade.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -264,6 +270,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FORMS\Course\ucCourse.resx">
       <DependentUpon>ucCourse.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FORMS\Dashboard\frm_Dashboard.resx">
+      <DependentUpon>frm_Dashboard.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FORMS\Grade\frm_Grade.resx">
       <DependentUpon>frm_Grade.cs</DependentUpon>

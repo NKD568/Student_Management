@@ -77,25 +77,23 @@ namespace Student_Management.FORMS.Schedule
         }
         private void backgroundWorker1_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
-            frm_Main notify = new frm_Main();
             if (update == false)
             {
                 setCourseSchedule();
                 refresh = true;
                 this.Close();
-                notify.showToast("SUCCESS", "Successfully Saved");
             }
             else
             {
                 updateCourseSchedule();
                 isUpdate = true;
                 this.Close();
-                notify.showToast("SUCCESS", "Successfully Updated");
             }
         }
 
         private void setCourseSchedule()
         {
+            frm_Main notify = new frm_Main();
             ScheduleInfo save = new ScheduleInfo();
             DataTable dt = save.getGradeIds(txt_Course.Text);
             foreach (DataRow row in dt.Rows)
@@ -104,10 +102,12 @@ namespace Student_Management.FORMS.Schedule
                 save.date = Convert.ToDateTime(dtp_Date.Text);
                 save.Save();
             }
+            notify.showToast("SUCCESS", "Successfully Saved");
         }
 
         private void updateCourseSchedule()
         {
+            frm_Main notify = new frm_Main();
             ScheduleInfo up = new ScheduleInfo();
             DataTable dtIsUpdated = up.getEventDetails(ucDay.public_oldCourseSaved);
             DataTable dtDataUpdate = up.getGradeIds(txt_Course.Text);
@@ -124,31 +124,32 @@ namespace Student_Management.FORMS.Schedule
                     up.update(up.id ,_gradeId, _date);
                     i++;
                 }
+                notify.showToast("SUCCESS", "Successfully Updated");
             }
-            else if (rowDifference < 0)
-            {
-                int i = 0;
-                foreach (DataRow row in dtDataUpdate.Rows)
-                {
-                    DataRow r = dtIsUpdated.Rows[i];
-                    up.id = Convert.ToInt32(r["id"]);
-                    int _gradeId = Convert.ToInt32(row["tbid"]);
-                    up.update(up.id, _gradeId, _date);
-                    i++;
-                }
-                while (i < dtDataUpdate.Rows.Count)
-                {
-                    DataRow row = dtDataUpdate.Rows[i];
-                    up.gradeId = Convert.ToInt32(row["id"]);
-                    up.date = _date;
-                    up.Save();
-                    i++;
-                }
-            }
+            //else if (rowDifference < 0)
+            //{
+            //    int i = 0;
+            //    foreach (DataRow row in dtIsUpdated.Rows)
+            //    {
+            //        up.id = Convert.ToInt32(row["id"]);
+            //        DataRow r = dtDataUpdate.Rows[i];
+            //        int _gradeId = Convert.ToInt32(r["id"]);
+            //        up.update(up.id, _gradeId, _date);
+            //        i++;
+            //    }
+            //    while (i < dtDataUpdate.Rows.Count)
+            //    {
+            //        DataRow row = dtDataUpdate.Rows[i];
+            //        up.gradeId = Convert.ToInt32(row["id"]);
+            //        up.date = _date;
+            //        up.Save();
+            //        i++;
+            //    }
+            //    notify.showToast("SUCCESS", "Successfully Updated");
+            //}
             else
             {
-                frm_Main notify = new frm_Main();
-                notify.showToast("ERROR", "Not all Students in this Course");
+                notify.showToast("ERROR", "Not all Students in new Course");
                 return;
             }
         }

@@ -1,5 +1,6 @@
 ﻿using Student_Management.FORMS.Account;
 using Student_Management.FORMS.Course;
+using Student_Management.FORMS.Dashboard;
 using Student_Management.FORMS.Grade;
 using Student_Management.FORMS.Student;
 using System;
@@ -121,6 +122,7 @@ namespace Student_Management.FORMS.Main
         frm_Grade grade;
         frm_Schedule schedule;
         frm_Account account;
+        frm_Dashboard dashboard;
 
         public int mdiScreenWidth;
         public int mdiScreenHeight;
@@ -163,7 +165,7 @@ namespace Student_Management.FORMS.Main
 
                 case "Dashboard":
                     activeMenu(menuDashboard, menuGrade, menuCourse, menuStudent, menuSchedule, menuAccount);
-                    Grade_Click();
+                    Dashboard_Click();
                     break;
                 case "Grade":
                     activeMenu(menuGrade, menuCourse, menuStudent, menuSchedule, menuDashboard, menuAccount);
@@ -322,6 +324,28 @@ namespace Student_Management.FORMS.Main
         {
             account = null;
         }
+
+        private void Dashboard_Click()
+        {
+            if (dashboard == null)
+            {
+                dashboard = new frm_Dashboard();
+                dashboard.FormClosed += Dashboard_FormClosed;
+                dashboard.MdiParent = this;
+                dashboard.Dock = DockStyle.Fill;
+
+                dashboard.Show();
+            }
+            else
+            {
+                dashboard.Activate();
+            }
+        }
+        private void Dashboard_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            dashboard = null;
+        }
+
 
 
         public void showToast(string type, string message)

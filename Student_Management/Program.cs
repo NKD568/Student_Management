@@ -19,7 +19,7 @@ namespace Student_Management
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new splashScreen());
+            Application.Run(new frm_Main());
         }
     }
 }
