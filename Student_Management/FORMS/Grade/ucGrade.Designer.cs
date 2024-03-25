@@ -68,7 +68,7 @@
             // 
             // lbl_Course
             // 
-            this.lbl_Course.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbl_Course.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbl_Course.Location = new System.Drawing.Point(87, 102);
             this.lbl_Course.Name = "lbl_Course";
             this.lbl_Course.Size = new System.Drawing.Size(221, 28);
@@ -143,7 +143,7 @@
             // 
             // lbl_StuId
             // 
-            this.lbl_StuId.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbl_StuId.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbl_StuId.Location = new System.Drawing.Point(87, 23);
             this.lbl_StuId.Name = "lbl_StuId";
             this.lbl_StuId.Size = new System.Drawing.Size(226, 28);
@@ -160,7 +160,7 @@
             // 
             // lbl_StuName
             // 
-            this.lbl_StuName.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbl_StuName.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbl_StuName.Location = new System.Drawing.Point(92, 64);
             this.lbl_StuName.Name = "lbl_StuName";
             this.lbl_StuName.Size = new System.Drawing.Size(221, 28);
@@ -178,7 +178,7 @@
             // ucGrade
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
-            this.BackColor = System.Drawing.Color.LightGreen;
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(140)))), ((int)(((byte)(206)))), ((int)(((byte)(255)))));
             this.Controls.Add(this.lbl_Id);
             this.Controls.Add(this.lbl_StuName);
             this.Controls.Add(this.lbl_StuId);

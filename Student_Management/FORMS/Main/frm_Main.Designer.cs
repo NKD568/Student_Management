@@ -104,7 +104,7 @@
             this.menuSidebar.Controls.Add(this.logoApp);
             this.menuSidebar.Dock = System.Windows.Forms.DockStyle.Left;
             this.menuSidebar.gradientBottom = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.menuSidebar.gradientTop = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
+            this.menuSidebar.gradientTop = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(146)))), ((int)(((byte)(249)))));
             this.menuSidebar.Location = new System.Drawing.Point(0, 34);
             this.menuSidebar.Name = "menuSidebar";
             this.menuSidebar.Size = new System.Drawing.Size(107, 766);
@@ -114,10 +114,10 @@
             // 
             this.menuContainer.BackColor = System.Drawing.Color.Transparent;
             this.menuContainer.Controls.Add(this.menuDashboard);
+            this.menuContainer.Controls.Add(this.menuSchedule);
             this.menuContainer.Controls.Add(this.menuGrade);
             this.menuContainer.Controls.Add(this.menuCourse);
             this.menuContainer.Controls.Add(this.menuStudent);
-            this.menuContainer.Controls.Add(this.menuSchedule);
             this.menuContainer.Controls.Add(this.menuAccount);
             this.menuContainer.Location = new System.Drawing.Point(-5, 138);
             this.menuContainer.Name = "menuContainer";
@@ -145,7 +145,7 @@
             this.menuGrade.Cursor = System.Windows.Forms.Cursors.Hand;
             this.menuGrade.Font = new System.Drawing.Font("Segoe UI", 8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.menuGrade.Icon = global::Student_Management.Properties.Resources.grade_24;
-            this.menuGrade.Location = new System.Drawing.Point(10, 72);
+            this.menuGrade.Location = new System.Drawing.Point(10, 144);
             this.menuGrade.Margin = new System.Windows.Forms.Padding(10);
             this.menuGrade.Menu = "Grade";
             this.menuGrade.Name = "menuGrade";
@@ -159,7 +159,7 @@
             this.menuCourse.Cursor = System.Windows.Forms.Cursors.Hand;
             this.menuCourse.Font = new System.Drawing.Font("Segoe UI", 8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.menuCourse.Icon = global::Student_Management.Properties.Resources.book_24;
-            this.menuCourse.Location = new System.Drawing.Point(10, 144);
+            this.menuCourse.Location = new System.Drawing.Point(10, 216);
             this.menuCourse.Margin = new System.Windows.Forms.Padding(10);
             this.menuCourse.Menu = "Course";
             this.menuCourse.Name = "menuCourse";
@@ -173,7 +173,7 @@
             this.menuStudent.Cursor = System.Windows.Forms.Cursors.Hand;
             this.menuStudent.Font = new System.Drawing.Font("Segoe UI", 8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.menuStudent.Icon = global::Student_Management.Properties.Resources.student_24;
-            this.menuStudent.Location = new System.Drawing.Point(10, 216);
+            this.menuStudent.Location = new System.Drawing.Point(10, 288);
             this.menuStudent.Margin = new System.Windows.Forms.Padding(10);
             this.menuStudent.Menu = "Student";
             this.menuStudent.Name = "menuStudent";
@@ -187,7 +187,7 @@
             this.menuSchedule.Cursor = System.Windows.Forms.Cursors.Hand;
             this.menuSchedule.Font = new System.Drawing.Font("Segoe UI", 8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.menuSchedule.Icon = global::Student_Management.Properties.Resources.schedule_24;
-            this.menuSchedule.Location = new System.Drawing.Point(10, 288);
+            this.menuSchedule.Location = new System.Drawing.Point(10, 72);
             this.menuSchedule.Margin = new System.Windows.Forms.Padding(10);
             this.menuSchedule.Menu = "Schedule";
             this.menuSchedule.Name = "menuSchedule";

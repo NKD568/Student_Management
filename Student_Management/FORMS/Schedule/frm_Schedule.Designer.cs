@@ -62,7 +62,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Comic Sans MS", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.ForeColor = System.Drawing.Color.LightCoral;
+            this.label1.ForeColor = System.Drawing.Color.SaddleBrown;
             this.label1.Location = new System.Drawing.Point(100, 93);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(96, 33);
@@ -232,7 +232,7 @@
             // frm_Schedule
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
-            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(251)))), ((int)(((byte)(241)))), ((int)(((byte)(254)))));
+            this.BackColor = System.Drawing.Color.LightSkyBlue;
             this.ClientSize = new System.Drawing.Size(1200, 800);
             this.Controls.Add(this.btn_Today);
             this.Controls.Add(this.dtp_SelectedDate);

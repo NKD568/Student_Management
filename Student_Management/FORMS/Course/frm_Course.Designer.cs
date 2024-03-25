@@ -95,7 +95,7 @@
             // cardContainer
             // 
             this.cardContainer.AutoScroll = true;
-            this.cardContainer.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(234)))), ((int)(((byte)(204)))), ((int)(((byte)(251)))));
+            this.cardContainer.BackColor = System.Drawing.Color.GhostWhite;
             this.cardContainer.Location = new System.Drawing.Point(23, 103);
             this.cardContainer.Margin = new System.Windows.Forms.Padding(0);
             this.cardContainer.Name = "cardContainer";
@@ -181,7 +181,7 @@
             // frm_Course
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
-            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(230)))), ((int)(((byte)(213)))));
+            this.BackColor = System.Drawing.Color.Azure;
             this.ClientSize = new System.Drawing.Size(1200, 800);
             this.Controls.Add(this.searchResult);
             this.Controls.Add(this.cardContainer);

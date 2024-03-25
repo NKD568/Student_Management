@@ -92,7 +92,7 @@
             // 
             // lbl_Name
             // 
-            this.lbl_Name.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbl_Name.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbl_Name.Location = new System.Drawing.Point(72, 12);
             this.lbl_Name.Name = "lbl_Name";
             this.lbl_Name.Size = new System.Drawing.Size(231, 28);
@@ -110,6 +110,7 @@
             this.lbl_Description.Cursor = System.Windows.Forms.Cursors.IBeam;
             this.lbl_Description.Depth = 0;
             this.lbl_Description.Enabled = false;
+            this.lbl_Description.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbl_Description.HideSelection = true;
             this.lbl_Description.Location = new System.Drawing.Point(20, 71);
             this.lbl_Description.MaxLength = 32767;
@@ -148,7 +149,7 @@
             // 
             // lbl_isOpen
             // 
-            this.lbl_isOpen.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbl_isOpen.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbl_isOpen.Location = new System.Drawing.Point(77, 138);
             this.lbl_isOpen.Name = "lbl_isOpen";
             this.lbl_isOpen.Size = new System.Drawing.Size(85, 28);
@@ -177,7 +178,7 @@
             // 
             // lbl_Credits
             // 
-            this.lbl_Credits.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbl_Credits.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbl_Credits.Location = new System.Drawing.Point(247, 138);
             this.lbl_Credits.Name = "lbl_Credits";
             this.lbl_Credits.Size = new System.Drawing.Size(81, 28);
@@ -186,7 +187,7 @@
             // ucCourse
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
-            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(204)))), ((int)(((byte)(255)))));
+            this.BackColor = System.Drawing.Color.MediumAquamarine;
             this.Controls.Add(this.lbl_Credits);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.lbl_isOpen);

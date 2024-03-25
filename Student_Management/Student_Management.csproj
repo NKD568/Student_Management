@@ -59,6 +59,8 @@
     <Reference Include="MySql.Data, Version=8.3.0.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
       <HintPath>..\packages\MySql.Data.8.3.0\lib\net48\MySql.Data.dll</HintPath>
     </Reference>
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
     <Reference Include="ReaLTaiizor, Version=3.8.0.2, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\ReaLTaiizor.3.8.0.2\lib\net48\ReaLTaiizor.dll</HintPath>
     </Reference>
@@ -93,6 +95,8 @@
       <HintPath>..\packages\System.Threading.Tasks.Extensions.4.5.4\lib\net461\System.Threading.Tasks.Extensions.dll</HintPath>
     </Reference>
     <Reference Include="System.Transactions" />
+    <Reference Include="System.Windows.Forms.DataVisualization" />
+    <Reference Include="System.Xaml" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -102,6 +106,11 @@
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase" />
+    <Reference Include="WindowsFormsIntegration" />
+    <Reference Include="WinFormAnimation, Version=1.3.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\WinFormAnimation.1.3.0.0\lib\net35-Client\WinFormAnimation.dll</HintPath>
+    </Reference>
     <Reference Include="ZstdSharp, Version=0.7.5.0, Culture=neutral, PublicKeyToken=8d151af33a4ad5cf, processorArchitecture=MSIL">
       <HintPath>..\packages\ZstdSharp.Port.0.7.5\lib\net462\ZstdSharp.dll</HintPath>
     </Reference>
@@ -312,19 +321,19 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Resources.resx</DependentUpon>
-      <DesignTime>True</DesignTime>
-    </Compile>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Settings.settings</DependentUpon>
@@ -338,6 +347,7 @@
     <Content Include="RESOURCES\Icons\account-24.png" />
     <Content Include="RESOURCES\Icons\add.png" />
     <Content Include="RESOURCES\Icons\admin-settings-male-24.png" />
+    <Content Include="RESOURCES\Icons\average-100.png" />
     <Content Include="RESOURCES\Icons\book-24.png" />
     <Content Include="RESOURCES\Icons\books.png" />
     <Content Include="RESOURCES\Icons\cancel-32.png" />
@@ -355,6 +365,7 @@
     <Content Include="RESOURCES\Icons\menu.png" />
     <Content Include="RESOURCES\Icons\ok-32.png" />
     <Content Include="RESOURCES\Icons\options.png" />
+    <Content Include="RESOURCES\Icons\percentage-100.png" />
     <Content Include="RESOURCES\Icons\schedule-24.png" />
     <Content Include="RESOURCES\Icons\schedule.png" />
     <Content Include="RESOURCES\Icons\search.png" />

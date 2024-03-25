@@ -113,6 +113,16 @@ namespace Student_Management.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap average_100 {
+            get {
+                object obj = ResourceManager.GetObject("average-100", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap book_24 {
             get {
                 object obj = ResourceManager.GetObject("book-24", resourceCulture);
@@ -276,6 +286,16 @@ namespace Student_Management.Properties {
         internal static System.Drawing.Bitmap options {
             get {
                 object obj = ResourceManager.GetObject("options", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap percentage_100 {
+            get {
+                object obj = ResourceManager.GetObject("percentage-100", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

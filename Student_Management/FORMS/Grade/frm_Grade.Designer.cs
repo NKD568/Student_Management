@@ -122,7 +122,7 @@
             this.cmb_seachOptions.DropDownWidth = 121;
             this.cmb_seachOptions.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmb_seachOptions.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
-            this.cmb_seachOptions.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.cmb_seachOptions.ForeColor = System.Drawing.Color.White;
             this.cmb_seachOptions.FormattingEnabled = true;
             this.cmb_seachOptions.Hint = "By";
             this.cmb_seachOptions.IntegralHeight = false;
@@ -196,7 +196,7 @@
             // frm_Grade
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
-            this.BackColor = System.Drawing.Color.LightSteelBlue;
+            this.BackColor = System.Drawing.Color.LightCyan;
             this.ClientSize = new System.Drawing.Size(1200, 800);
             this.Controls.Add(this.searchResult);
             this.Controls.Add(this.cardContainer);

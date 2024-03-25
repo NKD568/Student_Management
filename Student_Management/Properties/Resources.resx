@@ -163,6 +163,9 @@
   <data name="add" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\RESOURCES\Icons\add.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="average-100" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\RESOURCES\Icons\average-100.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="schedule" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\RESOURCES\Icons\schedule.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -177,6 +180,9 @@
   </data>
   <data name="arrow_left" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\RESOURCES\Icons\arrow_left.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="admin-settings-male-24" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\RESOURCES\Icons\admin-settings-male-24.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="dashboard-24" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\RESOURCES\Icons\dashboard-24.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -199,7 +205,7 @@
   <data name="grade-24" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\RESOURCES\Icons\grade-24.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="admin-settings-male-24" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\RESOURCES\Icons\admin-settings-male-24.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="percentage-100" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\RESOURCES\Icons\percentage-100.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

@@ -129,7 +129,7 @@
             // cardContainer
             // 
             this.cardContainer.AutoScroll = true;
-            this.cardContainer.BackColor = System.Drawing.Color.SeaShell;
+            this.cardContainer.BackColor = System.Drawing.Color.MintCream;
             this.cardContainer.Location = new System.Drawing.Point(24, 103);
             this.cardContainer.Name = "cardContainer";
             this.cardContainer.Size = new System.Drawing.Size(1100, 600);

@@ -159,7 +159,7 @@
             // ucStudent
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
-            this.BackColor = System.Drawing.Color.PeachPuff;
+            this.BackColor = System.Drawing.Color.LightSteelBlue;
             this.Controls.Add(this.dtp_Birthdate);
             this.Controls.Add(this.btn_Options);
             this.Controls.Add(this.label4);
