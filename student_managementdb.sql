@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 25, 2024 at 08:31 AM
+-- Generation Time: Mar 25, 2024 at 02:18 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -42,7 +42,10 @@ CREATE TABLE `tbaccount` (
 INSERT INTO `tbaccount` (`id`, `Username`, `Password`, `Level`, `isBlocked`) VALUES
 (1, '215052066', 'E10ADC3949BA59ABBE56E057F20F883E', 2, 0),
 (3, '215052001', '202CB962AC59075B964B07152D234B70', 2, 1),
-(7, '215052002', 'E10ADC3949BA59ABBE56E057F20F883E', 0, 0);
+(7, '215052002', 'E10ADC3949BA59ABBE56E057F20F883E', 0, 0),
+(8, '215052011', '202CB962AC59075B964B07152D234B70', 2, 0),
+(9, '215052012', '202CB962AC59075B964B07152D234B70', 2, 0),
+(10, '215052013', '202CB962AC59075B964B07152D234B70', 2, 0);
 
 -- --------------------------------------------------------
 
@@ -92,9 +95,9 @@ CREATE TABLE `tbgrade` (
 --
 
 INSERT INTO `tbgrade` (`id`, `StudentId`, `CourseId`, `Grade`, `created_at`) VALUES
-(15, 215052001, 9, 'A', '2024-03-24 10:53:39'),
-(16, 215052011, 9, 'B+', '2024-03-24 10:53:39'),
-(17, 215052012, 9, 'C+', '2024-03-24 10:53:39'),
+(15, 215052001, 9, 'B+', '2024-03-24 10:53:39'),
+(16, 215052011, 9, 'B', '2024-03-24 10:53:39'),
+(17, 215052012, 9, 'D', '2024-03-24 10:53:39'),
 (19, 215052011, 10, 'A', '2024-03-24 10:53:39'),
 (22, 215052011, 13, 'F', '2024-03-24 10:53:39'),
 (24, 215052012, 13, NULL, '2024-03-24 10:53:39'),
@@ -110,6 +113,19 @@ INSERT INTO `tbgrade` (`id`, `StudentId`, `CourseId`, `Grade`, `created_at`) VAL
 (50, 215052020, 10, 'A', '2024-03-24 13:03:43'),
 (51, 215052014, 13, 'B+', '2024-03-24 13:10:10'),
 (52, 215052015, 13, 'B+', '2024-03-24 13:10:15');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbrecheck`
+--
+
+CREATE TABLE `tbrecheck` (
+  `id` int(11) NOT NULL,
+  `StudentId` int(11) NOT NULL,
+  `GradeId` int(11) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -210,6 +226,14 @@ ALTER TABLE `tbgrade`
   ADD KEY `FK_CourseId` (`CourseId`);
 
 --
+-- Indexes for table `tbrecheck`
+--
+ALTER TABLE `tbrecheck`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `FK_StudentId_tbRecheck` (`StudentId`),
+  ADD KEY `FK_GradeId_tbRecheck` (`GradeId`);
+
+--
 -- Indexes for table `tbschedule`
 --
 ALTER TABLE `tbschedule`
@@ -230,7 +254,7 @@ ALTER TABLE `tbstudent`
 -- AUTO_INCREMENT for table `tbaccount`
 --
 ALTER TABLE `tbaccount`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `tbcourse`
@@ -243,6 +267,12 @@ ALTER TABLE `tbcourse`
 --
 ALTER TABLE `tbgrade`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=53;
+
+--
+-- AUTO_INCREMENT for table `tbrecheck`
+--
+ALTER TABLE `tbrecheck`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `tbschedule`
@@ -262,6 +292,13 @@ ALTER TABLE `tbgrade`
   ADD CONSTRAINT `FK_StudentId` FOREIGN KEY (`StudentId`) REFERENCES `tbstudent` (`id`),
   ADD CONSTRAINT `tbgrade_ibfk_1` FOREIGN KEY (`StudentId`) REFERENCES `tbstudent` (`id`),
   ADD CONSTRAINT `tbgrade_ibfk_2` FOREIGN KEY (`CourseId`) REFERENCES `tbcourse` (`id`);
+
+--
+-- Constraints for table `tbrecheck`
+--
+ALTER TABLE `tbrecheck`
+  ADD CONSTRAINT `FK_GradeId_tbRecheck` FOREIGN KEY (`GradeId`) REFERENCES `tbgrade` (`id`),
+  ADD CONSTRAINT `FK_StudentId_tbRecheck` FOREIGN KEY (`StudentId`) REFERENCES `tbstudent` (`id`);
 
 --
 -- Constraints for table `tbschedule`

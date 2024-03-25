@@ -28,9 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frm_Dashboard));
             this.label1 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
@@ -264,23 +264,23 @@
             // gradeChart
             // 
             this.gradeChart.BackColor = System.Drawing.Color.Azure;
-            chartArea2.Area3DStyle.LightStyle = System.Windows.Forms.DataVisualization.Charting.LightStyle.Realistic;
-            chartArea2.BackColor = System.Drawing.Color.MintCream;
-            chartArea2.BorderColor = System.Drawing.Color.Transparent;
-            chartArea2.Name = "ChartArea1";
-            this.gradeChart.ChartAreas.Add(chartArea2);
-            legend2.Name = "Legend1";
-            this.gradeChart.Legends.Add(legend2);
+            chartArea1.Area3DStyle.LightStyle = System.Windows.Forms.DataVisualization.Charting.LightStyle.Realistic;
+            chartArea1.BackColor = System.Drawing.Color.MintCream;
+            chartArea1.BorderColor = System.Drawing.Color.Transparent;
+            chartArea1.Name = "ChartArea1";
+            this.gradeChart.ChartAreas.Add(chartArea1);
+            legend1.Name = "Legend1";
+            this.gradeChart.Legends.Add(legend1);
             this.gradeChart.Location = new System.Drawing.Point(33, 57);
             this.gradeChart.Name = "gradeChart";
             this.gradeChart.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.Excel;
-            series2.ChartArea = "ChartArea1";
-            series2.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            series2.IsVisibleInLegend = false;
-            series2.LabelBackColor = System.Drawing.Color.White;
-            series2.Legend = "Legend1";
-            series2.Name = "Grade";
-            this.gradeChart.Series.Add(series2);
+            series1.ChartArea = "ChartArea1";
+            series1.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            series1.IsVisibleInLegend = false;
+            series1.LabelBackColor = System.Drawing.Color.White;
+            series1.Legend = "Legend1";
+            series1.Name = "Grade";
+            this.gradeChart.Series.Add(series1);
             this.gradeChart.Size = new System.Drawing.Size(588, 187);
             this.gradeChart.TabIndex = 3;
             this.gradeChart.Text = "chart1";

@@ -44,6 +44,7 @@
             this.label4 = new System.Windows.Forms.Label();
             this.lbl_StuName = new System.Windows.Forms.Label();
             this.lbl_Id = new System.Windows.Forms.Label();
+            this.requestRecheckToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.optionMenu.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.btn_Options)).BeginInit();
             this.SuspendLayout();
@@ -79,15 +80,16 @@
             this.optionMenu.ImageScalingSize = new System.Drawing.Size(24, 24);
             this.optionMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.editToolStripMenuItem,
-            this.deleteToolStripMenuItem});
+            this.deleteToolStripMenuItem,
+            this.requestRecheckToolStripMenuItem});
             this.optionMenu.Name = "contextMenuStrip1";
-            this.optionMenu.Size = new System.Drawing.Size(143, 68);
+            this.optionMenu.Size = new System.Drawing.Size(249, 133);
             // 
             // editToolStripMenuItem
             // 
             this.editToolStripMenuItem.Image = global::Student_Management.Properties.Resources.edit;
             this.editToolStripMenuItem.Name = "editToolStripMenuItem";
-            this.editToolStripMenuItem.Size = new System.Drawing.Size(142, 32);
+            this.editToolStripMenuItem.Size = new System.Drawing.Size(248, 32);
             this.editToolStripMenuItem.Text = "Edit";
             this.editToolStripMenuItem.Click += new System.EventHandler(this.editToolStripMenuItem_Click);
             // 
@@ -95,7 +97,7 @@
             // 
             this.deleteToolStripMenuItem.Image = global::Student_Management.Properties.Resources.delete;
             this.deleteToolStripMenuItem.Name = "deleteToolStripMenuItem";
-            this.deleteToolStripMenuItem.Size = new System.Drawing.Size(142, 32);
+            this.deleteToolStripMenuItem.Size = new System.Drawing.Size(248, 32);
             this.deleteToolStripMenuItem.Text = "Delete";
             this.deleteToolStripMenuItem.Click += new System.EventHandler(this.deleteToolStripMenuItem_Click);
             // 
@@ -175,6 +177,14 @@
             this.lbl_Id.TabIndex = 29;
             this.lbl_Id.Visible = false;
             // 
+            // requestRecheckToolStripMenuItem
+            // 
+            this.requestRecheckToolStripMenuItem.Image = global::Student_Management.Properties.Resources.search;
+            this.requestRecheckToolStripMenuItem.Name = "requestRecheckToolStripMenuItem";
+            this.requestRecheckToolStripMenuItem.Size = new System.Drawing.Size(248, 32);
+            this.requestRecheckToolStripMenuItem.Text = "Request Recheck";
+            this.requestRecheckToolStripMenuItem.Click += new System.EventHandler(this.requestRecheckToolStripMenuItem_Click);
+            // 
             // ucGrade
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -216,5 +226,6 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label lbl_StuName;
         private System.Windows.Forms.Label lbl_Id;
+        private System.Windows.Forms.ToolStripMenuItem requestRecheckToolStripMenuItem;
     }
 }

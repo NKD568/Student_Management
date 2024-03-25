@@ -114,7 +114,16 @@ namespace Student_Management.FORMS.Account
             txt_Password.Text = "";
             lastSavedPass = get.password;
             // Modify later if more levels are added
-            cmb_Level.SelectedItem = get.level == 2 ? "2" : "0";
+            if(get.level == 2)
+            {
+                txt_Username.Enabled = false;
+                cmb_Level.SelectedItem = "2";
+            }
+            else
+            {
+                txt_Username.Enabled = true;
+                cmb_Level.SelectedItem = "0";
+            }
             cmb_isBlocked.SelectedItem = get.isBlocked == false ? "False" : "True";
         }
 

@@ -40,6 +40,7 @@ namespace Student_Management.FORMS.Grade
                 txt_Search.Visible = false;
                 cmb_seachOptions.Visible = false;
                 btn_Add.Visible = false;
+                btn_Recheck.Visible = false;
                 initStudentView();
             }
             else
@@ -47,8 +48,11 @@ namespace Student_Management.FORMS.Grade
                 txt_Search.Visible = true;
                 cmb_seachOptions.Visible = true;
                 btn_Add.Visible = true;
+                btn_Recheck.Visible = true;
+                initRecheckDetails();
                 initDetails();
                 loadCards();
+                btn_Recheck.Enabled = GradeInfo.recheckList.Count > 0 ? true : false;
             }
         }
 
@@ -64,10 +68,28 @@ namespace Student_Management.FORMS.Grade
             }
         }
 
+        int j;
+        private void loadRecheckInfo()
+        {
+            foreach (GradeInfo data in GradeInfo.recheckList)
+            {
+                j++;
+                ucGrade cards = new ucGrade();
+                cards.cardDetails(data);
+                cardContainer.Controls.Add(cards);
+            }
+        }
+
         private void initDetails()
         {
             GradeInfo get = new GradeInfo();
             get.getList();
+        }
+
+        private void initRecheckDetails()
+        {
+            GradeInfo get = new GradeInfo();
+            get.getRecheckList();
         }
 
         private void initStudentView()
@@ -108,6 +130,14 @@ namespace Student_Management.FORMS.Grade
             }
         }
 
+        public static bool isReChecked = false;
+        private void btn_Recheck_Click(object sender, EventArgs e)
+        {
+            cardContainer.Controls.Clear();
+            loadRecheckInfo();
+            isReChecked = true;
+        }
+
         public static string searchKey;
         private void txt_Search_KeyPress(object sender, KeyPressEventArgs e)
         {
@@ -121,6 +151,7 @@ namespace Student_Management.FORMS.Grade
             }
         }
 
+        // Delete Timer + Rechecked Timer
         private void deleteTimer_Tick(object sender, EventArgs e)
         {
             if (ucGrade.isDeleted == true)
@@ -129,6 +160,10 @@ namespace Student_Management.FORMS.Grade
                 initDetails();
                 loadCards();
                 ucGrade.isDeleted = false;
+            }
+            if (isReChecked)
+            {
+                btn_Recheck.Enabled = GradeInfo.recheckList.Count == 0 ? false : true;
             }
         }
 

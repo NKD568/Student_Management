@@ -25,6 +25,7 @@ namespace Student_Management.FORMS.Grade
         public bool courseState { get; set; }
         public string grade { get; set; }
         public static List<GradeInfo> list = new List<GradeInfo>();
+        public static List<GradeInfo> recheckList = new List<GradeInfo>();
 
         public void Save()
         {
@@ -40,6 +41,20 @@ namespace Student_Management.FORMS.Grade
             frm_Main get = new frm_Main();
 
             get.showToast("SUCCESS", "Successfully Saved");
+            cmd.Dispose();
+            conn.Close();
+        }
+
+        public void SaveRecheckInfo()
+        {
+            MySqlConnection conn = new MySqlConnection(connstring);
+            conn.Open();
+            MySqlCommand cmd = conn.CreateCommand();
+            string sql = "INSERT INTO tbrecheck (StudentId,GradeId)VALUES(?,?)";
+            cmd.CommandText = sql;
+            cmd.Parameters.AddWithValue("StudentId", this.studentId);
+            cmd.Parameters.AddWithValue("GradeId", this.id);
+            cmd.ExecuteNonQuery();
             cmd.Dispose();
             conn.Close();
         }
@@ -68,6 +83,38 @@ namespace Student_Management.FORMS.Grade
                     details.getCourseName(details.courseId);
                     details.getCourseState(details.courseId);
                     list.Add(details);
+                }
+                cmd.Dispose();
+                reader.Dispose();
+                conn.Close();
+            }
+        }
+
+        public void getRecheckList()
+        {
+            MySqlConnection conn = new MySqlConnection(connstring);
+            conn.Open();
+            MySqlCommand cmd = conn.CreateCommand();
+            string sql = "SELECT tbgrade.id, tbgrade.StudentId, tbgrade.CourseId, tbgrade.Grade FROM tbrecheck" +
+                        " JOIN tbgrade ON tbgrade.id = tbrecheck.GradeId";
+            cmd.CommandText = sql;
+            MySqlDataReader reader = cmd.ExecuteReader();
+            recheckList.Clear();
+            if (reader.HasRows)
+            {
+                while (reader.Read())
+                {
+                    GradeInfo details = new GradeInfo
+                    {
+                        id = Convert.ToInt32(reader["id"]),
+                        studentId = Convert.ToInt32(reader["StudentId"]),
+                        courseId = Convert.ToInt32(reader["CourseId"]),
+                        grade = reader["Grade"].ToString(),
+                    };
+                    details.getStudentName(details.studentId);
+                    details.getCourseName(details.courseId);
+                    details.getCourseState(details.courseId);
+                    recheckList.Add(details);
                 }
                 cmd.Dispose();
                 reader.Dispose();
@@ -118,6 +165,27 @@ namespace Student_Management.FORMS.Grade
             {
                 get.showToast("ERROR", "Grade existed in other data!");
             }
+        }
+
+        public void removeRecheck(int _gradeId)
+        {
+            foreach(GradeInfo data in recheckList)
+            {
+                if(data.id == _gradeId)
+                {
+                    recheckList.Remove(data);
+                    break;
+                }
+            }
+            MySqlConnection conn = new MySqlConnection(connstring);
+            conn.Open();
+            MySqlCommand cmd = conn.CreateCommand();
+            string sql = "DELETE FROM tbrecheck WHERE GradeId = @gradeId";
+            cmd.CommandText = sql;
+            cmd.Parameters.AddWithValue("@gradeId", _gradeId);
+            cmd.ExecuteNonQuery();
+            cmd.Dispose();
+            conn.Close();
         }
 
         public void search(string key)

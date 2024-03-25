@@ -41,6 +41,7 @@
             this.btn_Add = new ReaLTaiizor.Controls.MaterialFloatingActionButton();
             this.txt_Search = new MaterialSkin.Controls.MaterialTextBox2();
             this.updateInfoTimer = new System.Windows.Forms.Timer(this.components);
+            this.btn_Recheck = new MaterialSkin.Controls.MaterialButton();
             ((System.ComponentModel.ISupportInitialize)(this.searchResult)).BeginInit();
             this.SuspendLayout();
             // 
@@ -193,11 +194,33 @@
             this.updateInfoTimer.Interval = 30;
             this.updateInfoTimer.Tick += new System.EventHandler(this.updateInfoTimer_Tick);
             // 
+            // btn_Recheck
+            // 
+            this.btn_Recheck.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.btn_Recheck.Density = MaterialSkin.Controls.MaterialButton.MaterialButtonDensity.Default;
+            this.btn_Recheck.Depth = 0;
+            this.btn_Recheck.Enabled = false;
+            this.btn_Recheck.HighEmphasis = true;
+            this.btn_Recheck.Icon = null;
+            this.btn_Recheck.Location = new System.Drawing.Point(944, 59);
+            this.btn_Recheck.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
+            this.btn_Recheck.MouseState = MaterialSkin.MouseState.HOVER;
+            this.btn_Recheck.Name = "btn_Recheck";
+            this.btn_Recheck.NoAccentTextColor = System.Drawing.Color.Empty;
+            this.btn_Recheck.Size = new System.Drawing.Size(163, 36);
+            this.btn_Recheck.TabIndex = 20;
+            this.btn_Recheck.Text = "Recheck Requests";
+            this.btn_Recheck.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
+            this.btn_Recheck.UseAccentColor = false;
+            this.btn_Recheck.UseVisualStyleBackColor = true;
+            this.btn_Recheck.Click += new System.EventHandler(this.btn_Recheck_Click);
+            // 
             // frm_Grade
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.BackColor = System.Drawing.Color.LightCyan;
             this.ClientSize = new System.Drawing.Size(1200, 800);
+            this.Controls.Add(this.btn_Recheck);
             this.Controls.Add(this.searchResult);
             this.Controls.Add(this.cardContainer);
             this.Controls.Add(this.cmb_seachOptions);
@@ -209,6 +232,7 @@
             this.Load += new System.EventHandler(this.frm_Grade_Load);
             ((System.ComponentModel.ISupportInitialize)(this.searchResult)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -225,5 +249,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn course;
         private System.Windows.Forms.DataGridViewTextBoxColumn result;
         private System.Windows.Forms.Timer updateInfoTimer;
+        private MaterialSkin.Controls.MaterialButton btn_Recheck;
     }
 }

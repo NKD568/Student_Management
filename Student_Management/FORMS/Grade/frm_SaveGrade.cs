@@ -95,6 +95,11 @@ namespace Student_Management.FORMS.Grade
                 GradeInfo up = new GradeInfo();
                 up.update(ucGrade.publicId, getCmbGradeItemValue());
                 isUpdate = true;
+                if (frm_Grade.isReChecked)
+                {
+                    up.removeRecheck(ucGrade.publicId);
+                    frm_Grade.isReChecked = false;
+                }
             }
         }
 
