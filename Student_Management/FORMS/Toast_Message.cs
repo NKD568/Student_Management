@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Student_Management.FORMS.Account;
+using Student_Management.FORMS.Main;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -41,15 +43,17 @@ namespace Student_Management.FORMS
 
         private void Toast_Message_Load(object sender, EventArgs e)
         {
-            Position();
+            this.Hide();
+            Position();             
         }
 
         private void toastTimer_Tick(object sender, EventArgs e)
         {
             toastY -= 10;
             this.Location = new Point(toastX, toastY);
-            if(toastY <= 1250)
+            if(toastY <= visibleY + 50)
             {
+                this.Show();
                 toastTimer.Stop();
                 toastHide.Start();
             }
@@ -65,21 +69,21 @@ namespace Student_Management.FORMS
                 if(toastY > 800)
                 {
                     toastHide.Stop();
-                    y = 100;
+                    y = 150;
                     this.Close();
                 }
             }
         }
 
+        int visibleY;
         private void Position()
         {
-            int ScreenWidth = Screen.PrimaryScreen.WorkingArea.Width;
-            int ScreenHeight = Screen.PrimaryScreen.WorkingArea.Height;
-
-            toastX = ScreenWidth - this.Width - 5;
-            toastY = ScreenHeight - this.Height + 70;
-
+            toastX = frm_Main.appBottomRightX - this.Width - 5;
+            toastY = frm_Main.appBottomRightY - this.Height + 100;
+            visibleY = frm_Main.appBottomRightY - this.Height + 5;
             this.Location = new Point(toastX, toastY);
+            this.Show();
         }
+
     }
 }

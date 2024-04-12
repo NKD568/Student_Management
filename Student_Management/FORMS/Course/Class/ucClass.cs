@@ -1,66 +1,76 @@
 ﻿using Student_Management.FORMS.Account;
 using Student_Management.FORMS.Enrollment;
-using Student_Management.FORMS.Grade;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
-using System.Drawing.Drawing2D;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Student_Management.FORMS.Student
+namespace Student_Management.FORMS.Course
 {
-    public partial class ucStudent : UserControl
+    public partial class ucClass : UserControl
     {
-        public ucStudent()
+        public ucClass()
         {
             InitializeComponent();
         }
-
-        private void ucStudent_Load(object sender, EventArgs e)
+        private void ucClassCard_Load(object sender, EventArgs e)
         {
-            if (frm_SaveStudent.refresh == true)
+            if (frm_SaveClass.refresh == true)
             {
                 displayNew();
             }
-            deleteToolStripMenuItem.Visible = frm_Login.userLevel == 2 ? false : true;
+            btn_Options.Visible = frm_Login.userLevel == 2 ? false : true;
+            if (ClassPage.enableRecheckView)
+            {
+                editToolStripMenuItem.Enabled = false;
+                deleteToolStripMenuItem.Enabled = false;
+            }
         }
 
         public void searchResult()
         {
-            StudentInfo get = new StudentInfo();
-            get.search(frm_Student.searchKey);
+            ClassInfo get = new ClassInfo();
+            get.search(ClassPage.searchKey);
         }
 
-        public void cardDetails(StudentInfo e)
+        public void cardDetails(ClassInfo e)
         {
             lbl_Id.Text = e.id.ToString();
+            e.getCourseName(e.course_id);
             lbl_Name.Text = e.name;
-            dtp_Birthdate.Value = e.birthdate;
-            lbl_Email.Text = e.email;
+            lbl_Course.Text = e.course_name;
+            lbl_Capacity.Text = e.capacity.ToString();
+            lbl_State.Text = e.state;
         }
 
         public void displayNew()
         {
-            StudentInfo get = new StudentInfo();
+            ClassInfo get = new ClassInfo();
             get.getNewInsertedData();
             lbl_Id.Text = get.id.ToString();
             lbl_Name.Text = get.name;
-            dtp_Birthdate.Value = get.birthdate;
-            lbl_Email.Text = get.email;
+            get.getCourseName(get.course_id);
+            lbl_Course.Text = get.course_name;
+            lbl_Capacity.Text = get.capacity.ToString();
+            lbl_State.Text = get.state;
         }
+
         public static bool view = false;
         public static string public_id;
+        public static string public_name;
+        public static string public_state;
         private void editToolStripMenuItem_Click(object sender, EventArgs e)
         {
             updatedTimer.Start();
             view = true;
             public_id = lbl_Id.Text;
-            frm_SaveStudent form = new frm_SaveStudent();
+            public_name = lbl_Name.Text;
+            frm_SaveClass form = new frm_SaveClass();
             form.ShowDialog();
         }
 
@@ -72,15 +82,17 @@ namespace Student_Management.FORMS.Student
 
         private void updatedTimer_Tick(object sender, EventArgs e)
         {
-            if (frm_SaveStudent.isUpdate == true)
+            if (frm_SaveClass.isUpdate == true)
             {
-                StudentInfo get = new StudentInfo();
+                ClassInfo get = new ClassInfo();
                 get.getDetails(public_id);
                 lbl_Id.Text = get.id.ToString();
                 lbl_Name.Text = get.name;
-                dtp_Birthdate.Value = get.birthdate;
-                lbl_Email.Text = get.email;
-                frm_SaveStudent.isUpdate = false;
+                get.getCourseName(get.course_id);
+                lbl_Course.Text = get.course_name;
+                lbl_Capacity.Text = get.capacity.ToString();
+                lbl_State.Text = get.state;
+                frm_SaveClass.isUpdate = false;
             }
         }
 
@@ -88,14 +100,15 @@ namespace Student_Management.FORMS.Student
         private void deleteToolStripMenuItem_Click(object sender, EventArgs e)
         {
             isDeleted = true;
-            StudentInfo get = new StudentInfo();
+            ClassInfo get = new ClassInfo();
             get.delete(lbl_Id.Text);
         }
 
-        private void viewClassesToolStripMenuItem_Click(object sender, EventArgs e)
-        {            
+        private void viewStudentsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
             public_id = lbl_Id.Text;
-            frm_Enrollment.isClassSide = false;
+            public_state = lbl_State.Text;
+            frm_Enrollment.isClassSide = true;
             Form background = new Form();
             try
             {

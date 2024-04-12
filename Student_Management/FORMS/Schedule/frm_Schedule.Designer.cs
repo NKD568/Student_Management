@@ -180,6 +180,7 @@
             this.btn_Add.Size = new System.Drawing.Size(40, 40);
             this.btn_Add.TabIndex = 12;
             this.btn_Add.UseVisualStyleBackColor = false;
+            this.btn_Add.Visible = false;
             this.btn_Add.Click += new System.EventHandler(this.btn_Add_Click);
             // 
             // refreshTimer

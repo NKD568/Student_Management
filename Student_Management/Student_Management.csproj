@@ -135,7 +135,64 @@
     <Compile Include="FORMS\Account\frm_SaveAccount.Designer.cs">
       <DependentUpon>frm_SaveAccount.cs</DependentUpon>
     </Compile>
-    <Compile Include="FORMS\Account\MD5_Hash.cs" />
+    <Compile Include="FORMS\Course\Class\ClassInfo.cs" />
+    <Compile Include="FORMS\Course\CourseHome.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FORMS\Course\CourseHome.Designer.cs">
+      <DependentUpon>CourseHome.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FORMS\Course\Class\ClassPage.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="FORMS\Course\Class\ClassPage.Designer.cs">
+      <DependentUpon>ClassPage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FORMS\Course\CoursePage.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="FORMS\Course\CoursePage.Designer.cs">
+      <DependentUpon>CoursePage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FORMS\Enrollment\EnrollmentInfo.cs" />
+    <Compile Include="FORMS\Course\Class\frm_SaveClass.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FORMS\Course\Class\frm_SaveClass.Designer.cs">
+      <DependentUpon>frm_SaveClass.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FORMS\Enrollment\frm_Enrollment.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FORMS\Enrollment\frm_Enrollment.Designer.cs">
+      <DependentUpon>frm_Enrollment.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FORMS\Enrollment\frm_SaveEnrollment.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FORMS\Enrollment\frm_SaveEnrollment.Designer.cs">
+      <DependentUpon>frm_SaveEnrollment.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FORMS\Course\Class\ucClass.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="FORMS\Course\Class\ucClass.Designer.cs">
+      <DependentUpon>ucClass.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FORMS\Enrollment\ucEnrollment.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="FORMS\Enrollment\ucEnrollment.Designer.cs">
+      <DependentUpon>ucEnrollment.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FORMS\Grade\frm_Grade.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FORMS\Grade\frm_Grade.Designer.cs">
+      <DependentUpon>frm_Grade.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FORMS\Recheck\RecheckInfo.cs" />
+    <Compile Include="UTILITIES\MD5_Hash.cs" />
     <Compile Include="FORMS\Account\splashScreen.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -149,12 +206,6 @@
       <DependentUpon>ucAccount.cs</DependentUpon>
     </Compile>
     <Compile Include="FORMS\Course\CourseInfo.cs" />
-    <Compile Include="FORMS\Course\frm_Course.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="FORMS\Course\frm_Course.Designer.cs">
-      <DependentUpon>frm_Course.cs</DependentUpon>
-    </Compile>
     <Compile Include="FORMS\Course\frm_SaveCourse.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -173,27 +224,9 @@
     <Compile Include="FORMS\Dashboard\frm_Dashboard.Designer.cs">
       <DependentUpon>frm_Dashboard.cs</DependentUpon>
     </Compile>
-    <Compile Include="FORMS\Grade\frm_Grade.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="FORMS\Grade\frm_Grade.Designer.cs">
-      <DependentUpon>frm_Grade.cs</DependentUpon>
-    </Compile>
-    <Compile Include="FORMS\Grade\frm_SaveGrade.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="FORMS\Grade\frm_SaveGrade.Designer.cs">
-      <DependentUpon>frm_SaveGrade.cs</DependentUpon>
-    </Compile>
     <Compile Include="FORMS\Grade\GradeInfo.cs" />
-    <Compile Include="FORMS\Grade\Node.cs" />
-    <Compile Include="FORMS\Grade\ucGrade.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="FORMS\Grade\ucGrade.Designer.cs">
-      <DependentUpon>ucGrade.cs</DependentUpon>
-    </Compile>
-    <Compile Include="FORMS\Grade\updateQueue.cs" />
+    <Compile Include="UTILITIES\Node.cs" />
+    <Compile Include="UTILITIES\updateQueue.cs" />
     <Compile Include="FORMS\Main\frm_Main.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -271,26 +304,41 @@
     <EmbeddedResource Include="FORMS\Account\ucAccount.resx">
       <DependentUpon>ucAccount.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FORMS\Course\frm_Course.resx">
-      <DependentUpon>frm_Course.cs</DependentUpon>
+    <EmbeddedResource Include="FORMS\Course\CourseHome.resx">
+      <DependentUpon>CourseHome.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FORMS\Course\Class\frm_SaveClass.resx">
+      <DependentUpon>frm_SaveClass.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FORMS\Enrollment\frm_Enrollment.resx">
+      <DependentUpon>frm_Enrollment.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FORMS\Enrollment\frm_SaveEnrollment.resx">
+      <DependentUpon>frm_SaveEnrollment.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FORMS\Course\frm_SaveCourse.resx">
       <DependentUpon>frm_SaveCourse.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="FORMS\Course\Class\ClassPage.resx">
+      <DependentUpon>ClassPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FORMS\Course\Class\ucClass.resx">
+      <DependentUpon>ucClass.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FORMS\Enrollment\ucEnrollment.resx">
+      <DependentUpon>ucEnrollment.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FORMS\Course\ucCourse.resx">
       <DependentUpon>ucCourse.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FORMS\Course\CoursePage.resx">
+      <DependentUpon>CoursePage.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FORMS\Dashboard\frm_Dashboard.resx">
       <DependentUpon>frm_Dashboard.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FORMS\Grade\frm_Grade.resx">
       <DependentUpon>frm_Grade.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="FORMS\Grade\frm_SaveGrade.resx">
-      <DependentUpon>frm_SaveGrade.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="FORMS\Grade\ucGrade.resx">
-      <DependentUpon>ucGrade.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FORMS\Main\frm_Main.resx">
       <DependentUpon>frm_Main.cs</DependentUpon>

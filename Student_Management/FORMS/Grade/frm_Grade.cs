@@ -1,7 +1,9 @@
-﻿using MaterialSkin;
-using MySql.Data.MySqlClient;
+﻿using Mysqlx.Crud;
 using Student_Management.FORMS.Account;
 using Student_Management.FORMS.Course;
+using Student_Management.FORMS.Enrollment;
+using Student_Management.FORMS.Main;
+using Student_Management.FORMS.Recheck;
 using Student_Management.FORMS.Student;
 using System;
 using System.Collections.Generic;
@@ -17,262 +19,318 @@ namespace Student_Management.FORMS.Grade
 {
     public partial class frm_Grade : Form
     {
-        MaterialSkinManager materialSkinManager;
+        public List<string> grades = new List<string>() {"A", "B+", "B", "C+" ,"C", "D", "F"};
         public frm_Grade()
         {
             InitializeComponent();
-            materialSkinManager = MaterialSkinManager.Instance;
-            materialSkinManager.ColorScheme = new ColorScheme(
-                Primary.BlueGrey800,
-                Primary.BlueGrey900,
-                Primary.BlueGrey900,
-                Accent.Cyan700,
-                TextShade.WHITE
-                );
-            this.ControlBox = false;
+        }
+
+        string lastProgress;
+        string lastMidterm;
+        string lastFinal;
+        string lastOverall;
+        private void btn_EditMode_ToggledChanged()
+        {
+            txt_Progress.ReadOnly = !txt_Progress.ReadOnly;
+            txt_Midterm.ReadOnly = !txt_Midterm.ReadOnly;
+            txt_Final.ReadOnly = !txt_Final.ReadOnly;
+            btn_Save.Visible = !btn_Save.Visible;
+
+            if(btn_EditMode.Toggled == false)
+            {
+                if (!isValid)
+                {
+                    txt_Progress.Text = lastProgress;
+                    txt_Midterm.Text = lastMidterm;
+                    txt_Final.Text = lastFinal;
+                    txt_Overall.Text = lastOverall;
+                }
+            }
+            else
+            {
+                isValid = false;
+                lastProgress = txt_Progress.Text;
+                lastMidterm = txt_Midterm.Text;
+                lastFinal = txt_Final.Text;
+                lastOverall = txt_Overall.Text;
+            }
+        }
+
+        private void btn_Recheck_Click(object sender, EventArgs e)
+        {
+            RecheckInfo save = new RecheckInfo();
+            GradeInfo get = new GradeInfo();
+            DataTable dt = get.getDetails(ucEnrollment.public_id);
+            if (dt != null && dt.Rows.Count > 0)
+            {
+                foreach (DataRow dr in dt.Rows)
+                {
+                    save.grade_id = dr["id"].ToString();
+                    save.Save();
+                }
+            }
+            btn_Recheck.Enabled = false;
+        }
+
+        private void grade_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            TextBox txt = (TextBox)sender;
+            if (!char.IsLetter(e.KeyChar) && !char.IsControl(e.KeyChar) && e.KeyChar != '+' ||
+                 txt.TextLength >= 2 && !char.IsControl(e.KeyChar))
+            {
+                e.Handled = true;
+                return;
+            }
+        }
+
+        bool isValid = false;
+        private void btn_Save_Click(object sender, EventArgs e)
+        {
+            bool validProgress = grades.Contains(txt_Progress.Text);
+            bool validMidterm = grades.Contains(txt_Midterm.Text);
+            bool validFinal = grades.Contains(txt_Final.Text);
+            if(!validProgress || !validMidterm || !validFinal)
+            {
+                MessageBox.Show("Invalid Grade!\nOnly: A, B+, B, C+, C, D, F");
+                return;
+            }
+            else
+            {
+                isValid = true;
+                if (ucEnrollment.gradeChecking == true)
+                {
+                    RecheckInfo remove = new RecheckInfo();
+                    remove.removeRecheck(lbl_ProgressId.Text);
+                    remove.removeRecheck(lbl_MidtermId.Text);
+                    remove.removeRecheck(lbl_FinalId.Text);
+                    remove.removeRecheck(lbl_OverallId.Text);
+                }
+                if (txt_Progress.Text != lastProgress || txt_Midterm.Text != lastMidterm ||
+                   txt_Final.Text != lastFinal || txt_Overall.Text != lastOverall)
+                {
+                    if(lastProgress == String.Empty && lastMidterm == String.Empty &&
+                       lastFinal == String.Empty && lastOverall == String.Empty)
+                    {
+                        update = false;
+                    }
+                    else
+                    {
+                        update = true;
+                    }
+                }
+                backgroundWorker1.RunWorkerAsync();
+            }
+        }
+
+        bool update = false;
+        private void backgroundWorker1_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            frm_Main notify = new frm_Main();
+            if (update == false)
+            {
+                GradeInfo save = new GradeInfo();
+                save.enrollment_id = ucEnrollment.public_id;              
+                save.type = lbl_Progress.Text;
+                save.grade = txt_Progress.Text;
+                save.Save();
+                save.type = lbl_Midterm.Text;
+                save.grade = txt_Midterm.Text;
+                save.Save();
+                save.type = lbl_Final.Text;
+                save.grade = txt_Final.Text;
+                save.Save();
+                save.type = lbl_Overall.Text;
+                save.grade = txt_Overall.Text;
+                save.Save();
+                notify.showToast("SUCESS", "Sucessfully Saved");
+            }
+            else
+            {
+                GradeInfo up = new GradeInfo();
+                up.enrollment_id = ucEnrollment.public_id;
+                if (txt_Progress.Text != lastProgress)
+                {
+                    up.type = lbl_Progress.Text;
+                    up.grade = txt_Progress.Text;
+                    up.update(up.enrollment_id, up.type, up.grade);
+                }
+                if (txt_Midterm.Text != lastMidterm)
+                {
+                    up.type = lbl_Midterm.Text;
+                    up.grade = txt_Midterm.Text;
+                    up.update(up.enrollment_id, up.type, up.grade);
+                }
+                if (txt_Final.Text != lastFinal)
+                {
+                    up.type = lbl_Final.Text;
+                    up.grade = txt_Final.Text;
+                    up.update(up.enrollment_id, up.type, up.grade);
+                }
+                if (txt_Overall.Text != lastOverall)
+                {
+                    up.type = lbl_Overall.Text;
+                    up.grade = txt_Overall.Text;
+                    up.update(up.enrollment_id, up.type, up.grade);
+                }
+                notify.showToast("SUCESS", "Sucessfully Updated");
+            }
         }
 
         private void frm_Grade_Load(object sender, EventArgs e)
         {
-            this.ControlBox = false;
-            if (frm_Login.userLevel == 2)
+            txt_Progress.Text = txt_Midterm.Text = txt_Final.Text = txt_Overall.Text = String.Empty;
+            getDetails();
+            if(frm_Enrollment.isClassSide == false && txt_Progress.Text != String.Empty &&
+                txt_Midterm.Text != String.Empty && txt_Final.Text != String.Empty && txt_Overall.Text != String.Empty)
             {
-                txt_Search.Visible = false;
-                cmb_seachOptions.Visible = false;
-                btn_Add.Visible = false;
+                btn_Recheck.Visible = true;
+                RecheckInfo get = new RecheckInfo();
+                bool isSentProgress = get.checkRecheckSent(lbl_ProgressId.Text);
+                bool isSentMidterm = get.checkRecheckSent(lbl_MidtermId.Text);
+                bool isSentFinal = get.checkRecheckSent(lbl_FinalId.Text);
+                bool isSentOverall = get.checkRecheckSent(lbl_OverallId.Text);
+                if(isSentProgress || isSentMidterm || isSentFinal || isSentOverall)
+                {
+                    btn_Recheck.Enabled = false;
+                }
+                else
+                {
+                    btn_Recheck.Enabled = true;
+                }
+            }
+            if(frm_Login.userLevel == 0)
+            {
                 btn_Recheck.Visible = false;
-                initStudentView();
+                lbl_EditMode.Visible = false;
+                btn_EditMode.Visible = false;
+            }
+        }
+
+        private void getDetails()
+        {
+            GradeInfo get = new GradeInfo();
+            DataTable dt = get.getDetails(ucEnrollment.public_id);
+            if (dt != null && dt.Rows.Count > 0)
+            {
+                foreach(DataRow dr in dt.Rows)
+                {
+                    if (dr["type"].ToString() == lbl_Progress.Text)
+                    {
+                        lbl_ProgressId.Text = dr["id"].ToString();
+                        txt_Progress.Text = dr["grade"].ToString();
+                    }else if (dr["type"].ToString() == lbl_Midterm.Text)
+                    {
+                        lbl_MidtermId.Text = dr["id"].ToString();
+                        txt_Midterm.Text = dr["grade"].ToString();
+                    }
+                    else if (dr["type"].ToString() == lbl_Final.Text)
+                    {
+                        lbl_FinalId.Text = dr["id"].ToString();
+                        txt_Final.Text = dr["grade"].ToString();
+                    }
+                    else
+                    {
+                        lbl_OverallId.Text = dr["id"].ToString();
+                        txt_Overall.Text = dr["grade"].ToString();
+                    }
+                }
+            }
+        }
+
+        private void btn_Exit_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void validateTimer_Tick(object sender, EventArgs e)
+        {
+            bool validProgress = grades.Contains(txt_Progress.Text);
+            bool validMidterm = grades.Contains(txt_Midterm.Text);
+            bool validFinal = grades.Contains(txt_Final.Text);
+            if (validProgress && validMidterm && validFinal)
+            {
+                calculateOverall();
             }
             else
             {
-                txt_Search.Visible = true;
-                cmb_seachOptions.Visible = true;
-                btn_Add.Visible = true;
-                btn_Recheck.Visible = true;
-                initRecheckDetails();
-                initDetails();
-                loadCards();
-                btn_Recheck.Enabled = GradeInfo.recheckList.Count > 0 ? true : false;
+                txt_Overall.Text = String.Empty;
+            }
+            validateTimer.Stop();
+        }
+
+        private void grade_TextChanged(object sender, EventArgs e)
+        {
+            validateTimer.Start();
+        }
+
+        private void calculateOverall()
+        {
+            double progress = GradeToPoint(txt_Progress.Text);
+            double midterm = GradeToPoint(txt_Midterm.Text);
+            double final = GradeToPoint(txt_Final.Text);
+
+            // Extract the percentage value and convert it to a double
+            string percentText = lbl_ProgressPercent.Text.Trim('%'); // Remove the percentage sign
+            double progressPercent = double.Parse(percentText) / 100.0; // Convert to a double and divide by 100 to get the decimal value
+            percentText = lbl_MidTermPercent.Text.Trim('%');
+            double midtermPercent = double.Parse(percentText) / 100.0;
+            percentText = lbl_FinalPercent.Text.Trim('%');
+            double finalPercent = double.Parse(percentText) / 100.0;
+
+            double overall = progress * progressPercent + midterm * midtermPercent + final * finalPercent;
+            txt_Overall.Text = PointToGrade(overall);
+        }
+
+        // Define a method to convert grades to points
+        private double GradeToPoint(string grade)
+        {
+            switch (grade)
+            {
+                case "A": return 4.0;
+                case "B+": return 3.5;
+                case "B": return 3.0;
+                case "C+": return 2.5;
+                case "C": return 2.0;
+                case "D": return 1.0;
+                case "F": return 0.0;
+                default: return 0.0; // Handle unknown grades
             }
         }
 
-        int i;
-        private void loadCards()
+        private string PointToGrade(double avgPoint)
         {
-            foreach (GradeInfo data in GradeInfo.list)
+            if (avgPoint >= 0.0 && avgPoint < 1.0)
             {
-                i++;
-                ucGrade cards = new ucGrade();
-                cards.cardDetails(data);
-                cardContainer.Controls.Add(cards);
+                return "F";
             }
-        }
-
-        int j;
-        private void loadRecheckInfo()
-        {
-            foreach (GradeInfo data in GradeInfo.recheckList)
+            else if (avgPoint >= 1.0 && avgPoint < 2.0)
             {
-                j++;
-                ucGrade cards = new ucGrade();
-                cards.cardDetails(data);
-                cardContainer.Controls.Add(cards);
+                return "D";
             }
-        }
-
-        private void initDetails()
-        {
-            GradeInfo get = new GradeInfo();
-            get.getList();
-        }
-
-        private void initRecheckDetails()
-        {
-            GradeInfo get = new GradeInfo();
-            get.getRecheckList();
-        }
-
-        private void initStudentView()
-        {
-            GradeInfo get = new GradeInfo();
-            get.searchStudentId(frm_Login.userName);
-            loadCards();
-        }
-
-        private void btn_Add_Click(object sender, EventArgs e)
-        {
-            Form background = new Form();
-            try
+            else if (avgPoint >= 2.0 && avgPoint < 2.5)
             {
-                using (frm_SaveGrade frm = new frm_SaveGrade())
-                {
-                    background.StartPosition = FormStartPosition.Manual;
-                    background.FormBorderStyle = FormBorderStyle.None;
-                    background.Opacity = .50d;
-                    background.BackColor = Color.Black;
-                    background.WindowState = FormWindowState.Maximized;
-                    background.Location = this.Location;
-                    background.ShowInTaskbar = false;
-                    background.Show();
-
-                    frm.Owner = background;
-                    frm.ShowDialog();
-                    background.Dispose();
-                }
+                return "C";
             }
-            catch (Exception ex)
+            else if (avgPoint >= 2.5 && avgPoint < 3.0)
             {
-                MessageBox.Show(ex.Message);
+                return "C+";
             }
-            finally
+            else if (avgPoint >= 3.0 && avgPoint < 3.5)
             {
-                background.Dispose();
+                return "B";
             }
-        }
-
-        public static bool isReChecked = false;
-        private void btn_Recheck_Click(object sender, EventArgs e)
-        {
-            cardContainer.Controls.Clear();
-            loadRecheckInfo();
-            isReChecked = true;
-        }
-
-        public static string searchKey;
-        private void txt_Search_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            if (e.KeyChar == (char)Keys.Enter)
+            else if (avgPoint >= 3.5 && avgPoint < 4.0)
             {
-                searchKey = txt_Search.Text;
-                cardContainer.Controls.Clear();
-                ucGrade u = new ucGrade();
-                u.searchResult();
-                loadCards();
+                return "B+";
             }
-        }
-
-        // Delete Timer + Rechecked Timer
-        private void deleteTimer_Tick(object sender, EventArgs e)
-        {
-            if (ucGrade.isDeleted == true)
+            else if (avgPoint == 4.0)
             {
-                cardContainer.Controls.Clear();
-                initDetails();
-                loadCards();
-                ucGrade.isDeleted = false;
+                return "A";
             }
-            if (isReChecked)
+            else
             {
-                btn_Recheck.Enabled = GradeInfo.recheckList.Count == 0 ? false : true;
+                return "Invalid"; // or throw an exception
             }
-        }
-
-        private void refreshTimer_Tick(object sender, EventArgs e)
-        {
-            if (frm_SaveGrade.refresh == true)
-            {
-                ucGrade uc = new ucGrade();
-                cardContainer.Controls.Add(uc);
-                frm_SaveGrade.refresh = false;
-            }
-
-        }
-
-        private void updateInfoTimer_Tick(object sender, EventArgs e)
-        {
-            if (frm_SaveCourse.isUpdate || frm_SaveStudent.isUpdate)
-            {
-                cardContainer.Controls.Clear();
-                initDetails();
-                loadCards();
-            }
-        }
-
-        public static string searchType = "tbgrade.StudentId";
-        private void cmb_seachOptions_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            string type = cmb_seachOptions.SelectedItem.ToString();
-            switch (type)
-            {
-                case "Student Id": searchType = "tbgrade.StudentId"; break;
-                case "Student Name": searchType = "tbstudent.Name"; break;
-                case "Course": searchType = "tbcourse.Name"; break;
-                case "Grade": searchType = "tbgrade.Grade"; break;
-            }
-        }
-
-        private void txt_Search_TextChanged(object sender, EventArgs e)
-        {
-            if (txt_Search.Text.Length > 4)
-            {
-                GradeInfo get = new GradeInfo();
-                using (MySqlConnection conn = new MySqlConnection(get.connstring))
-                {
-                    conn.Open();
-                    string sql;
-                    if (searchType == "tbstudent.Name")
-                    {
-                        sql = "SELECT tbstudent.Name AS StudentName, tbcourse.Name AS CourseName, tbgrade.Grade AS Grade FROM " + get.tableName +
-                                    " JOIN tbcourse on tbgrade.CourseId = tbcourse.id" +
-                                    " JOIN tbstudent on tbgrade.StudentId = tbstudent.id";
-                        searchResult.Columns[student.Name].DataPropertyName = "StudentName";
-                        searchResult.Columns[course.Name].DataPropertyName = "CourseName";
-                        searchResult.Columns[result.Name].DataPropertyName = "Grade";
-                    }
-                    else
-                    {
-                        sql = "SELECT tbgrade.StudentId AS StudentId, tbcourse.Name AS CourseName, tbgrade.Grade AS Grade FROM " + get.tableName +
-                                    " JOIN tbcourse on tbgrade.CourseId = tbcourse.id";
-                        searchResult.Columns[student.Name].DataPropertyName = "StudentId";
-                        searchResult.Columns[course.Name].DataPropertyName = "CourseName";
-                        searchResult.Columns[result.Name].DataPropertyName = "Grade";
-                    }
-
-                    sql += " WHERE " + searchType + " LIKE @data";
-                    MySqlCommand cmd = conn.CreateCommand();
-                    cmd.CommandText = sql;
-                    cmd.Parameters.AddWithValue("@data", txt_Search.Text + "%");
-                    DataTable dt = new DataTable();
-                    MySqlDataAdapter da = new MySqlDataAdapter(cmd);
-                    da.Fill(dt);
-                    if (dt != null && dt.Rows.Count > 0)
-                    {
-                        searchResult.DataSource = dt;
-                        searchResult.Height = searchResult.Rows.Count * 40;
-                    }
-                    else
-                    {
-                        searchResult.Height = 0;
-                    }
-                    cmd.Dispose();
-                    da.Dispose();
-                    conn.Close();
-                }
-            }
-            else if (txt_Search.TextLength <= 0)
-            {
-                searchResult.Height = 0;
-            }
-        }
-
-        private void searchResult_CellClick(object sender, DataGridViewCellEventArgs e)
-        {
-            DataGridViewRow row = this.searchResult.Rows[e.RowIndex];
-            switch (searchType)
-            {
-                case "tbgrade.StudentId":
-                case "tbstudent.Name": 
-                    txt_Search.Text = row.Cells[student.Name].Value.ToString(); break;
-                case "tbcourse.Name": txt_Search.Text = row.Cells[course.Name].Value.ToString(); break;
-                case "tbgrade.Grade": txt_Search.Text = row.Cells[result.Name].Value.ToString(); break;
-            }
-
-            searchResult.Height = 0;
-            ucGrade u = new ucGrade();
-            searchKey = txt_Search.Text;
-            cardContainer.Controls.Clear();
-            u.searchResult();
-            loadCards();
         }
 
 

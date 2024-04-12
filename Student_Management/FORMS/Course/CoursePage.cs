@@ -1,7 +1,6 @@
 ﻿using MaterialSkin;
 using MySql.Data.MySqlClient;
 using Student_Management.FORMS.Account;
-using Student_Management.FORMS.Student;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -14,10 +13,10 @@ using System.Windows.Forms;
 
 namespace Student_Management.FORMS.Course
 {
-    public partial class frm_Course : Form
+    public partial class CoursePage : UserControl
     {
         MaterialSkinManager materialSkinManager;
-        public frm_Course()
+        public CoursePage()
         {
             InitializeComponent();
             materialSkinManager = MaterialSkinManager.Instance;
@@ -28,12 +27,10 @@ namespace Student_Management.FORMS.Course
                 Accent.Cyan700,
                 TextShade.WHITE
                 );
-            this.ControlBox = false;
         }
 
-        private void frm_Course_Load(object sender, EventArgs e)
+        private void uc_CoursePage_Load(object sender, EventArgs e)
         {
-            this.ControlBox = false;
             btn_Add.Visible = frm_Login.userLevel == 2 ? false : true;
             initDetails();
             loadCards();
@@ -135,7 +132,17 @@ namespace Student_Management.FORMS.Course
                 using (MySqlConnection conn = new MySqlConnection(get.connstring))
                 {
                     conn.Open();
-                    string sql = "SELECT Name, isOpen FROM " + get.tableName;
+                    string sql;
+                    if (searchType == "name")
+                    {
+                        sql = "SELECT name, isOpen  FROM " + get.tableName;
+                        searchResult.Columns[result.Name].DataPropertyName = "name";
+                    }
+                    else
+                    {
+                        sql = "SELECT name, " + searchType + " FROM " + get.tableName;
+                        searchResult.Columns[result.Name].DataPropertyName = searchType;
+                    }
                     sql += " WHERE " + searchType + " LIKE @data";
                     MySqlCommand cmd = conn.CreateCommand();
                     cmd.CommandText = sql;
@@ -146,7 +153,7 @@ namespace Student_Management.FORMS.Course
                     if (dt != null && dt.Rows.Count > 0)
                     {
                         searchResult.DataSource = dt;
-                        searchResult.Height = searchResult.Rows.Count * 40;
+                        searchResult.Height = searchResult.Rows.Count * 30;
                     }
                     else
                     {
@@ -166,13 +173,30 @@ namespace Student_Management.FORMS.Course
         private void searchResult_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             DataGridViewRow row = this.searchResult.Rows[e.RowIndex];
-            txt_Search.Text = row.Cells["result"].Value.ToString();
+            if (searchType != "name")
+            {
+                txt_Search.Text = row.Cells["result"].Value.ToString();
+            }
+            else
+            {
+                txt_Search.Text = row.Cells["name"].Value.ToString();
+            }
             searchResult.Height = 0;
             ucCourse u = new ucCourse();
             searchKey = txt_Search.Text;
             cardContainer.Controls.Clear();
             u.searchResult();
             loadCards();
+        }
+
+        private void txt_Search_Enter(object sender, EventArgs e)
+        {
+            searchResult.Visible = true;
+        }
+
+        private void txt_Search_Leave(object sender, EventArgs e)
+        {
+            searchResult.Visible = false;
         }
 
 
