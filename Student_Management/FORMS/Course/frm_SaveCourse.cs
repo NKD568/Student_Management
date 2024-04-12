@@ -37,6 +37,7 @@ namespace Student_Management.FORMS.Course
         public static bool isUpdate = false;
         private void backgroundWorker1_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
+            frm_Main notify = new frm_Main();
             if (update == false)
             {
                 CourseInfo save = new CourseInfo();
@@ -45,25 +46,33 @@ namespace Student_Management.FORMS.Course
                 save.credits = trackBar_Credits.Value;
                 save.isOpen = getCmbIsOpenItemValue();
                 save.Save();
+                refresh = true;
+                notify.showToast("SUCESS", "Sucessfully Saved");
             }
             else
             {
                 CourseInfo up = new CourseInfo();
                 up.update(txt_Name.Text, txt_Description.Text, trackBar_Credits.Value, getCmbIsOpenItemValue(), ucCourse.public_id);
+                isUpdate = true;
+                notify.showToast("SUCESS", "Sucessfully Updated");
             }
         }
 
         private void btn_Save_Click(object sender, EventArgs e)
         {
+            CourseInfo save = new CourseInfo();
+            bool isExist = save.checkDuplicateName(txt_Name.Text);
             if (txt_Name.Text == "" || txt_Description.Text == "")
             {
                 MessageBox.Show("Please type all informations!");
                 return;
             }
-            else
+            if (isExist && txt_Name.Text != ucCourse.public_name)
             {
-                backgroundWorker1.RunWorkerAsync();
+                MessageBox.Show("Name is already taken!");
+                return;
             }
+            backgroundWorker1.RunWorkerAsync();
         }
 
         bool update = false;
@@ -91,11 +100,11 @@ namespace Student_Management.FORMS.Course
             txt_Description.Text = get.description;
             trackBar_Credits.Value = get.credits;
             cmb_isOpen.SelectedItem = get.isOpen == true? "True" : "False" ;
-            bool isOnSchedule = get.isOccupied(Convert.ToInt32(ucCourse.public_id));
-            if (isOnSchedule)
+            bool isOccupied = get.isOccupied(ucCourse.public_id);
+            if (isOccupied)
             {
                 frm_Main show = new frm_Main();
-                show.showToast("INFO", "This Course is on Schudule");
+                show.showToast("INFO", "This Course is Occupied!");
                 cmb_isOpen.Enabled = false;
             }
             else

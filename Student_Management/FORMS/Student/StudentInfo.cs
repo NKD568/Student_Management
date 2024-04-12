@@ -12,13 +12,14 @@ using Student_Management.FORMS.Main;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.ListView;
 using static Mysqlx.Notice.Warning.Types;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
+using System.Security.Cryptography;
 
 namespace Student_Management.FORMS.Student
 {
     public class StudentInfo
     {
         public string connstring = frm_Main.connstring;
-        public string tableName = "tbstudent";
+        public string tableName = "students";
         string tableAttributes = "(id,Name,Birthdate,Email)";
 
         public int id { get; set; }
@@ -208,8 +209,9 @@ namespace Student_Management.FORMS.Student
             MySqlConnection conn = new MySqlConnection (connstring);
             conn.Open();
             MySqlCommand cmd = conn.CreateCommand();
-            string sql = "SELECT * FROM " + tableName + " WHERE id ='" + details_id + "'";
+            string sql = "SELECT * FROM " + tableName + " WHERE id = @id";
             cmd.CommandText= sql;
+            cmd.Parameters.AddWithValue("@id", details_id);
             MySqlDataReader reader = cmd.ExecuteReader();
             if(reader.Read())
             {
@@ -217,6 +219,10 @@ namespace Student_Management.FORMS.Student
                 name = reader["Name"].ToString();
                 birthdate = reader.GetDateTime("Birthdate");
                 email = reader["Email"].ToString();
+            }
+            else
+            {
+                name = "";
             }
             cmd.Dispose();
             reader.Dispose();

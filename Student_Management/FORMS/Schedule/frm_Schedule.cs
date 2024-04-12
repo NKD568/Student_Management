@@ -25,15 +25,36 @@ namespace Student_Management
         public frm_Schedule()
         {
             InitializeComponent();
-
         }
 
         private void frm_Schedule_Load(object sender, EventArgs e)
         {
             this.ControlBox = false;
-            btn_Add.Visible = frm_Login.userLevel == 2 ? false : true;
+            switch (frm_Login.userLevel)
+            {
+                case 0:
+                    btn_Add.Visible = true;
+                    getOneDateEventList();
+                    break;
+                case 2:
+                    btn_Add.Visible = false;
+                    getStudentOneDateEventList();
+                    break;
+            }
             dtp_SelectedDate.Value = DateTime.Now;
             showDays(dtp_SelectedDate.Value.Month, dtp_SelectedDate.Value.Year);
+        }
+
+        private void getOneDateEventList()
+        {
+            ScheduleInfo _init = new ScheduleInfo();
+            _init.getList();
+        }
+
+        private void getStudentOneDateEventList()
+        {
+            ScheduleInfo _init = new ScheduleInfo();
+            _init.getListStudentEvent(frm_Login.userName);
         }
 
         private void dtp_SelectedDate_ValueChanged(object sender, EventArgs e)
@@ -104,6 +125,8 @@ namespace Student_Management
         {
             if (frm_SaveEvent.refresh == true)
             {
+                cardContainer.Controls.Clear();
+                getOneDateEventList();
                 showDays(dtp_SelectedDate.Value.Month, dtp_SelectedDate.Value.Year);
                 frm_SaveEvent.refresh = false;
             }
@@ -114,6 +137,7 @@ namespace Student_Management
             if (ucDay.isDeleted == true)
             {
                 cardContainer.Controls.Clear();
+                getOneDateEventList();
                 showDays(dtp_SelectedDate.Value.Month, dtp_SelectedDate.Value.Year);
                 ucDay.isDeleted = false;
             }
@@ -121,7 +145,7 @@ namespace Student_Management
 
         private void updateInfoTimer_Tick(object sender, EventArgs e)
         {
-            if (frm_SaveCourse.isUpdate || frm_SaveStudent.isUpdate)
+            if (frm_SaveClass.isUpdate || frm_SaveStudent.isUpdate)
             {
                 showDays(dtp_SelectedDate.Value.Month, dtp_SelectedDate.Value.Year);
             }
@@ -129,6 +153,7 @@ namespace Student_Management
 
         private void btn_Add_Click(object sender, EventArgs e)
         {
+            ucDay.blockClicked = false;
             Form background = new Form();
             try
             {

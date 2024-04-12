@@ -1,4 +1,8 @@
-﻿using System;
+﻿using MaterialSkin;
+using MySql.Data.MySqlClient;
+using Student_Management.FORMS.Account;
+using Student_Management.FORMS.Recheck;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -7,17 +11,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using MaterialSkin;
-using MaterialSkin.Controls;
-using MySql.Data.MySqlClient;
-using Student_Management.FORMS.Account;
 
-namespace Student_Management.FORMS.Student
+namespace Student_Management.FORMS.Course
 {
-    public partial class frm_Student : Form
+    public partial class ClassPage : UserControl
     {
         MaterialSkinManager materialSkinManager;
-        public frm_Student()
+        public ClassPage()
         {
             InitializeComponent();
             materialSkinManager = MaterialSkinManager.Instance;
@@ -28,53 +28,66 @@ namespace Student_Management.FORMS.Student
                 Accent.Cyan700,
                 TextShade.WHITE
                 );
-            this.ControlBox = false;
         }
 
-        private void frm_Student_Load(object sender, EventArgs e)
+        private void ucClassPage_Load(object sender, EventArgs e)
         {
-            this.ControlBox = false;
-            if (frm_Login.userLevel == 2)
+            switch (frm_Login.userLevel)
             {
-                txt_Search.Visible = false;
-                cmb_seachOptions.Visible = false;
-                btn_Add.Visible = false;
-                initStudentView();
+                case 0:
+                    btn_Add.Visible = true;
+                    lbl_ViewRecheck.Visible = true;
+                    btn_ViewRechecks.Visible = true;
+                    break;
+                case 2:
+                    btn_Add.Visible = false;
+                    lbl_ViewRecheck.Visible = false;
+                    btn_ViewRechecks.Visible = false;
+                    break;
             }
-            else
-            {
-                txt_Search.Visible = true;
-                cmb_seachOptions.Visible = true;
-                btn_Add.Visible = true;
-                initDetails();
-                loadCards();
-            }
+            initDetails();
+            loadCards();
         }
+
         int i;
         private void loadCards()
         {
-            foreach(StudentInfo data in StudentInfo.list)
+            foreach (ClassInfo data in ClassInfo.list)
             {
                 i++;
-                ucStudent cards = new ucStudent();
+                ucClass cards = new ucClass();
                 cards.cardDetails(data);
                 cardContainer.Controls.Add(cards);
             }
         }
 
-        private void initDetails()
+        public static bool enableRecheckView;
+        private void btn_ViewRechecks_ToggledChanged()
         {
-            StudentInfo get = new StudentInfo();
-            get.getList();
+            cardContainer.Controls.Clear();
+            if (btn_ViewRechecks.Toggled == true)
+            {
+                RecheckInfo get = new RecheckInfo();
+                get.getClassList();
+                foreach (ClassInfo data in RecheckInfo.listClass)
+                {
+                    i++;
+                    ucClass cards = new ucClass();
+                    cards.cardDetails(data);
+                    cardContainer.Controls.Add(cards);
+                }
+                enableRecheckView = true;
+            }
+            else
+            {
+                loadCards();
+            }
         }
 
-        private void initStudentView()
+        private void initDetails()
         {
-            StudentInfo get = new StudentInfo();
-            get.searchId(frm_Login.userName);
-            ucStudent cards = new ucStudent();
-            cards.cardDetails(get);
-            cardContainer.Controls.Add(cards);
+            ClassInfo get = new ClassInfo();
+            get.getList();
         }
 
         private void btn_Add_Click(object sender, EventArgs e)
@@ -82,8 +95,8 @@ namespace Student_Management.FORMS.Student
             Form background = new Form();
             try
             {
-                using (frm_SaveStudent frm = new frm_SaveStudent())
-                {                   
+                using (frm_SaveClass frm = new frm_SaveClass())
+                {
                     background.StartPosition = FormStartPosition.Manual;
                     background.FormBorderStyle = FormBorderStyle.None;
                     background.Opacity = .50d;
@@ -97,7 +110,8 @@ namespace Student_Management.FORMS.Student
                     frm.ShowDialog();
                     background.Dispose();
                 }
-            }catch (Exception ex)
+            }
+            catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
@@ -110,11 +124,11 @@ namespace Student_Management.FORMS.Student
         public static string searchKey;
         private void txt_Search_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if(e.KeyChar == (char)Keys.Enter)
+            if (e.KeyChar == (char)Keys.Enter)
             {
                 searchKey = txt_Search.Text;
                 cardContainer.Controls.Clear();
-                ucStudent u = new ucStudent();
+                ucClass u = new ucClass();
                 u.searchResult();
                 loadCards();
             }
@@ -122,25 +136,26 @@ namespace Student_Management.FORMS.Student
 
         private void deleteTimer_Tick(object sender, EventArgs e)
         {
-            if(ucStudent.isDeleted == true) { 
+            if (ucClass.isDeleted == true)
+            {
                 cardContainer.Controls.Clear();
                 initDetails();
                 loadCards();
-                ucStudent.isDeleted = false;
+                ucClass.isDeleted = false;
             }
         }
 
         private void refreshTimer_Tick(object sender, EventArgs e)
         {
-            if (frm_SaveStudent.refresh == true)
+            if (frm_SaveClass.refresh == true)
             {
-                ucStudent stu = new ucStudent();
+                ucClass stu = new ucClass();
                 cardContainer.Controls.Add(stu);
-                frm_SaveStudent.refresh = false;
+                frm_SaveClass.refresh = false;
             }
         }
 
-        public static string searchType = "id";
+        public static string searchType = "Course";
         private void cmb_seachOptions_SelectedIndexChanged(object sender, EventArgs e)
         {
             searchType = cmb_seachOptions.SelectedItem.ToString();
@@ -148,30 +163,40 @@ namespace Student_Management.FORMS.Student
 
         private void txt_Search_TextChanged(object sender, EventArgs e)
         {
-            if(txt_Search.Text.Length > 4) {
-                StudentInfo get = new StudentInfo();
+            if (txt_Search.Text.Length > 4)
+            {
+                searchResult.Columns[result.Name].DataPropertyName = searchType;
+                ClassInfo get = new ClassInfo();
                 using (MySqlConnection conn = new MySqlConnection(get.connstring))
                 {
                     conn.Open();
                     string sql;
-                    if(searchType == "id")
+                    if (searchType == "Course")
                     {
-                        sql = "SELECT id, name  FROM "+ get.tableName;
-                        searchResult.Columns[result.Name].DataPropertyName = "name";
+                        sql = "SELECT classes.name AS id, courses.name AS course FROM " + get.tableName +
+                                " JOIN courses ON courses.id = classes.course_id" +
+                                " WHERE courses.name LIKE @data";
+                        searchResult.Columns[result.Name].DataPropertyName = "course";
+                    }
+                    else if (searchType == "Name")
+                    {
+                        sql = "SELECT name AS id, state FROM " + get.tableName;
+                        searchResult.Columns[result.Name].DataPropertyName = "state";
+                        sql += " WHERE " + searchType + " LIKE @data";
                     }
                     else
                     {
-                        sql = "SELECT id, " + searchType + " FROM " + get.tableName;
+                        sql = "SELECT name AS id, " + searchType + " FROM " + get.tableName;
                         searchResult.Columns[result.Name].DataPropertyName = searchType;
+                        sql += " WHERE " + searchType + " LIKE @data";
                     }
-                    sql += " WHERE " + searchType + " LIKE @data";
                     MySqlCommand cmd = conn.CreateCommand();
                     cmd.CommandText = sql;
-                    cmd.Parameters.AddWithValue("@data",txt_Search.Text + "%");
+                    cmd.Parameters.AddWithValue("@data", txt_Search.Text + "%");
                     DataTable dt = new DataTable();
                     MySqlDataAdapter da = new MySqlDataAdapter(cmd);
                     da.Fill(dt);
-                    if(dt != null && dt.Rows.Count > 0)
+                    if (dt != null && dt.Rows.Count > 0)
                     {
                         searchResult.DataSource = dt;
                         searchResult.Height = searchResult.Rows.Count * 30;
@@ -184,7 +209,9 @@ namespace Student_Management.FORMS.Student
                     da.Dispose();
                     conn.Close();
                 }
-            }else if (txt_Search.TextLength <= 0){
+            }
+            else if (txt_Search.TextLength <= 0)
+            {
                 searchResult.Height = 0;
             }
         }
@@ -192,7 +219,8 @@ namespace Student_Management.FORMS.Student
         private void searchResult_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             DataGridViewRow row = this.searchResult.Rows[e.RowIndex];
-            if (searchType != "id") {
+            if (searchType != "Name")
+            {
                 txt_Search.Text = row.Cells["result"].Value.ToString();
             }
             else
@@ -200,7 +228,7 @@ namespace Student_Management.FORMS.Student
                 txt_Search.Text = row.Cells["id"].Value.ToString();
             }
             searchResult.Height = 0;
-            ucStudent u = new ucStudent();
+            ucClass u = new ucClass();
             searchKey = txt_Search.Text;
             cardContainer.Controls.Clear();
             u.searchResult();
@@ -219,5 +247,4 @@ namespace Student_Management.FORMS.Student
 
 
     }
- }
-
+}

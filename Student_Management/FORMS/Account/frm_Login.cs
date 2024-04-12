@@ -31,9 +31,12 @@ namespace Student_Management.FORMS.Account
             this.FormBorderStyle = FormBorderStyle.None;
         }
 
-
+        public static int frmBottomRightX;
+        public static int frmBottomRightY;
         private void frm_Login_Load(object sender, EventArgs e)
         {
+            frmBottomRightX = this.Location.X + this.Size.Width;
+            frmBottomRightY = this.Location.Y + this.Size.Height;
             // For checkbox Remeber Me to save info for next login
             if (Properties.Settings.Default.Username != string.Empty)
             {
@@ -58,8 +61,7 @@ namespace Student_Management.FORMS.Account
             isCorrected = get.checkLogin(txt_Username.Text, pass);
             if (get.isBlocked)
             {
-                frm_Main form = new frm_Main();
-                form.showToast("ERROR", "Your account is blocked");
+                MessageBox.Show("Your account is blocked");
                 return;
             }
             else if (isCorrected)
@@ -72,8 +74,7 @@ namespace Student_Management.FORMS.Account
             }
             else
             {
-                frm_Main form = new frm_Main();
-                form.showToast("ERROR", "Login Info is not corrected");
+                MessageBox.Show("Login Info is not corrected");
                 return;
             }
 

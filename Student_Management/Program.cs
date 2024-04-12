@@ -1,6 +1,9 @@
 ﻿using Student_Management.FORMS;
 using Student_Management.FORMS.Account;
+using Student_Management.FORMS.Course;
+using Student_Management.FORMS.Grade;
 using Student_Management.FORMS.Main;
+using Student_Management.FORMS.Student;
 using System;
 using System.Collections.Generic;
 using System.Linq;

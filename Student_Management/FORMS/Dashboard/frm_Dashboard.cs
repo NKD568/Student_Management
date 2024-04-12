@@ -1,5 +1,6 @@
 ﻿using MySql.Data.MySqlClient;
 using Mysqlx.Crud;
+using Student_Management.FORMS.Course.Enrollment;
 using Student_Management.FORMS.Grade;
 using Student_Management.FORMS.Main;
 using System;
@@ -43,9 +44,10 @@ namespace Student_Management.FORMS.Dashboard
             gradeDt = new DataTable();
             conn.Open();
             MySqlCommand cmd = conn.CreateCommand();
-            string sql = "SELECT Grade, COUNT(*) AS Quantity FROM  tbgrade" +
-                " WHERE DATE(created_at) >= CURDATE() - INTERVAL 30 DAY" +
-                " GROUP BY Grade";
+            string sql = "SELECT grade, COUNT(*) AS Quantity FROM grades" +
+                " JOIN enrollments ON enrollments.id = grades.enrollment_id" +
+                " WHERE DATE(enrollments.created_at) >= CURDATE() - INTERVAL 30 DAY" +
+                " AND grades.type = 'Overall' GROUP BY grades.grade";
             cmd.CommandText = sql;                       
             MySqlDataAdapter da = new MySqlDataAdapter(cmd);
             da.Fill(ds);
@@ -60,20 +62,40 @@ namespace Student_Management.FORMS.Dashboard
             conn.Close();
         }
 
-        int totalGradeCount;
         private void loadEnrolledCount()
         {
             string connstring = frm_Main.connstring;
             MySqlConnection conn = new MySqlConnection(connstring);            
             conn.Open();
             MySqlCommand cmd = conn.CreateCommand();
-            string sql = "SELECT COUNT(*) AS Quantity FROM tbgrade" +
+            string sql = "SELECT COUNT(*) AS Quantity FROM enrollments" +
                         " WHERE DATE(created_at) >= CURDATE() - INTERVAL 30 DAY";
             cmd.CommandText = sql;
             MySqlDataReader reader = cmd.ExecuteReader();
             if (reader.Read())
             {
                 lbl_Enrolled.Text = reader["Quantity"].ToString();
+            }
+            cmd.Dispose();
+            reader.Dispose();
+            conn.Close();
+        }
+
+        int totalGradeCount;
+        private void getTotalGrade()
+        {
+            string connstring = frm_Main.connstring;
+            MySqlConnection conn = new MySqlConnection(connstring);
+            conn.Open();
+            MySqlCommand cmd = conn.CreateCommand();
+            string sql = "SELECT COUNT(*) AS Quantity FROM grades" +
+                        " JOIN enrollments ON enrollments.id = grades.enrollment_id" +
+                        " WHERE DATE(enrollments.created_at) >= CURDATE() - INTERVAL 30 DAY" +
+                        " AND grades.type = 'Overall' ";
+            cmd.CommandText = sql;
+            MySqlDataReader reader = cmd.ExecuteReader();
+            if (reader.Read())
+            {
                 totalGradeCount = reader.GetInt32("Quantity");
             }
             cmd.Dispose();
@@ -84,13 +106,15 @@ namespace Student_Management.FORMS.Dashboard
         int totalPassCount;
         private void loadPassPercentage()
         {
+            getTotalGrade();
             string connstring = frm_Main.connstring;
             MySqlConnection conn = new MySqlConnection(connstring);            
             conn.Open();
             MySqlCommand cmd = conn.CreateCommand();
-            string sql = "SELECT COUNT(Grade) AS Quantity FROM tbgrade" +
-                        " WHERE DATE(created_at) >= CURDATE() - INTERVAL 30 DAY" +
-                        " AND Grade != 'F'";
+            string sql = "SELECT COUNT(*) AS Quantity FROM grades" +
+                        " JOIN enrollments ON enrollments.id = grades.enrollment_id" +
+                        " WHERE DATE(enrollments.created_at) >= CURDATE() - INTERVAL 30 DAY" +
+                        " AND grades.grade != 'F' AND grades.type = 'Overall'";
             cmd.CommandText = sql;
             MySqlDataReader reader = cmd.ExecuteReader();
             if (reader.Read())
@@ -116,11 +140,11 @@ namespace Student_Management.FORMS.Dashboard
         private void loadAverageGrade()
         {
             double sumPoint, sumPoints = 0.0;
-            double point= 0.0;
+            double point = 0.0;
             double avgPoint;
             foreach(DataRow row in gradeDt.Rows)
             {
-                switch (row["Grade"].ToString())
+                switch (row["grade"].ToString())
                 {
                     case "A": point = 4.0;  break;
                     case "B+": point = 3.5;  break;
@@ -166,58 +190,57 @@ namespace Student_Management.FORMS.Dashboard
             MySqlConnection conn = new MySqlConnection(connstring);
             conn.Open();
             MySqlCommand cmd = conn.CreateCommand();
-            string sql = "SELECT DISTINCT tbcourse.Name AS Course FROM tbschedule" +
-                           " JOIN tbgrade ON tbgrade.id = tbschedule.GradeId" +
-                           " JOIN tbcourse ON tbcourse.id = tbgrade.CourseId" +
-                           " WHERE tbgrade.Grade IS NULL AND DATE(created_at) >= CURDATE() - INTERVAL 30 DAY" +
-                           " ORDER BY tbschedule.id DESC LIMIT 3";
+            string sql = "SELECT DISTINCT classes.name AS Class FROM schedules" +
+                           " JOIN enrollments ON enrollments.id = schedules.enrollment_id" +
+                           " JOIN classes ON classes.id = enrollments.class_id" +
+                           " WHERE schedules.type = 'Exam' AND DATE(created_at) >= CURDATE() - INTERVAL 30 DAY" +
+                           " ORDER BY schedules.id DESC LIMIT 3";
             cmd.CommandText = sql;
             MySqlDataAdapter da = new MySqlDataAdapter(cmd);
             da.Fill(dt);    
-            string course1, course2, course3;
-            if (dt != null && dt.Rows.Count >= 1)
+            string event1, event2, event3;
+            if (dt != null && dt.Rows.Count > 0)
             {
-                course1 = dt.Rows[0]["Course"].ToString();
-                if(dt.Rows.Count == 2) {
-                    course2 = dt.Rows[1]["Course"].ToString();
-                    course3 = "";
-                }
-                else
+                switch (dt.Rows.Count)
                 {
-                    course2 = dt.Rows[1]["Course"].ToString();
-                    course3 = dt.Rows[2]["Course"].ToString();
+                    default:
+                        event1 = event2 = event3 = String.Empty;
+                        break;
+                    case 1: 
+                        event1 = dt.Rows[0]["Class"].ToString();
+                        event2 = event3 = String.Empty;
+                        break;
+                    case 2: 
+                        event1 = dt.Rows[0]["Class"].ToString();
+                        event2 = dt.Rows[1]["Class"].ToString();
+                        event3 = String.Empty;
+                        break;
+                    case 3:
+                        event1 = dt.Rows[0]["Class"].ToString();
+                        event2 = dt.Rows[1]["Class"].ToString();
+                        event3 = dt.Rows[2]["Class"].ToString();
+                        break;
                 }
                 // Tab
-                lbl_Ongoing.Text = string.Format("1. {0,-25}\t 2. {1,-25}\t 3. {2,-25}", course1, course2, course3);
+                lbl_Ongoing.Text = string.Format("1. {0,-25}\t 2. {1,-25}\t 3. {2,-25}", event1, event2, event3);
             }
             else
             {
                 // Handle the case where there are not enough rows or the DataTable is null
-                lbl_Ongoing.Text = "No recent courses available.";
+                lbl_Ongoing.Text = "No recent events available.";
             }
             da.Dispose();
             cmd.Dispose();            
             conn.Close();
         }
 
-        int totalNotNullGrade;
         private void loadExamProgress()
         {
-            string connstring = frm_Main.connstring;
-            MySqlConnection conn = new MySqlConnection(connstring);
-            conn.Open();
-            MySqlCommand cmd = conn.CreateCommand();
-            string sql = "SELECT COUNT(Grade) AS Quantity FROM tbgrade" +
-                        " WHERE DATE(created_at) >= CURDATE() - INTERVAL 30 DAY";
-            cmd.CommandText = sql;
-            MySqlDataReader reader = cmd.ExecuteReader();            
-            if (reader.Read())
+            getTotalSchedule();
+            getTotalExamSchedule();
+            if (totalSchedule > 0)
             {
-                totalNotNullGrade = reader.GetInt32("Quantity");
-            }
-            if (totalGradeCount > 0)
-            {
-                double percent = ((double)totalNotNullGrade / (double)totalGradeCount) * 100;
+                double percent = ((double)totalExamSchedule / (double)totalSchedule) * 100;
                 int roundPercent = (int)Math.Round(percent);
                 examProgress.Percentage = roundPercent;
             }
@@ -225,11 +248,50 @@ namespace Student_Management.FORMS.Dashboard
             {
                 examProgress.Percentage = 0;
             }
-            reader.Dispose();
+        }
+
+        int totalSchedule;
+        private void getTotalSchedule()
+        {
+            string connstring = frm_Main.connstring;
+            MySqlConnection conn = new MySqlConnection(connstring);
+            conn.Open();
+            MySqlCommand cmd = conn.CreateCommand();
+            string sql = "SELECT COUNT(*) AS Quantity FROM schedules" +
+                        " JOIN enrollments ON enrollments.id = schedules.enrollment_id" +
+                        " WHERE DATE(enrollments.created_at) >= CURDATE() - INTERVAL 30 DAY";
+            cmd.CommandText = sql;
+            MySqlDataReader reader = cmd.ExecuteReader();
+            if (reader.Read())
+            {
+                totalSchedule = reader.GetInt32("Quantity");
+            }
             cmd.Dispose();
+            reader.Dispose();
             conn.Close();
         }
 
+        int totalExamSchedule;
+        private void getTotalExamSchedule()
+        {
+            string connstring = frm_Main.connstring;
+            MySqlConnection conn = new MySqlConnection(connstring);
+            conn.Open();
+            MySqlCommand cmd = conn.CreateCommand();
+            string sql = "SELECT COUNT(*) AS Quantity FROM schedules" +
+                        " JOIN enrollments ON enrollments.id = schedules.enrollment_id" +
+                        " WHERE DATE(enrollments.created_at) >= CURDATE() - INTERVAL 30 DAY" +
+                        " AND schedules.type = 'Exam' ";
+            cmd.CommandText = sql;
+            MySqlDataReader reader = cmd.ExecuteReader();
+            if (reader.Read())
+            {
+                totalExamSchedule = reader.GetInt32("Quantity");
+            }
+            cmd.Dispose();
+            reader.Dispose();
+            conn.Close();
+        }
 
 
     }

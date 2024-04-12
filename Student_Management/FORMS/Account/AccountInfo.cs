@@ -15,8 +15,8 @@ namespace Student_Management.FORMS.Account
     public class AccountInfo
     {
         public string connstring = frm_Main.connstring;
-        public string tableName = "tbaccount";
-        string tableAttributes = "(Username,Password,Level,isBlocked)";
+        public string tableName = "accounts";
+        string tableAttributes = "(username,password,level,isBlocked)";
 
         public int id { get; set; }
         public string username { get; set; }
@@ -36,9 +36,9 @@ namespace Student_Management.FORMS.Account
             MySqlCommand cmd = conn.CreateCommand();
             string sql = "INSERT INTO " + tableName + tableAttributes + "VALUES(?,?,?,?)";
             cmd.CommandText = sql;
-            cmd.Parameters.AddWithValue("Username", this.username);
-            cmd.Parameters.AddWithValue("Password", this.password);
-            cmd.Parameters.AddWithValue("Level", this.level);
+            cmd.Parameters.AddWithValue("username", this.username);
+            cmd.Parameters.AddWithValue("password", this.password);
+            cmd.Parameters.AddWithValue("level", this.level);
             cmd.Parameters.AddWithValue("isBlocked", this.isBlocked);
             cmd.ExecuteNonQuery();
             get.showToast("SUCCESS", "Successfully Saved");
@@ -48,7 +48,7 @@ namespace Student_Management.FORMS.Account
             }
             catch (Exception ex)
             {
-                get.showToast("WARNING", "Username is already used!");
+                get.showToast("WARNING", "username is already used!");
                 frm_SaveAccount.refresh = false;
             }
         }
@@ -69,9 +69,9 @@ namespace Student_Management.FORMS.Account
                     AccountInfo details = new AccountInfo
                     {
                         id = Convert.ToInt32(reader["id"]),
-                        username = reader["Username"].ToString(),
-                        password = reader["Password"].ToString(),
-                        level = Convert.ToInt32(reader["Level"]),
+                        username = reader["username"].ToString(),
+                        password = reader["password"].ToString(),
+                        level = Convert.ToInt32(reader["level"]),
                         isBlocked = Convert.ToBoolean(reader["isBlocked"]),
                     };
                     list.Add(details);
@@ -93,9 +93,9 @@ namespace Student_Management.FORMS.Account
             if (reader.Read())
             {
                 id = Convert.ToInt32(reader["id"]);
-                username = reader["Username"].ToString();
-                password = reader["Password"].ToString();
-                level = Convert.ToInt32(reader["Level"]);
+                username = reader["username"].ToString();
+                password = reader["password"].ToString();
+                level = Convert.ToInt32(reader["level"]);
                 isBlocked = Convert.ToBoolean(reader["isBlocked"]);
             }
             cmd.Dispose();
@@ -143,9 +143,9 @@ namespace Student_Management.FORMS.Account
                     AccountInfo card = new AccountInfo
                     {
                     id = Convert.ToInt32(reader["id"]),
-                    username = reader["Username"].ToString(),
-                    password = reader["Password"].ToString(),
-                    level = Convert.ToInt32(reader["Level"]),
+                    username = reader["username"].ToString(),
+                    password = reader["password"].ToString(),
+                    level = Convert.ToInt32(reader["level"]),
                     isBlocked = Convert.ToBoolean(reader["isBlocked"])
                 };
                     list.Add(card);
@@ -160,7 +160,7 @@ namespace Student_Management.FORMS.Account
         {
             MySqlConnection conn = new MySqlConnection(connstring);
             conn.Open();
-            string sql = "SELECT * FROM " + tableName + " WHERE Username = @username";
+            string sql = "SELECT * FROM " + tableName + " WHERE username = @username";
             MySqlCommand cmd = conn.CreateCommand();
             cmd.CommandText = sql;
             cmd.Parameters.AddWithValue("@username", _username);
@@ -169,9 +169,9 @@ namespace Student_Management.FORMS.Account
             if (reader.Read())
             {
                 id = Convert.ToInt32(reader["id"]);
-                username = reader["Username"].ToString();
-                password = reader["Password"].ToString();
-                level = Convert.ToInt32(reader["Level"]);
+                username = reader["username"].ToString();
+                password = reader["password"].ToString();
+                level = Convert.ToInt32(reader["level"]);
                 isBlocked = Convert.ToBoolean(reader["isBlocked"]);
             }
             reader.Dispose();
@@ -188,7 +188,7 @@ namespace Student_Management.FORMS.Account
             MySqlConnection conn = new MySqlConnection(connstring);
             conn.Open();
             MySqlCommand cmd = conn.CreateCommand();
-            string sql = "UPDATE " + tableName + " SET Username = @username, Password = @password, Level = @level, isBlocked = @isBlocked WHERE id = @id";
+            string sql = "UPDATE " + tableName + " SET username = @username, password = @password, level = @level, isBlocked = @isBlocked WHERE id = @id";
             cmd.Parameters.AddWithValue("@username", _username);
             cmd.Parameters.AddWithValue("@password", _password);
             cmd.Parameters.AddWithValue("@level", _level);
@@ -203,7 +203,7 @@ namespace Student_Management.FORMS.Account
             }
             catch (Exception ex)
             {
-                get.showToast("WARNING", "Username is already used!");
+                get.showToast("WARNING", "username is already used!");
                 frm_SaveAccount.refresh = false;
                 frm_SaveAccount.isUpdate = false;
             }
@@ -220,9 +220,9 @@ namespace Student_Management.FORMS.Account
             if (reader.Read())
             {
                 id = Convert.ToInt32(reader["id"]);
-                username = reader["Username"].ToString();
-                password = reader["Password"].ToString();
-                level = Convert.ToInt32(reader["Level"]);
+                username = reader["username"].ToString();
+                password = reader["password"].ToString();
+                level = Convert.ToInt32(reader["level"]);
                 isBlocked = Convert.ToBoolean(reader["isBlocked"]);
             }
             cmd.Dispose();
@@ -234,7 +234,7 @@ namespace Student_Management.FORMS.Account
         {
             MySqlConnection conn = new MySqlConnection(connstring);
             conn.Open();
-            string sql = "SELECT * FROM " + tableName + " WHERE Username = @username AND Password = @password";
+            string sql = "SELECT * FROM " + tableName + " WHERE username = @username AND password = @password";
             MySqlCommand cmd = conn.CreateCommand();
             cmd.CommandText = sql;
             cmd.Parameters.AddWithValue("@username", _username);
@@ -243,8 +243,8 @@ namespace Student_Management.FORMS.Account
             if (reader.HasRows)
             {
                 reader.Read();
-                username = reader["Username"].ToString();
-                level = reader.GetInt32("Level");
+                username = reader["username"].ToString();
+                level = reader.GetInt32("level");
                 isBlocked = reader.GetBoolean("isBlocked");
                 reader.Dispose();
                 cmd.Dispose();

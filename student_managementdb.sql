@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 25, 2024 at 02:18 PM
+-- Generation Time: Apr 12, 2024 at 04:26 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -24,162 +24,228 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tbaccount`
+-- Table structure for table `accounts`
 --
 
-CREATE TABLE `tbaccount` (
+CREATE TABLE `accounts` (
   `id` int(11) NOT NULL,
-  `Username` varchar(50) NOT NULL,
-  `Password` varchar(50) NOT NULL,
-  `Level` int(11) NOT NULL,
+  `username` varchar(50) NOT NULL,
+  `password` varchar(50) NOT NULL,
+  `level` int(11) NOT NULL,
   `isBlocked` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `tbaccount`
+-- Dumping data for table `accounts`
 --
 
-INSERT INTO `tbaccount` (`id`, `Username`, `Password`, `Level`, `isBlocked`) VALUES
+INSERT INTO `accounts` (`id`, `username`, `password`, `level`, `isBlocked`) VALUES
 (1, '215052066', 'E10ADC3949BA59ABBE56E057F20F883E', 2, 0),
-(3, '215052001', '202CB962AC59075B964B07152D234B70', 2, 1),
+(3, '215052001', '202CB962AC59075B964B07152D234B70', 2, 0),
 (7, '215052002', 'E10ADC3949BA59ABBE56E057F20F883E', 0, 0),
-(8, '215052011', '202CB962AC59075B964B07152D234B70', 2, 0),
+(8, '215052011', '202CB962AC59075B964B07152D234B70', 2, 1),
 (9, '215052012', '202CB962AC59075B964B07152D234B70', 2, 0),
 (10, '215052013', '202CB962AC59075B964B07152D234B70', 2, 0);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tbcourse`
+-- Table structure for table `classes`
 --
 
-CREATE TABLE `tbcourse` (
+CREATE TABLE `classes` (
   `id` int(11) NOT NULL,
-  `Name` varchar(50) NOT NULL,
-  `Description` text NOT NULL,
-  `Credits` int(11) NOT NULL,
+  `course_id` int(11) NOT NULL,
+  `name` varchar(50) NOT NULL,
+  `capacity` int(11) NOT NULL,
+  `state` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `classes`
+--
+
+INSERT INTO `classes` (`id`, `course_id`, `name`, `capacity`, `state`) VALUES
+(9, 17, 'Class 2', 10, 'Opened'),
+(12, 17, 'Class 3', 50, 'Ongoing'),
+(22, 17, 'Class A', 12, 'Opened'),
+(23, 10, 'Class B', 12, 'Ongoing'),
+(24, 14, 'Class 4', 15, 'Ongoing'),
+(25, 16, 'Class 1', 25, 'Ongoing');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `courses`
+--
+
+CREATE TABLE `courses` (
+  `id` int(11) NOT NULL,
+  `name` varchar(50) NOT NULL,
+  `description` text NOT NULL,
+  `credits` int(11) NOT NULL,
   `isOpen` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `tbcourse`
+-- Dumping data for table `courses`
 --
 
-INSERT INTO `tbcourse` (`id`, `Name`, `Description`, `Credits`, `isOpen`) VALUES
+INSERT INTO `courses` (`id`, `name`, `description`, `credits`, `isOpen`) VALUES
 (1, 'Introduction To CS', 'Beginner', 1, 0),
 (2, 'Data Structures', 'Linked lists, trees, and algorithms', 3, 0),
 (4, 'English Literature', 'Analysis of literary works from various periods', 3, 1),
 (5, 'Calculus 2', 'Next part', 0, 1),
-(9, 'Test Course A', 'Info1', 1, 1),
-(10, 'Test Course B', 'ss', 2, 1),
+(10, 'Test Course B', 's', 2, 1),
 (13, 'Test Course C', '123', 1, 1),
 (14, 'Test Course D', '123', 1, 1),
-(15, 'Test Course E', '123', 1, 1);
+(15, 'Test Course E', '123', 1, 1),
+(16, 'Test Course F', 'Next test', 1, 1),
+(17, 'Test Course A', 'Test', 1, 1);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tbgrade`
+-- Table structure for table `enrollments`
 --
 
-CREATE TABLE `tbgrade` (
+CREATE TABLE `enrollments` (
   `id` int(11) NOT NULL,
-  `StudentId` int(11) NOT NULL,
-  `CourseId` int(11) NOT NULL,
-  `Grade` char(2) DEFAULT NULL,
+  `class_id` int(11) NOT NULL,
+  `student_id` int(11) NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `tbgrade`
+-- Dumping data for table `enrollments`
 --
 
-INSERT INTO `tbgrade` (`id`, `StudentId`, `CourseId`, `Grade`, `created_at`) VALUES
-(15, 215052001, 9, 'B+', '2024-03-24 10:53:39'),
-(16, 215052011, 9, 'B', '2024-03-24 10:53:39'),
-(17, 215052012, 9, 'D', '2024-03-24 10:53:39'),
-(19, 215052011, 10, 'A', '2024-03-24 10:53:39'),
-(22, 215052011, 13, 'F', '2024-03-24 10:53:39'),
-(24, 215052012, 13, NULL, '2024-03-24 10:53:39'),
-(41, 215052013, 13, NULL, '2024-03-24 10:53:39'),
-(42, 215052013, 10, 'B', '2024-03-24 12:42:09'),
-(43, 215052012, 10, 'D', '2024-03-24 13:02:56'),
-(44, 215052014, 10, NULL, '2024-03-24 13:03:01'),
-(45, 215052015, 10, 'C+', '2024-03-24 13:03:09'),
-(46, 215052016, 10, 'F', '2024-03-24 13:03:18'),
-(47, 215052017, 10, 'A', '2024-03-24 13:03:24'),
-(48, 215052018, 10, 'C', '2024-03-24 13:03:30'),
-(49, 215052019, 10, 'B', '2024-03-24 13:03:35'),
-(50, 215052020, 10, 'A', '2024-03-24 13:03:43'),
-(51, 215052014, 13, 'B+', '2024-03-24 13:10:10'),
-(52, 215052015, 13, 'B+', '2024-03-24 13:10:15');
+INSERT INTO `enrollments` (`id`, `class_id`, `student_id`, `created_at`) VALUES
+(4, 9, 215052011, '2024-04-10 13:39:48'),
+(5, 23, 215052012, '2024-04-10 13:42:26'),
+(6, 22, 215052012, '2024-04-10 13:55:21'),
+(7, 9, 215052012, '2024-04-10 13:56:31'),
+(8, 12, 215052012, '2024-04-12 02:07:12'),
+(9, 12, 215052011, '2024-04-12 02:07:28'),
+(10, 12, 215052013, '2024-04-12 02:07:36'),
+(11, 24, 215052012, '2024-04-12 05:36:07'),
+(12, 24, 215052011, '2024-04-12 05:36:10'),
+(13, 25, 215052012, '2024-04-12 07:40:42'),
+(14, 25, 215052013, '2024-04-12 07:40:45'),
+(15, 25, 215052014, '2024-04-12 07:40:49'),
+(16, 25, 215052015, '2024-04-12 07:40:53');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tbrecheck`
+-- Table structure for table `grades`
 --
 
-CREATE TABLE `tbrecheck` (
+CREATE TABLE `grades` (
   `id` int(11) NOT NULL,
-  `StudentId` int(11) NOT NULL,
-  `GradeId` int(11) NOT NULL,
+  `enrollment_id` int(11) NOT NULL,
+  `type` varchar(50) NOT NULL,
+  `grade` char(2) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `grades`
+--
+
+INSERT INTO `grades` (`id`, `enrollment_id`, `type`, `grade`) VALUES
+(1, 5, 'Progress', 'D'),
+(2, 5, 'Midterm', 'F'),
+(3, 5, 'Final', 'D'),
+(4, 5, 'Overall', 'F'),
+(5, 4, 'Progress', 'A'),
+(6, 4, 'Midterm', 'B+'),
+(7, 4, 'Final', 'D'),
+(8, 4, 'Overall', 'C'),
+(9, 4, 'Progress', 'A'),
+(10, 4, 'Midterm', 'B+'),
+(11, 4, 'Final', 'D'),
+(12, 4, 'Overall', 'C'),
+(13, 7, 'Progress', 'B+'),
+(14, 7, 'Midterm', 'B'),
+(15, 7, 'Final', 'A'),
+(16, 7, 'Overall', 'B+'),
+(17, 8, 'Progress', 'F'),
+(18, 8, 'Midterm', 'A'),
+(19, 8, 'Final', 'C'),
+(20, 8, 'Overall', 'D'),
+(21, 9, 'Progress', 'C+'),
+(22, 9, 'Midterm', 'C'),
+(23, 9, 'Final', 'B+'),
+(24, 9, 'Overall', 'C+'),
+(25, 10, 'Progress', 'A'),
+(26, 10, 'Midterm', 'A'),
+(27, 10, 'Final', 'A'),
+(28, 10, 'Overall', 'A'),
+(49, 5, 'Progress', 'D'),
+(50, 5, 'Midterm', 'F'),
+(51, 5, 'Final', 'D'),
+(52, 5, 'Overall', 'F');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `rechecks`
+--
+
+CREATE TABLE `rechecks` (
+  `id` int(11) NOT NULL,
+  `grade_id` int(11) NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tbschedule`
+-- Table structure for table `schedules`
 --
 
-CREATE TABLE `tbschedule` (
+CREATE TABLE `schedules` (
   `id` int(11) NOT NULL,
-  `GradeId` int(11) NOT NULL,
-  `Date` datetime NOT NULL
+  `enrollment_id` int(11) NOT NULL,
+  `type` varchar(50) NOT NULL,
+  `date` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `tbschedule`
+-- Dumping data for table `schedules`
 --
 
-INSERT INTO `tbschedule` (`id`, `GradeId`, `Date`) VALUES
-(157, 15, '2024-03-21 00:00:00'),
-(158, 16, '2024-03-21 00:00:00'),
-(159, 17, '2024-03-21 00:00:00'),
-(280, 22, '2024-03-28 00:00:00'),
-(281, 24, '2024-03-28 00:00:00'),
-(282, 41, '2024-03-28 00:00:00'),
-(283, 19, '2024-03-29 00:00:00'),
-(284, 42, '2024-03-29 00:00:00'),
-(285, 43, '2024-03-29 00:00:00'),
-(286, 44, '2024-03-29 00:00:00'),
-(287, 45, '2024-03-29 00:00:00'),
-(288, 46, '2024-03-29 00:00:00'),
-(289, 47, '2024-03-29 00:00:00'),
-(290, 48, '2024-03-29 00:00:00'),
-(291, 49, '2024-03-29 00:00:00'),
-(292, 50, '2024-03-29 00:00:00');
+INSERT INTO `schedules` (`id`, `enrollment_id`, `type`, `date`) VALUES
+(116, 13, 'Exam', '2024-04-17'),
+(117, 14, 'Exam', '2024-04-17'),
+(118, 15, 'Exam', '2024-04-17'),
+(119, 16, 'Exam', '2024-04-17'),
+(120, 5, 'Timetable', '2024-04-18'),
+(121, 11, 'Exam', '2024-04-25'),
+(122, 12, 'Exam', '2024-04-25'),
+(123, 8, 'Timetable', '2024-04-27'),
+(124, 9, 'Timetable', '2024-04-27'),
+(125, 10, 'Timetable', '2024-04-27');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tbstudent`
+-- Table structure for table `students`
 --
 
-CREATE TABLE `tbstudent` (
+CREATE TABLE `students` (
   `id` int(11) NOT NULL,
-  `Name` varchar(50) NOT NULL,
-  `Birthdate` date NOT NULL,
-  `Email` varchar(50) NOT NULL,
+  `name` varchar(50) NOT NULL,
+  `birthdate` date NOT NULL,
+  `email` varchar(50) NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `tbstudent`
+-- Dumping data for table `students`
 --
 
-INSERT INTO `tbstudent` (`id`, `Name`, `Birthdate`, `Email`, `created_at`) VALUES
+INSERT INTO `students` (`id`, `name`, `birthdate`, `email`, `created_at`) VALUES
 (1011, 'John Smith', '2024-03-11', '', '2024-03-11 14:57:16'),
 (1012, 'Pablo Escobar', '2024-03-11', '', '2024-03-11 14:57:35'),
 (1013, 'Andrea', '2024-03-11', '', '2024-03-11 14:57:46'),
@@ -204,46 +270,60 @@ INSERT INTO `tbstudent` (`id`, `Name`, `Birthdate`, `Email`, `created_at`) VALUE
 --
 
 --
--- Indexes for table `tbaccount`
+-- Indexes for table `accounts`
 --
-ALTER TABLE `tbaccount`
+ALTER TABLE `accounts`
   ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `UNIQUE(Username)` (`Username`);
+  ADD UNIQUE KEY `UNIQUE(Username)` (`username`);
 
 --
--- Indexes for table `tbcourse`
+-- Indexes for table `classes`
 --
-ALTER TABLE `tbcourse`
+ALTER TABLE `classes`
   ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `Name` (`Name`);
+  ADD UNIQUE KEY `UNIPE_ClassName` (`name`),
+  ADD KEY `FK_course_id` (`course_id`);
 
 --
--- Indexes for table `tbgrade`
+-- Indexes for table `courses`
 --
-ALTER TABLE `tbgrade`
+ALTER TABLE `courses`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `FK_StudentId` (`StudentId`),
-  ADD KEY `FK_CourseId` (`CourseId`);
+  ADD UNIQUE KEY `Name` (`name`);
 
 --
--- Indexes for table `tbrecheck`
+-- Indexes for table `enrollments`
 --
-ALTER TABLE `tbrecheck`
+ALTER TABLE `enrollments`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `FK_StudentId_tbRecheck` (`StudentId`),
-  ADD KEY `FK_GradeId_tbRecheck` (`GradeId`);
+  ADD KEY `FK_Enrollment_Class` (`class_id`),
+  ADD KEY `FK_Enrollment_Student` (`student_id`);
 
 --
--- Indexes for table `tbschedule`
+-- Indexes for table `grades`
 --
-ALTER TABLE `tbschedule`
+ALTER TABLE `grades`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `FK_GradeId` (`GradeId`);
+  ADD KEY `FK_Gradee_Enrollment` (`enrollment_id`);
 
 --
--- Indexes for table `tbstudent`
+-- Indexes for table `rechecks`
 --
-ALTER TABLE `tbstudent`
+ALTER TABLE `rechecks`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `FK_Recheck_Grade` (`grade_id`);
+
+--
+-- Indexes for table `schedules`
+--
+ALTER TABLE `schedules`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `FK_Schedule_Enrollment` (`enrollment_id`);
+
+--
+-- Indexes for table `students`
+--
+ALTER TABLE `students`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -251,60 +331,82 @@ ALTER TABLE `tbstudent`
 --
 
 --
--- AUTO_INCREMENT for table `tbaccount`
+-- AUTO_INCREMENT for table `accounts`
 --
-ALTER TABLE `tbaccount`
+ALTER TABLE `accounts`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
--- AUTO_INCREMENT for table `tbcourse`
+-- AUTO_INCREMENT for table `classes`
 --
-ALTER TABLE `tbcourse`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+ALTER TABLE `classes`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 
 --
--- AUTO_INCREMENT for table `tbgrade`
+-- AUTO_INCREMENT for table `courses`
 --
-ALTER TABLE `tbgrade`
+ALTER TABLE `courses`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+
+--
+-- AUTO_INCREMENT for table `enrollments`
+--
+ALTER TABLE `enrollments`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+
+--
+-- AUTO_INCREMENT for table `grades`
+--
+ALTER TABLE `grades`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=53;
 
 --
--- AUTO_INCREMENT for table `tbrecheck`
+-- AUTO_INCREMENT for table `rechecks`
 --
-ALTER TABLE `tbrecheck`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+ALTER TABLE `rechecks`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 
 --
--- AUTO_INCREMENT for table `tbschedule`
+-- AUTO_INCREMENT for table `schedules`
 --
-ALTER TABLE `tbschedule`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=293;
+ALTER TABLE `schedules`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=126;
 
 --
 -- Constraints for dumped tables
 --
 
 --
--- Constraints for table `tbgrade`
+-- Constraints for table `classes`
 --
-ALTER TABLE `tbgrade`
-  ADD CONSTRAINT `FK_CourseId` FOREIGN KEY (`CourseId`) REFERENCES `tbcourse` (`id`),
-  ADD CONSTRAINT `FK_StudentId` FOREIGN KEY (`StudentId`) REFERENCES `tbstudent` (`id`),
-  ADD CONSTRAINT `tbgrade_ibfk_1` FOREIGN KEY (`StudentId`) REFERENCES `tbstudent` (`id`),
-  ADD CONSTRAINT `tbgrade_ibfk_2` FOREIGN KEY (`CourseId`) REFERENCES `tbcourse` (`id`);
+ALTER TABLE `classes`
+  ADD CONSTRAINT `FK_CourseId_Classes` FOREIGN KEY (`course_id`) REFERENCES `courses` (`id`),
+  ADD CONSTRAINT `FK_course_id` FOREIGN KEY (`course_id`) REFERENCES `courses` (`id`);
 
 --
--- Constraints for table `tbrecheck`
+-- Constraints for table `enrollments`
 --
-ALTER TABLE `tbrecheck`
-  ADD CONSTRAINT `FK_GradeId_tbRecheck` FOREIGN KEY (`GradeId`) REFERENCES `tbgrade` (`id`),
-  ADD CONSTRAINT `FK_StudentId_tbRecheck` FOREIGN KEY (`StudentId`) REFERENCES `tbstudent` (`id`);
+ALTER TABLE `enrollments`
+  ADD CONSTRAINT `FK_Enrollment_Class` FOREIGN KEY (`class_id`) REFERENCES `classes` (`id`),
+  ADD CONSTRAINT `FK_Enrollment_Student` FOREIGN KEY (`student_id`) REFERENCES `students` (`id`);
 
 --
--- Constraints for table `tbschedule`
+-- Constraints for table `grades`
 --
-ALTER TABLE `tbschedule`
-  ADD CONSTRAINT `FK_GradeId` FOREIGN KEY (`GradeId`) REFERENCES `tbgrade` (`id`);
+ALTER TABLE `grades`
+  ADD CONSTRAINT `FK_Gradee_Enrollment` FOREIGN KEY (`enrollment_id`) REFERENCES `enrollments` (`id`);
+
+--
+-- Constraints for table `rechecks`
+--
+ALTER TABLE `rechecks`
+  ADD CONSTRAINT `FK_Recheck_Grade` FOREIGN KEY (`grade_id`) REFERENCES `grades` (`id`);
+
+--
+-- Constraints for table `schedules`
+--
+ALTER TABLE `schedules`
+  ADD CONSTRAINT `FK_Schedule_Enrollment` FOREIGN KEY (`enrollment_id`) REFERENCES `enrollments` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

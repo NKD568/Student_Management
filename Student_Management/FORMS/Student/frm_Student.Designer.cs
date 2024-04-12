@@ -94,7 +94,9 @@
             this.txt_Search.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
             this.txt_Search.TrailingIcon = null;
             this.txt_Search.UseSystemPasswordChar = false;
+            this.txt_Search.Enter += new System.EventHandler(this.txt_Search_Enter);
             this.txt_Search.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txt_Search_KeyPress);
+            this.txt_Search.Leave += new System.EventHandler(this.txt_Search_Leave);
             this.txt_Search.TextChanged += new System.EventHandler(this.txt_Search_TextChanged);
             // 
             // cmb_seachOptions

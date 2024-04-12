@@ -1,4 +1,5 @@
 ﻿using Student_Management.FORMS.Account;
+using Student_Management.FORMS.Course;
 using Student_Management.FORMS.Grade;
 using System;
 using System.Collections.Generic;
@@ -27,16 +28,21 @@ namespace Student_Management.FORMS.Schedule
             string date = frm_Schedule._month + "/" + _day + "/" + frm_Schedule._year;
             _date = Convert.ToDateTime(date);
             ScheduleInfo get = new ScheduleInfo();
-            if(frm_Login.userLevel == 2)
-            {
-                get.getStudentDate(frm_Login.userName, _date);
-            }
-            else
-            {
-                get.getDateEvent(_date);
-            }
             lbl_Day.Text = _date.Day.ToString();
-            lbl_Event.Text = get.course;
+            foreach (ScheduleInfo card in ScheduleInfo.oneDateEventList)
+            {
+                if (card.date == _date)
+                {
+                    lbl_Id.Text = card.id;
+                    card.enrollment_info.getDetails(card.enrollment_id);
+                    lbl_Event.Text = card.enrollment_info.class_info.name;
+                    break;
+                }
+                else
+                {
+                    lbl_Event.Text = String.Empty;
+                }
+            }
         }
 
         private void sundays()
@@ -88,16 +94,18 @@ namespace Student_Management.FORMS.Schedule
         }
 
         public static bool view = false;
+        public static string public_id;
         public static string public_date;
-        public static string public_oldCourseSaved;
-        public static bool blockClicked;
+        public static string public_event;
+        public static bool blockClicked = false;
         private void editToolStripMenuItem_Click(object sender, EventArgs e)
         {
             blockClicked = true;
+            public_id = lbl_Id.Text;
             public_date = frm_Schedule._month + "/" + lbl_Day.Text + "/" + frm_Schedule._year;
             if (lbl_Event.Text != "")
             {
-                public_oldCourseSaved = lbl_Event.Text;
+                public_event = lbl_Event.Text;
                 view = true;
                 updatedTimer.Start();
             }
@@ -114,11 +122,19 @@ namespace Student_Management.FORMS.Schedule
             if (frm_SaveEvent.isUpdate)
             {
                 ScheduleInfo get = new ScheduleInfo();
-                DateTime _date = Convert.ToDateTime(public_date);
-                DataTable dt = get.getDateDetails(_date);               
-                DataRow firstRow = dt.Rows[0];
-                lbl_Event.Text = firstRow["Course"].ToString();
-                this.BackColor = lbl_Event.Text != "" ? Color.FromArgb(255, 150, 79) : Color.White;
+                get.getDateDetails(Convert.ToDateTime(public_date));
+                if(get.id != String.Empty)
+                {
+                    lbl_Id.Text = get.id;
+                    public_event = lbl_Event.Text = get.enrollment_info.class_info.name;
+                    this.BackColor = Color.FromArgb(255, 150, 79);
+                }
+                else
+                {
+                    frm_SaveEvent.refresh = true;
+                    lbl_Id.Text = lbl_Event.Text = String.Empty;
+                    this.BackColor = Color.White;
+                }
                 frm_SaveEvent.isUpdate = false;
             }
         }
@@ -129,7 +145,7 @@ namespace Student_Management.FORMS.Schedule
             public_date = frm_Schedule._month + "/" + lbl_Day.Text + "/" + frm_Schedule._year;
             isDeleted = true;
             ScheduleInfo get = new ScheduleInfo();
-            get.delete(Convert.ToDateTime(public_date));
+            get.deleteAllEventDate(Convert.ToDateTime(public_date));
         }
 
 

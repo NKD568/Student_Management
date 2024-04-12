@@ -2,6 +2,7 @@
 using MaterialSkin.Controls;
 using MySql.Data.MySqlClient;
 using Mysqlx.Crud;
+using Student_Management.FORMS.Course;
 using Student_Management.FORMS.Grade;
 using Student_Management.FORMS.Main;
 using System;
@@ -37,7 +38,6 @@ namespace Student_Management.FORMS.Schedule
         public static bool isUpdate = false;
 
         bool update = false;
-        bool isGetDefaultDate = false;
         private void EventForm_Load(object sender, EventArgs e)
         {
             if (ucDay.view == true)
@@ -45,6 +45,10 @@ namespace Student_Management.FORMS.Schedule
                 getDetail();
                 btn_Save.Text = "UPDATE";
                 dtp_Date.Enabled = false;
+                txt_Class.Enabled = false;
+                searchResult.Visible = false;
+                lbl_MoveDate.Visible = true;
+                btn_MoveDate.Visible = true;
                 update = true;
                 ucDay.view = false;
             }
@@ -57,197 +61,199 @@ namespace Student_Management.FORMS.Schedule
                 }
                 else
                 {
-                    isGetDefaultDate = true;
                     dtp_Date.Value = getDefaultDate();
-                    isGetDefaultDate = false;
                 }
                 btn_Save.Text = "SAVE";
                 update = false;
             }
         }
 
-        private void btn_Save_Click(object sender, EventArgs e)
-        {
-            if (txt_Course.Text == "" || courCellClicked == false)
-            {
-                MessageBox.Show("Please Verify your input!\n Course must open and has students");
-                return;
-            }
-            backgroundWorker1.RunWorkerAsync();
-        }
-        private void backgroundWorker1_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
-        {
-            if (update == false)
-            {
-                setCourseSchedule();
-                refresh = true;
-                this.Close();
-            }
-            else
-            {
-                updateCourseSchedule();
-                isUpdate = true;
-                this.Close();
-            }
-        }
-
-        private void setCourseSchedule()
-        {
-            frm_Main notify = new frm_Main();
-            ScheduleInfo save = new ScheduleInfo();
-            DataTable dt = save.getGradeIds(txt_Course.Text);
-            foreach (DataRow row in dt.Rows)
-            {
-                save.gradeId = Convert.ToInt32(row["id"]);
-                save.date = Convert.ToDateTime(dtp_Date.Text);
-                save.Save();
-            }
-            notify.showToast("SUCCESS", "Successfully Saved");
-        }
-
-        private void updateCourseSchedule()
-        {
-            frm_Main notify = new frm_Main();
-            ScheduleInfo up = new ScheduleInfo();
-            DataTable dtIsUpdated = up.getEventDetails(ucDay.public_oldCourseSaved);
-            DataTable dtDataUpdate = up.getGradeIds(txt_Course.Text);
-            int rowDifference = dtIsUpdated.Rows.Count - dtDataUpdate.Rows.Count;
-            DateTime _date = Convert.ToDateTime(ucDay.public_date);
-            if (rowDifference == 0)
-            {
-                int i = 0;
-                foreach (DataRow row in dtDataUpdate.Rows)
-                {
-                    DataRow r = dtIsUpdated.Rows[i];
-                    up.id = Convert.ToInt32(r["id"]);
-                    int _gradeId = Convert.ToInt32(row["id"]);
-                    up.update(up.id ,_gradeId, _date);
-                    i++;
-                }
-                notify.showToast("SUCCESS", "Successfully Updated");
-            }
-            //else if (rowDifference < 0)
-            //{
-            //    int i = 0;
-            //    foreach (DataRow row in dtIsUpdated.Rows)
-            //    {
-            //        up.id = Convert.ToInt32(row["id"]);
-            //        DataRow r = dtDataUpdate.Rows[i];
-            //        int _gradeId = Convert.ToInt32(r["id"]);
-            //        up.update(up.id, _gradeId, _date);
-            //        i++;
-            //    }
-            //    while (i < dtDataUpdate.Rows.Count)
-            //    {
-            //        DataRow row = dtDataUpdate.Rows[i];
-            //        up.gradeId = Convert.ToInt32(row["id"]);
-            //        up.date = _date;
-            //        up.Save();
-            //        i++;
-            //    }
-            //    notify.showToast("SUCCESS", "Successfully Updated");
-            //}
-            else
-            {
-                notify.showToast("ERROR", "Not all Students in new Course");
-                return;
-            }
-        }
-
         private DateTime getDefaultDate()
         {
-            dtp_Date.Enabled = true;
             ScheduleInfo get = new ScheduleInfo();
             DateTime minDate = get.getMinDate();
             DateTime _date;
-            if(minDate > DateTime.Now)
+            if (minDate > DateTime.Today)
             {
-                minDate = DateTime.Now;
+                minDate = DateTime.Today;
             }
-            else if(minDate == DateTime.Now)
+            else if (minDate == DateTime.Today)
             {
                 minDate.AddDays(+1);
             }
             _date = minDate;
-            while (get.checkDateExisted(_date))
+            while (get.checkOccupiedDate(_date))
             {
                 _date = _date.AddDays(+1);
             }
             return _date;
         }
 
+        string lastDate;
+        private void btn_MoveDate_ToggledChanged()
+        {
+            dtp_Date.Enabled = !dtp_Date.Enabled;
+            if(btn_MoveDate.Toggled == false)
+            {
+                if (!isVerified)
+                {
+                    dtp_Date.Text = lastDate;
+                }
+            }
+            else
+            {
+                isVerified = false;
+                lastDate = dtp_Date.Value.ToString();
+            }
+        }
+
+        bool isVerified = false;
+        public static bool changeDate = false;
+        private void btn_Save_Click(object sender, EventArgs e)
+        {
+            if (txt_Class.Text == "")
+            {
+                MessageBox.Show("Please type all informations!");
+                return;
+            }
+            ScheduleInfo get = new ScheduleInfo();
+            bool isValid = get.checkValidClass(txt_Class.Text);
+            if (!isValid)
+            {
+                MessageBox.Show("Class must either Exist or Ongoing \n And has students!");
+                return;
+            }
+            bool isDuplicate = get.checkDuplicateEvent(txt_Class.Text);
+            if (isDuplicate && txt_Class.Text != ucDay.public_event)
+            {
+                MessageBox.Show("Duplicate Event! \n Only 1 Event in 1 Date");
+                return;
+            }
+            if(update == true)
+            {
+                DateTime slected_date = Convert.ToDateTime(dtp_Date.Value);
+                DateTime _publicDate = Convert.ToDateTime(ucDay.public_date);
+                if (slected_date != _publicDate)
+                {
+                    changeDate = true;
+                }
+            }
+            isVerified = true;
+            backgroundWorker1.RunWorkerAsync();
+        }
+
+        private void backgroundWorker1_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            frm_Main notify = new frm_Main();
+            if (update == false)
+            {
+                ScheduleInfo save = new ScheduleInfo();
+                DataTable dt = save.getEnrollmentIds(txt_Class.Text);
+                foreach (DataRow row in dt.Rows)
+                {
+                    save.enrollment_id = row["id"].ToString();
+                    save.date = Convert.ToDateTime(dtp_Date.Text);
+                    save.type = cmb_Type.SelectedItem.ToString();
+                    save.Save();
+                }
+                notify.showToast("SUCCESS", "Successfully Saved!");
+                save.enrollment_info.getDetails(save.enrollment_id);
+                ucDay.public_event = save.enrollment_info.class_info.name;
+                refresh = true;
+            }
+            else
+            {
+                ScheduleInfo up = new ScheduleInfo();
+                DataTable dt = up.getEnrollmentIds(txt_Class.Text);
+                foreach (DataRow row in dt.Rows)
+                {
+                    up.enrollment_id = row["id"].ToString();
+                    up.date = Convert.ToDateTime(dtp_Date.Text);
+                    up.type = cmb_Type.SelectedItem.ToString();
+                    up.update(up.enrollment_id, up.type, up.date);
+                }
+                notify.showToast("SUCCESS", "Successfully Updated!");
+                isVerified = false;
+                isUpdate = true;
+            }
+            this.Close();
+        }
+
         private void getDetail()
         {
             ScheduleInfo get = new ScheduleInfo();
-            DateTime _date = Convert.ToDateTime(ucDay.public_date);
-            DataTable dt = get.getDateDetails(_date);
-            DataRow firstRow = dt.Rows[0];           
-            dtp_Date.Text = ucDay.public_date;
-            txt_Course.Text = firstRow["Course"].ToString();
+            get.getDetails(ucDay.public_id);
+            txt_Class.Text = get.enrollment_info.class_info.name;
+            dtp_Date.Value = get.date;
+            cmb_Type.SelectedItem = get.type;
         }
 
-        private void txt_Course_TextChanged(object sender, EventArgs e)
+        private void txt_Class_TextChanged(object sender, EventArgs e)
         {
-            if (txt_Course.Text != lastCourInput)
-            {
-                courCellClicked = false;
-            }
-            if (txt_Course.Text.Length > 4)
+            if (txt_Class.Text.Length > 4)
             {
                 ScheduleInfo get = new ScheduleInfo();
                 using (MySqlConnection conn = new MySqlConnection(get.connstring))
                 {
                     conn.Open();
-                    string sql = "SELECT DISTINCT tbcourse.Name FROM tbcourse" +
-                        " JOIN tbgrade ON tbgrade.CourseId = tbcourse.id" +
-                        " WHERE tbgrade.Grade IS NULL AND tbcourse.isOpen = true" +
-                        " AND tbgrade.id NOT IN (SELECT GradeId FROM tbschedule) AND";
-                    sql += " tbcourse.Name LIKE @data";
+                    string sql = "SELECT DISTINCT classes.name FROM classes" +
+                        " JOIN enrollments ON enrollments.class_id = classes.id" +
+                        " WHERE classes.state = @state AND" +
+                        " enrollments.id NOT IN (SELECT enrollment_id FROM schedules) AND";
+                    sql += " classes.name LIKE @data";
+                    searchResult.Columns[result.Name].DataPropertyName = "name";
                     MySqlCommand cmd = conn.CreateCommand();
                     cmd.CommandText = sql;
-                    cmd.Parameters.AddWithValue("@data", txt_Course.Text + "%");
+                    cmd.Parameters.AddWithValue("@state", "Ongoing");
+                    cmd.Parameters.AddWithValue("@data", txt_Class.Text + "%");
                     DataTable dt = new DataTable();
                     MySqlDataAdapter da = new MySqlDataAdapter(cmd);
                     da.Fill(dt);
                     if (dt != null && dt.Rows.Count > 0)
                     {
-                        searchResultCourName.DataSource = dt;
-                        searchResultCourName.Height = searchResultCourName.Rows.Count * 40;
+                        searchResult.DataSource = dt;
+                        searchResult.Height = searchResult.Rows.Count * 30;
                     }
                     else
                     {
-                        searchResultCourName.Height = 0;
+                        searchResult.Height = 0;
                     }
                     cmd.Dispose();
                     da.Dispose();
                     conn.Close();
                 }
             }
-            else if (txt_Course.TextLength <= 0)
+            else if (txt_Class.TextLength <= 0)
             {
-                searchResultCourName.Height = 0;
+                searchResult.Height = 0;
             }
         }
 
-        bool courCellClicked = false;
-        string lastCourInput;
         private void searchResultCourName_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            DataGridViewRow row = this.searchResultCourName.Rows[e.RowIndex];
-            txt_Course.Text = row.Cells["resultCourName"].Value.ToString();
-            lastCourInput = txt_Course.Text;
-            searchResultCourName.Height = 0;           
-            courCellClicked = true;
+            DataGridViewRow row = this.searchResult.Rows[e.RowIndex];
+            txt_Class.Text = row.Cells["result"].Value.ToString();
+            searchResult.Height = 0;           
         }
 
-        private void txt_Course_KeyPress(object sender, KeyPressEventArgs e)
+        private void txt_Class_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (!char.IsLetter(e.KeyChar) && !char.IsControl(e.KeyChar) && !char.IsWhiteSpace(e.KeyChar) && !char.IsDigit(e.KeyChar) ||
-                 txt_Course.TextLength >= 50 && !char.IsControl(e.KeyChar))
+                 txt_Class.TextLength >= 50 && !char.IsControl(e.KeyChar))
             {
                 e.Handled = true;
                 return;
             }
+        }
+
+        private void txt_Class_Enter(object sender, EventArgs e)
+        {
+            searchResult.Visible = true;
+        }
+
+        private void txt_Class_Leave(object sender, EventArgs e)
+        {
+            searchResult.Visible = false;
         }
 
         private DateTime selectedDate;
@@ -256,17 +262,35 @@ namespace Student_Management.FORMS.Schedule
             selectedDate = dtp_Date.Value;
         }
 
-        private void dtp_Date_ValueChanged(object sender, EventArgs e)
+        private void dtp_Date_CloseUp(object sender, EventArgs e)
         {
-            if (ucDay.blockClicked == false && isGetDefaultDate == false)
+            ScheduleInfo get = new ScheduleInfo();     
+            DateTime _date = Convert.ToDateTime(dtp_Date.Value);
+            if (dtp_Date.Value < DateTime.Today)
             {
-                ScheduleInfo get = new ScheduleInfo();
-                if (dtp_Date.Value < DateTime.Today || get.checkDateExisted(dtp_Date.Value) == false)
+                MessageBox.Show("Please select a date that is not in the past!");
+                dtp_Date.Value = selectedDate;
+                return;
+            }
+            bool isOccupied = get.checkOccupiedDate(_date);
+            if (update == true)
+            {
+
+                DateTime _publicDate = Convert.ToDateTime(ucDay.public_date);
+                if (isOccupied && _date != _publicDate)
                 {
-                    // Your logic here, e.g., display an error message or prevent future selection
-                    MessageBox.Show("Please select a date that is not in the past \nOr already occupied by others.");
-                    // Optionally, set the datepicker value to the current date:
+                    MessageBox.Show("Selected Date is Occupied!");
                     dtp_Date.Value = selectedDate;
+                    return;
+                }
+            }
+            else
+            {
+                if (isOccupied)
+                {
+                    MessageBox.Show("Selected Date is Occupied!");
+                    dtp_Date.Value = selectedDate;
+                    return;
                 }
             }
         }
@@ -275,6 +299,8 @@ namespace Student_Management.FORMS.Schedule
         {
             ucDay.blockClicked = false;
         }
+
+
 
 
     }

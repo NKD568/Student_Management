@@ -31,7 +31,7 @@ namespace Student_Management.FORMS.Course
         public void searchResult()
         {
             CourseInfo get = new CourseInfo();
-            get.search(frm_Course.searchKey);
+            get.search(CoursePage.searchKey);
         }
 
         public void cardDetails(CourseInfo e)
@@ -53,13 +53,16 @@ namespace Student_Management.FORMS.Course
             lbl_Credits.Text = get.credits.ToString();
             lbl_isOpen.Text = get.isOpen.ToString();
         }
+
         public static bool view = false;
         public static string public_id;
+        public static string public_name;
         private void editToolStripMenuItem_Click(object sender, EventArgs e)
         {
             updatedTimer.Start();
             view = true;
             public_id = lbl_Id.Text;
+            public_name = lbl_Name.Text;
             frm_SaveCourse form = new frm_SaveCourse();
             form.ShowDialog();
         }
@@ -93,6 +96,9 @@ namespace Student_Management.FORMS.Course
             get.delete(lbl_Id.Text);
         }
 
-
+        private void ucCourse_Scroll(object sender, ScrollEventArgs e)
+        {
+            optionMenu.Close();
+        }
     }
 }

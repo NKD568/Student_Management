@@ -119,8 +119,7 @@ namespace Student_Management.FORMS.Main
         public static string connstring = "server=localhost;user=root;database=student_managementdb;sslmode=none;ConvertZeroDateTime=True";
         List<ucMenu> menuButtons;
         frm_Student student;
-        frm_Course course;
-        frm_Grade grade;
+        CourseHome course;
         frm_Schedule schedule;
         frm_Account account;
         frm_Dashboard dashboard;
@@ -128,18 +127,24 @@ namespace Student_Management.FORMS.Main
         public int mdiScreenWidth;
         public int mdiScreenHeight;
 
+
         public frm_Main()
         {
             InitializeComponent();
             mdiProp();
-            menuButtons = new List<ucMenu>() {menuDashboard, menuGrade, menuCourse, menuStudent, menuSchedule, menuAccount};
+            menuButtons = new List<ucMenu>() {menuDashboard, menuCourse, menuStudent, menuSchedule, menuAccount};
             ClickMenu(menuButtons);          
             mdiScreenWidth = this.Width - menuSidebar.Size.Width;
             mdiScreenHeight = this.Height - Topbar.Size.Height;
         }
 
+        public static int appBottomRightX;
+        public static int appBottomRightY;
         private void frm_Main_Load(object sender, EventArgs e)
         {
+            appBottomRightX = this.Location.X + this.Size.Width;
+            appBottomRightY = this.Location.Y + this.Size.Height;
+            showToast("INFO", "Hello " + frm_Login.userName);
             switch (frm_Login.userLevel)
             {
                 case 0:
@@ -165,27 +170,23 @@ namespace Student_Management.FORMS.Main
             switch(_menuButton.Menu) {
 
                 case "Dashboard":
-                    activeMenu(menuDashboard, menuGrade, menuCourse, menuStudent, menuSchedule, menuAccount);
+                    activeMenu(menuDashboard, menuCourse, menuStudent, menuSchedule, menuAccount);
                     Dashboard_Click();
                     break;
-                case "Grade":
-                    activeMenu(menuGrade, menuCourse, menuStudent, menuSchedule, menuDashboard, menuAccount);
-                    Grade_Click();
-                    break;
                 case "Course":
-                    activeMenu(menuCourse, menuGrade, menuStudent, menuSchedule, menuDashboard, menuAccount);
+                    activeMenu(menuCourse, menuStudent, menuSchedule, menuDashboard, menuAccount);
                     Course_Click();
                     break;
                 case "Student":
-                    activeMenu(menuStudent, menuGrade, menuCourse, menuSchedule, menuDashboard, menuAccount);
+                    activeMenu(menuStudent, menuCourse, menuSchedule, menuDashboard, menuAccount);
                     Student_Click();
                     break;
                 case "Schedule":
-                    activeMenu(menuSchedule, menuGrade, menuStudent, menuCourse, menuDashboard, menuAccount);
+                    activeMenu(menuSchedule, menuStudent, menuCourse, menuDashboard, menuAccount);
                     Schedule_Click();
                     break;                   
                 case "Account":
-                    activeMenu(menuAccount ,menuSchedule, menuGrade, menuStudent, menuCourse, menuDashboard);
+                    activeMenu(menuAccount ,menuSchedule, menuStudent, menuCourse, menuDashboard);
                     Account_Click();
                     break;
             }
@@ -267,7 +268,7 @@ namespace Student_Management.FORMS.Main
         {
             if (course == null)
             {
-                course = new frm_Course();
+                course = new CourseHome();
                 course.FormClosed += Course_FormClosed;
                 course.MdiParent = this;
                 course.Dock = DockStyle.Fill;
@@ -284,26 +285,6 @@ namespace Student_Management.FORMS.Main
             course = null;
         }
 
-        private void Grade_Click()
-        {
-            if (grade == null)
-            {
-                grade = new frm_Grade();
-                grade.FormClosed += Grade_FormClosed;
-                grade.MdiParent = this;
-                grade.Dock = DockStyle.Fill;
-
-                grade.Show();
-            }
-            else
-            {
-                grade.Activate();
-            }
-        }
-        private void Grade_FormClosed(object sender, FormClosedEventArgs e)
-        {
-            grade = null;
-        }
 
         private void Account_Click()
         {

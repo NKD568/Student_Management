@@ -201,6 +201,7 @@
             this.Name = "ucCourse";
             this.Size = new System.Drawing.Size(355, 190);
             this.Load += new System.EventHandler(this.ucCourse_Load);
+            this.Scroll += new System.Windows.Forms.ScrollEventHandler(this.ucCourse_Scroll);
             this.optionMenu.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.btn_Options)).EndInit();
             this.ResumeLayout(false);
