@@ -3,6 +3,7 @@ using Mysqlx.Crud;
 using Student_Management.FORMS.Course.Enrollment;
 using Student_Management.FORMS.Grade;
 using Student_Management.FORMS.Main;
+using Student_Management.UTILITIES.Export;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -291,6 +292,12 @@ namespace Student_Management.FORMS.Dashboard
             cmd.Dispose();
             reader.Dispose();
             conn.Close();
+        }
+
+        private void btn_Export_Click(object sender, EventArgs e)
+        {
+            frm_Export _export = new frm_Export(this);
+            _export.ShowDialog();
         }
 
 

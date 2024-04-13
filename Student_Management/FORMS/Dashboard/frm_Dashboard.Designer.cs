@@ -60,6 +60,7 @@
             this.label14 = new System.Windows.Forms.Label();
             this.searchPanel = new System.Windows.Forms.Panel();
             this.txt_Search = new MaterialSkin.Controls.MaterialTextBox2();
+            this.btn_Export = new MaterialSkin.Controls.MaterialButton();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.panel2.SuspendLayout();
@@ -426,11 +427,32 @@
             this.txt_Search.UseAccent = false;
             this.txt_Search.UseSystemPasswordChar = false;
             // 
+            // btn_Export
+            // 
+            this.btn_Export.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.btn_Export.Density = MaterialSkin.Controls.MaterialButton.MaterialButtonDensity.Default;
+            this.btn_Export.Depth = 0;
+            this.btn_Export.HighEmphasis = true;
+            this.btn_Export.Icon = null;
+            this.btn_Export.Location = new System.Drawing.Point(260, 19);
+            this.btn_Export.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
+            this.btn_Export.MouseState = MaterialSkin.MouseState.HOVER;
+            this.btn_Export.Name = "btn_Export";
+            this.btn_Export.NoAccentTextColor = System.Drawing.Color.Empty;
+            this.btn_Export.Size = new System.Drawing.Size(77, 36);
+            this.btn_Export.TabIndex = 18;
+            this.btn_Export.Text = "Export";
+            this.btn_Export.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
+            this.btn_Export.UseAccentColor = false;
+            this.btn_Export.UseVisualStyleBackColor = true;
+            this.btn_Export.Click += new System.EventHandler(this.btn_Export_Click);
+            // 
             // frm_Dashboard
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(65)))), ((int)(((byte)(71)))), ((int)(((byte)(103)))));
             this.ClientSize = new System.Drawing.Size(1200, 800);
+            this.Controls.Add(this.btn_Export);
             this.Controls.Add(this.searchPanel);
             this.Controls.Add(this.panel3);
             this.Controls.Add(this.panel4);
@@ -460,6 +482,7 @@
             this.panel6.PerformLayout();
             this.searchPanel.ResumeLayout(false);
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -493,5 +516,6 @@
         private System.Windows.Forms.Label lbl_Enrolled;
         private ReaLTaiizor.Controls.ParrotCircleProgressBar examProgress;
         private System.Windows.Forms.Label label3;
+        private MaterialSkin.Controls.MaterialButton btn_Export;
     }
 }

@@ -4,6 +4,7 @@ using Student_Management.FORMS.Course;
 using Student_Management.FORMS.Grade;
 using Student_Management.FORMS.Schedule;
 using Student_Management.FORMS.Student;
+using Student_Management.UTILITIES.Export;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -34,10 +35,12 @@ namespace Student_Management
             {
                 case 0:
                     btn_Add.Visible = true;
+                    btn_Export.Visible = false;
                     getOneDateEventList();
                     break;
                 case 2:
                     btn_Add.Visible = false;
+                    btn_Export.Visible = true;
                     getStudentOneDateEventList();
                     break;
             }
@@ -149,6 +152,12 @@ namespace Student_Management
             {
                 showDays(dtp_SelectedDate.Value.Month, dtp_SelectedDate.Value.Year);
             }
+        }
+
+        private void btn_Export_Click(object sender, EventArgs e)
+        {
+            frm_Export _export = new frm_Export(this);
+            _export.ShowDialog();
         }
 
         private void btn_Add_Click(object sender, EventArgs e)

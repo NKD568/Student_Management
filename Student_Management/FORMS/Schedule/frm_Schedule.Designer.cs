@@ -47,6 +47,7 @@
             this.btn_Today = new MaterialSkin.Controls.MaterialButton();
             this.deleteTimer = new System.Windows.Forms.Timer(this.components);
             this.updateInfoTimer = new System.Windows.Forms.Timer(this.components);
+            this.btn_Export = new MaterialSkin.Controls.MaterialButton();
             ((System.ComponentModel.ISupportInitialize)(this.ic_ToRight)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ic_ToLeft)).BeginInit();
             this.SuspendLayout();
@@ -230,11 +231,33 @@
             this.updateInfoTimer.Interval = 30;
             this.updateInfoTimer.Tick += new System.EventHandler(this.updateInfoTimer_Tick);
             // 
+            // btn_Export
+            // 
+            this.btn_Export.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.btn_Export.Density = MaterialSkin.Controls.MaterialButton.MaterialButtonDensity.Default;
+            this.btn_Export.Depth = 0;
+            this.btn_Export.HighEmphasis = true;
+            this.btn_Export.Icon = null;
+            this.btn_Export.Location = new System.Drawing.Point(1013, 29);
+            this.btn_Export.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
+            this.btn_Export.MouseState = MaterialSkin.MouseState.HOVER;
+            this.btn_Export.Name = "btn_Export";
+            this.btn_Export.NoAccentTextColor = System.Drawing.Color.Empty;
+            this.btn_Export.Size = new System.Drawing.Size(77, 36);
+            this.btn_Export.TabIndex = 19;
+            this.btn_Export.Text = "Export";
+            this.btn_Export.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
+            this.btn_Export.UseAccentColor = false;
+            this.btn_Export.UseVisualStyleBackColor = true;
+            this.btn_Export.Visible = false;
+            this.btn_Export.Click += new System.EventHandler(this.btn_Export_Click);
+            // 
             // frm_Schedule
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.BackColor = System.Drawing.Color.LightSkyBlue;
             this.ClientSize = new System.Drawing.Size(1200, 800);
+            this.Controls.Add(this.btn_Export);
             this.Controls.Add(this.btn_Today);
             this.Controls.Add(this.dtp_SelectedDate);
             this.Controls.Add(this.btn_Add);
@@ -279,6 +302,7 @@
         private MaterialSkin.Controls.MaterialButton btn_Today;
         private System.Windows.Forms.Timer deleteTimer;
         private System.Windows.Forms.Timer updateInfoTimer;
+        private MaterialSkin.Controls.MaterialButton btn_Export;
     }
 }
 

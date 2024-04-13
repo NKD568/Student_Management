@@ -8,8 +8,7 @@ using System.Threading.Tasks;
 namespace Student_Management.FORMS.Account
 {
     public static class MD5_Hash
-    {
-        
+    {      
         public static string Hash(string input)
         {
             MD5 md5 = MD5.Create();
@@ -23,7 +22,5 @@ namespace Student_Management.FORMS.Account
             }
             return sb.ToString();
         }
-
-
     }
 }
