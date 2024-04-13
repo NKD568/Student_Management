@@ -161,7 +161,7 @@ namespace Student_Management.FORMS.Course.Enrollment
             }
             else
             {
-                txt_ContentA.Text = get.class_info.course_name;
+                txt_ContentA.Text = get.class_info.name;
                 txt_ContentB.Text = get.class_info.capacity.ToString();
                 txt_ContentC.Text = get.class_info.state;
             }

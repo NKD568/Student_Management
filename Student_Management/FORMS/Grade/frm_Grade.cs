@@ -198,12 +198,17 @@ namespace Student_Management.FORMS.Grade
                     btn_Recheck.Enabled = true;
                 }
             }
-            if(frm_Login.userLevel == 0)
-            {
-                btn_Recheck.Visible = false;
-                lbl_EditMode.Visible = false;
-                btn_EditMode.Visible = false;
-            }
+                switch(frm_Login.userLevel)
+                {
+                    case 0:
+                        btn_Recheck.Visible = false;
+                        btn_EditMode.Visible = true;
+                        break;
+                    case 2:
+                        btn_Recheck.Visible = true;
+                        btn_EditMode.Visible = false;
+                        break;
+                }
         }
 
         private void getDetails()

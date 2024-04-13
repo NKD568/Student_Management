@@ -99,7 +99,7 @@
             this.btn_Export.NoAccentTextColor = System.Drawing.Color.Empty;
             this.btn_Export.Size = new System.Drawing.Size(77, 36);
             this.btn_Export.TabIndex = 3;
-            this.btn_Export.Text = "Export";
+            this.btn_Export.Text = "Confirm";
             this.btn_Export.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
             this.btn_Export.UseAccentColor = false;
             this.btn_Export.UseVisualStyleBackColor = true;
