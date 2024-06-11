@@ -80,6 +80,7 @@ namespace Student_Management.FORMS.Course
             }
             else
             {
+                enableRecheckView = false;
                 loadCards();
             }
         }

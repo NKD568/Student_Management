@@ -30,6 +30,11 @@ namespace Student_Management.FORMS.Course
                 editToolStripMenuItem.Enabled = false;
                 deleteToolStripMenuItem.Enabled = false;
             }
+            else
+            {
+                editToolStripMenuItem.Enabled = true;
+                deleteToolStripMenuItem.Enabled = true;
+            }
         }
 
         public void searchResult()
